@@ -282,6 +282,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
                 <MessageCircle className="w-4 h-4 mr-3 text-secondary" />
                 Community Chat
               </Button>
+              <Button 
+                variant="outline" 
+                className="w-full justify-start border-primary/20 hover:bg-primary/10"
+                onClick={() => window.open('/trading-journal', '_blank')}
+              >
+                <FileText className="w-4 h-4 mr-3 text-primary" />
+                Trading Journal
+              </Button>
             </CardContent>
           </Card>
         </div>
