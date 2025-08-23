@@ -42,7 +42,8 @@ import {
   Edit,
   Plus,
   Filter,
-  Search
+  Search,
+  ArrowRight
 } from 'lucide-react';
 
 interface DashboardProps {
@@ -50,9 +51,20 @@ interface DashboardProps {
   onNavigateToJournal: () => void;
   onNavigateToHeatmap: () => void;
   onNavigateToTradingMastery: () => void;
+  onNavigateToBusinessOps: () => void;
+  onNavigateToPsychology: () => void;
+  onNavigateToCapitalMgmt: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJournal, onNavigateToHeatmap, onNavigateToTradingMastery }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ 
+  onLogout, 
+  onNavigateToJournal, 
+  onNavigateToHeatmap, 
+  onNavigateToTradingMastery,
+  onNavigateToBusinessOps,
+  onNavigateToPsychology,
+  onNavigateToCapitalMgmt
+}) => {
   const [activeSection, setActiveSection] = useState('overview');
 
   const pillarsProgress = [
@@ -220,135 +232,45 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJour
             <TrendingUp className="w-6 h-6 text-primary" />
             <span>Trading Mastery</span>
           </h2>
-          <p className="text-foreground/70">Master the complete trading sequence from analysis to execution</p>
+          <p className="text-foreground/70">30-Level Professional Development Program</p>
         </div>
-        <Badge className="bg-primary/10 text-primary border-primary/20">Level 23/30</Badge>
+        <Badge className="bg-primary/10 text-primary border-primary/20">Level 1/30</Badge>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Course Modules */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <BookOpen className="w-5 h-5 text-primary" />
-              <span>Course Modules</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-primary/10 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">Market Structure</span>
-                </div>
-                <Badge className="bg-primary/20 text-primary text-xs">Complete</Badge>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <PlayCircle className="w-4 h-4 text-secondary" />
-                  <span className="text-sm font-medium">Technical Analysis</span>
-                </div>
-                <Badge className="bg-secondary/20 text-secondary text-xs">In Progress</Badge>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-muted/10 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <Clock className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">Risk Management</span>
-                </div>
-                <Badge variant="outline" className="text-xs">Locked</Badge>
-              </div>
-            </div>
-            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-              Continue Learning
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Live Sessions */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <Video className="w-5 h-5 text-secondary" />
-              <span>Live Sessions</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="p-3 bg-secondary/10 rounded-lg">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium">Market Analysis</span>
-                  <Badge className="bg-secondary/20 text-secondary text-xs">Live Now</Badge>
-                </div>
-                <p className="text-xs text-muted-foreground">Daily market breakdown and trade setups</p>
-                <p className="text-xs text-secondary mt-1">47 participants</p>
-              </div>
-              <div className="p-3 bg-muted/10 rounded-lg">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium">Q&A Session</span>
-                  <Badge variant="outline" className="text-xs">Tomorrow 3PM</Badge>
-                </div>
-                <p className="text-xs text-muted-foreground">Weekly questions and answers</p>
-              </div>
-            </div>
-            <Button variant="outline" className="w-full border-secondary/20 hover:bg-secondary/10">
-              Join Live Session
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Practice Tools */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <Target className="w-5 h-5 text-primary" />
-              <span>Practice Tools</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <Button variant="outline" className="w-full justify-start border-primary/20 hover:bg-primary/10">
-                <BarChart3 className="w-4 h-4 mr-3 text-primary" />
-                Chart Analysis Simulator
-              </Button>
-              <Button variant="outline" className="w-full justify-start border-secondary/20 hover:bg-secondary/10">
-                <Activity className="w-4 h-4 mr-3 text-secondary" />
-                Pattern Recognition Quiz
-              </Button>
-              <Button variant="outline" className="w-full justify-start border-primary/20 hover:bg-primary/10">
-                <Calculator className="w-4 h-4 mr-3 text-primary" />
-                Risk Calculator
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Progress Tracking */}
+      {/* Launch Trading Mastery Learning */}
       <Card className="military-card">
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            <Award className="w-5 h-5 text-primary" />
-            <span>Your Progress</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">23</div>
-              <div className="text-sm text-muted-foreground">Current Level</div>
-              <Progress value={76} className="mt-2" />
+        <CardContent className="p-8 text-center">
+          <div className="bg-primary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <GraduationCap className="w-10 h-10 text-primary" />
+          </div>
+          <h3 className="text-2xl font-bold mb-4">Master Trading Through 30 Progressive Levels</h3>
+          <p className="text-foreground/70 mb-6 max-w-2xl mx-auto">
+            Transform from chart-watcher to market operator through our systematic 30-level progression. 
+            Each level builds upon the previous, ensuring comprehensive mastery of technical analysis, 
+            risk management, psychology, and market fundamentals.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="p-4 bg-green-500/10 rounded-lg">
+              <div className="text-lg font-bold text-green-500 mb-1">Levels 1-10</div>
+              <div className="text-sm text-muted-foreground">Beginner Foundations</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-secondary mb-2">1,247</div>
-              <div className="text-sm text-muted-foreground">XP Earned</div>
-              <Progress value={62} className="mt-2" />
+            <div className="p-4 bg-blue-500/10 rounded-lg">
+              <div className="text-lg font-bold text-blue-500 mb-1">Levels 11-20</div>
+              <div className="text-sm text-muted-foreground">Intermediate Skills</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">12</div>
-              <div className="text-sm text-muted-foreground">Achievements</div>
-              <Progress value={40} className="mt-2" />
+            <div className="p-4 bg-purple-500/10 rounded-lg">
+              <div className="text-lg font-bold text-purple-500 mb-1">Levels 21-30</div>
+              <div className="text-sm text-muted-foreground">Professional Mastery</div>
             </div>
           </div>
+          <Button 
+            size="lg" 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold"
+            onClick={onNavigateToTradingMastery}
+          >
+            Start Your Journey
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
         </CardContent>
       </Card>
     </div>
@@ -362,174 +284,46 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJour
             <Building2 className="w-6 h-6 text-secondary" />
             <span>Business Operations</span>
           </h2>
-          <p className="text-foreground/70">Transform trading into a systematic business operation</p>
+          <p className="text-foreground/70">30-Level Professional Development Program</p>
         </div>
-        <Badge className="bg-secondary/10 text-secondary border-secondary/20">Level 14/30</Badge>
+        <Badge className="bg-secondary/10 text-secondary border-secondary/20">Level 1/30</Badge>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Performance Analytics */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <BarChart3 className="w-5 h-5 text-secondary" />
-              <span>Performance Analytics</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-3 bg-secondary/10 rounded-lg">
-                <div className="text-lg font-bold text-secondary">73%</div>
-                <div className="text-xs text-muted-foreground">Win Rate</div>
-              </div>
-              <div className="text-center p-3 bg-primary/10 rounded-lg">
-                <div className="text-lg font-bold text-primary">2.3</div>
-                <div className="text-xs text-muted-foreground">Profit Factor</div>
-              </div>
+      {/* Launch Business Operations Learning */}
+      <Card className="military-card">
+        <CardContent className="p-8 text-center">
+          <div className="bg-secondary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <Building2 className="w-10 h-10 text-secondary" />
+          </div>
+          <h3 className="text-2xl font-bold mb-4">Master Business Operations Through 30 Progressive Levels</h3>
+          <p className="text-foreground/70 mb-6 max-w-2xl mx-auto">
+            Transform your trading into a systematic business operation through comprehensive development 
+            of processes, analytics, and management skills across 30 structured levels.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="p-4 bg-green-500/10 rounded-lg">
+              <div className="text-lg font-bold text-green-500 mb-1">Levels 1-10</div>
+              <div className="text-sm text-muted-foreground">Business Foundations</div>
             </div>
-            <Button variant="outline" className="w-full border-secondary/20 hover:bg-secondary/10">
-              <Eye className="w-4 h-4 mr-2" />
-              View Full Report
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Trading Journal */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <FileText className="w-5 h-5 text-primary" />
-              <span>Trading Journal</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm">Trades This Month</span>
-                <span className="font-bold text-primary">47</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm">Journal Entries</span>
-                <span className="font-bold text-secondary">43</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm">Completion Rate</span>
-                <span className="font-bold text-primary">91%</span>
-              </div>
+            <div className="p-4 bg-blue-500/10 rounded-lg">
+              <div className="text-lg font-bold text-blue-500 mb-1">Levels 11-20</div>
+              <div className="text-sm text-muted-foreground">Advanced Systems</div>
             </div>
-            <Button 
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-              onClick={onNavigateToJournal}
-            >
-              <Edit className="w-4 h-4 mr-2" />
-              Open Journal
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Business Metrics */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <Briefcase className="w-5 h-5 text-secondary" />
-              <span>Business Metrics</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="p-3 bg-muted/10 rounded-lg">
-                <div className="text-sm text-muted-foreground">Monthly P&L</div>
-                <div className="text-lg font-bold text-primary">+$2,847</div>
-              </div>
-              <div className="p-3 bg-muted/10 rounded-lg">
-                <div className="text-sm text-muted-foreground">ROI</div>
-                <div className="text-lg font-bold text-secondary">12.4%</div>
-              </div>
+            <div className="p-4 bg-purple-500/10 rounded-lg">
+              <div className="text-lg font-bold text-purple-500 mb-1">Levels 21-30</div>
+              <div className="text-sm text-muted-foreground">Professional Operations</div>
             </div>
-            <Button variant="outline" className="w-full border-secondary/20 hover:bg-secondary/10">
-              <Download className="w-4 h-4 mr-2" />
-              Export Report
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* SOPs and Documentation */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <FileText className="w-5 h-5 text-primary" />
-              <span>Standard Operating Procedures</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-primary/10 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">Pre-Market Routine</span>
-                </div>
-                <Button size="sm" variant="outline">
-                  <Edit className="w-3 h-3" />
-                </Button>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-secondary/10 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="w-4 h-4 text-secondary" />
-                  <span className="text-sm font-medium">Trade Entry Checklist</span>
-                </div>
-                <Button size="sm" variant="outline">
-                  <Edit className="w-3 h-3" />
-                </Button>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-muted/10 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <Plus className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">Create New SOP</span>
-                </div>
-                <Button size="sm" variant="outline">
-                  <Plus className="w-3 h-3" />
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Target className="w-5 h-5 text-secondary" />
-              <span>KPI Tracking</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-4">
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="text-sm">Monthly Target</span>
-                  <span className="text-sm font-medium">78%</span>
-                </div>
-                <Progress value={78} className="h-2" />
-              </div>
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="text-sm">Risk Management</span>
-                  <span className="text-sm font-medium">92%</span>
-                </div>
-                <Progress value={92} className="h-2" />
-              </div>
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="text-sm">Journal Compliance</span>
-                  <span className="text-sm font-medium">85%</span>
-                </div>
-                <Progress value={85} className="h-2" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+          <Button 
+            size="lg" 
+            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-6 text-lg font-semibold"
+            onClick={onNavigateToBusinessOps}
+          >
+            Start Your Journey
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 
@@ -541,160 +335,46 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJour
             <Brain className="w-6 h-6 text-secondary" />
             <span>Trading Psychology</span>
           </h2>
-          <p className="text-foreground/70">Forge the mental framework of elite operators</p>
+          <p className="text-foreground/70">30-Level Professional Development Program</p>
         </div>
-        <Badge className="bg-secondary/10 text-secondary border-secondary/20">Level 9/30</Badge>
+        <Badge className="bg-secondary/10 text-secondary border-secondary/20">Level 1/30</Badge>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Mental Conditioning */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <Brain className="w-5 h-5 text-secondary" />
-              <span>Mental Conditioning</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="p-3 bg-secondary/10 rounded-lg">
-                <div className="text-sm font-medium mb-1">Daily Mindset Protocol</div>
-                <div className="text-xs text-muted-foreground">5-minute morning routine</div>
-                <Button size="sm" className="mt-2 bg-secondary hover:bg-secondary/90 text-secondary-foreground">
-                  Start Session
-                </Button>
-              </div>
-              <div className="p-3 bg-muted/10 rounded-lg">
-                <div className="text-sm font-medium mb-1">Pressure Training</div>
-                <div className="text-xs text-muted-foreground">Stress management exercises</div>
-                <Button size="sm" variant="outline" className="mt-2">
-                  Begin Training
-                </Button>
-              </div>
+      {/* Launch Trading Psychology Learning */}
+      <Card className="military-card">
+        <CardContent className="p-8 text-center">
+          <div className="bg-secondary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <Brain className="w-10 h-10 text-secondary" />
+          </div>
+          <h3 className="text-2xl font-bold mb-4">Master Trading Psychology Through 30 Progressive Levels</h3>
+          <p className="text-foreground/70 mb-6 max-w-2xl mx-auto">
+            Develop the mental framework and emotional discipline required for consistent trading success 
+            through systematic psychological training and the 7 Pillars of Resilience.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="p-4 bg-green-500/10 rounded-lg">
+              <div className="text-lg font-bold text-green-500 mb-1">Levels 1-10</div>
+              <div className="text-sm text-muted-foreground">Emotional Foundations</div>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Emotional State Tracking */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <Activity className="w-5 h-5 text-primary" />
-              <span>Emotional Tracking</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm">Current State</span>
-                <Badge className="bg-primary/20 text-primary">Focused</Badge>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm">Confidence Level</span>
-                <span className="font-bold text-secondary">8/10</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm">Stress Level</span>
-                <span className="font-bold text-primary">3/10</span>
-              </div>
+            <div className="p-4 bg-blue-500/10 rounded-lg">
+              <div className="text-lg font-bold text-blue-500 mb-1">Levels 11-20</div>
+              <div className="text-sm text-muted-foreground">Mental Resilience</div>
             </div>
-            <Button variant="outline" className="w-full border-primary/20 hover:bg-primary/10">
-              <Plus className="w-4 h-4 mr-2" />
-              Log Current State
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Coaching Sessions */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <HeadphonesIcon className="w-5 h-5 text-secondary" />
-              <span>Coaching Sessions</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="p-3 bg-secondary/10 rounded-lg">
-                <div className="text-sm font-medium mb-1">1-on-1 Mentoring</div>
-                <div className="text-xs text-muted-foreground">Next: Tomorrow 2PM</div>
-                <Button size="sm" variant="outline" className="mt-2">
-                  Reschedule
-                </Button>
-              </div>
-              <div className="p-3 bg-muted/10 rounded-lg">
-                <div className="text-sm font-medium mb-1">Group Therapy</div>
-                <div className="text-xs text-muted-foreground">Weekly peer support</div>
-                <Button size="sm" variant="outline" className="mt-2">
-                  Join Group
-                </Button>
-              </div>
+            <div className="p-4 bg-purple-500/10 rounded-lg">
+              <div className="text-lg font-bold text-purple-500 mb-1">Levels 21-30</div>
+              <div className="text-sm text-muted-foreground">7 Pillars Mastery</div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Psychology Assessments */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Target className="w-5 h-5 text-primary" />
-              <span>Psychology Assessments</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-primary/10 rounded-lg">
-                <div>
-                  <div className="text-sm font-medium">Risk Tolerance Test</div>
-                  <div className="text-xs text-muted-foreground">Last taken: 2 weeks ago</div>
-                </div>
-                <Badge className="bg-primary/20 text-primary">High</Badge>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-secondary/10 rounded-lg">
-                <div>
-                  <div className="text-sm font-medium">Emotional Intelligence</div>
-                  <div className="text-xs text-muted-foreground">Last taken: 1 month ago</div>
-                </div>
-                <Badge className="bg-secondary/20 text-secondary">Above Average</Badge>
-              </div>
-              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                Take New Assessment
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Award className="w-5 h-5 text-secondary" />
-              <span>Mental Achievements</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-3 bg-primary/10 rounded-lg">
-                <Star className="w-6 h-6 text-primary mx-auto mb-2" />
-                <div className="text-xs font-medium">Discipline Master</div>
-              </div>
-              <div className="text-center p-3 bg-secondary/10 rounded-lg">
-                <Shield className="w-6 h-6 text-secondary mx-auto mb-2" />
-                <div className="text-xs font-medium">Pressure Warrior</div>
-              </div>
-              <div className="text-center p-3 bg-muted/10 rounded-lg opacity-50">
-                <Target className="w-6 h-6 text-muted-foreground mx-auto mb-2" />
-                <div className="text-xs font-medium">Focus Elite</div>
-              </div>
-              <div className="text-center p-3 bg-muted/10 rounded-lg opacity-50">
-                <Brain className="w-6 h-6 text-muted-foreground mx-auto mb-2" />
-                <div className="text-xs font-medium">Mind Master</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+          <Button 
+            size="lg" 
+            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-6 text-lg font-semibold"
+            onClick={onNavigateToPsychology}
+          >
+            Start Your Journey
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 
@@ -706,181 +386,46 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJour
             <DollarSign className="w-6 h-6 text-primary" />
             <span>Capital Management</span>
           </h2>
-          <p className="text-foreground/70">Master the financial architecture of professional trading</p>
+          <p className="text-foreground/70">30-Level Professional Development Program</p>
         </div>
-        <Badge className="bg-primary/10 text-primary border-primary/20">Level 18/30</Badge>
+        <Badge className="bg-primary/10 text-primary border-primary/20">Level 1/30</Badge>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Portfolio Overview */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <PieChart className="w-5 h-5 text-primary" />
-              <span>Portfolio Overview</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-primary mb-1">$47,832</div>
-              <div className="text-sm text-muted-foreground">Total Portfolio Value</div>
+      {/* Launch Capital Management Learning */}
+      <Card className="military-card">
+        <CardContent className="p-8 text-center">
+          <div className="bg-primary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <DollarSign className="w-10 h-10 text-primary" />
+          </div>
+          <h3 className="text-2xl font-bold mb-4">Master Capital Management Through 30 Progressive Levels</h3>
+          <p className="text-foreground/70 mb-6 max-w-2xl mx-auto">
+            Build the financial architecture of professional trading through systematic capital allocation, 
+            risk management, and survival protocols across 30 comprehensive levels.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="p-4 bg-green-500/10 rounded-lg">
+              <div className="text-lg font-bold text-green-500 mb-1">Levels 1-10</div>
+              <div className="text-sm text-muted-foreground">Risk Foundations</div>
             </div>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-sm">Available Capital</span>
-                <span className="font-medium text-primary">$12,450</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm">Open Positions</span>
-                <span className="font-medium text-secondary">$35,382</span>
-              </div>
+            <div className="p-4 bg-blue-500/10 rounded-lg">
+              <div className="text-lg font-bold text-blue-500 mb-1">Levels 11-20</div>
+              <div className="text-sm text-muted-foreground">Portfolio Management</div>
             </div>
-            <Button 
-              variant="outline" 
-              className="w-full border-primary/20 hover:bg-primary/10"
-              onClick={onNavigateToHeatmap}
-            >
-              <Eye className="w-4 h-4 mr-2" />
-              View Heatmap
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Risk Metrics */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <Shield className="w-5 h-5 text-secondary" />
-              <span>Risk Metrics</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-sm">Max Drawdown</span>
-                <span className="font-medium text-destructive">-8.2%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm">Risk per Trade</span>
-                <span className="font-medium text-primary">1.5%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm">Sharpe Ratio</span>
-                <span className="font-medium text-secondary">2.34</span>
-              </div>
+            <div className="p-4 bg-purple-500/10 rounded-lg">
+              <div className="text-lg font-bold text-purple-500 mb-1">Levels 21-30</div>
+              <div className="text-sm text-muted-foreground">Institutional Systems</div>
             </div>
-            <div className="pt-2">
-              <div className="flex justify-between mb-2">
-                <span className="text-sm">Risk Level</span>
-                <span className="text-sm font-medium text-primary">Moderate</span>
-              </div>
-              <Progress value={65} className="h-2" />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Position Sizing */}
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-lg">
-              <Calculator className="w-5 h-5 text-primary" />
-              <span>Position Sizing</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="p-3 bg-primary/10 rounded-lg">
-                <div className="text-sm font-medium mb-1">Risk Calculator</div>
-                <div className="text-xs text-muted-foreground">Calculate optimal position size</div>
-                <Button size="sm" className="mt-2 bg-primary hover:bg-primary/90 text-primary-foreground">
-                  Open Calculator
-                </Button>
-              </div>
-              <div className="p-3 bg-secondary/10 rounded-lg">
-                <div className="text-sm font-medium mb-1">Kelly Criterion</div>
-                <div className="text-xs text-muted-foreground">Optimal bet sizing formula</div>
-                <Button size="sm" variant="outline" className="mt-2">
-                  Calculate
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Capital Allocation */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <BarChart3 className="w-5 h-5 text-primary" />
-              <span>Capital Allocation</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-4">
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="text-sm">Trading Capital</span>
-                  <span className="text-sm font-medium">70% ($33,482)</span>
-                </div>
-                <Progress value={70} className="h-2" />
-              </div>
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="text-sm">Emergency Fund</span>
-                  <span className="text-sm font-medium">20% ($9,566)</span>
-                </div>
-                <Progress value={20} className="h-2" />
-              </div>
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="text-sm">Growth Reserve</span>
-                  <span className="text-sm font-medium">10% ($4,783)</span>
-                </div>
-                <Progress value={10} className="h-2" />
-              </div>
-            </div>
-            <Button variant="outline" className="w-full border-primary/20 hover:bg-primary/10">
-              <Edit className="w-4 h-4 mr-2" />
-              Adjust Allocation
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card className="military-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <TrendingUp className="w-5 h-5 text-secondary" />
-              <span>Performance Tracking</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-3 bg-primary/10 rounded-lg">
-                <div className="text-lg font-bold text-primary">+12.4%</div>
-                <div className="text-xs text-muted-foreground">Monthly Return</div>
-              </div>
-              <div className="text-center p-3 bg-secondary/10 rounded-lg">
-                <div className="text-lg font-bold text-secondary">+34.7%</div>
-                <div className="text-xs text-muted-foreground">YTD Return</div>
-              </div>
-              <div className="text-center p-3 bg-primary/10 rounded-lg">
-                <div className="text-lg font-bold text-primary">2.8</div>
-                <div className="text-xs text-muted-foreground">Profit Factor</div>
-              </div>
-              <div className="text-center p-3 bg-secondary/10 rounded-lg">
-                <div className="text-lg font-bold text-secondary">0.12</div>
-                <div className="text-xs text-muted-foreground">Max DD</div>
-              </div>
-            </div>
-            <Button variant="outline" className="w-full border-secondary/20 hover:bg-secondary/10">
-              <Download className="w-4 h-4 mr-2" />
-              Export Report
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+          <Button 
+            size="lg" 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold"
+            onClick={onNavigateToCapitalMgmt}
+          >
+            Start Your Journey
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 

@@ -12,11 +12,14 @@ import { Dashboard } from './components/Dashboard';
 import { TradingJournal } from './components/TradingJournal';
 import { CurrencyHeatmap } from './components/CurrencyHeatmap';
 import { TradingMasteryLearning } from './components/TradingMasteryLearning';
+import { BusinessOperationsLearning } from './components/BusinessOperationsLearning';
+import { TradingPsychologyLearning } from './components/TradingPsychologyLearning';
+import { CapitalManagementLearning } from './components/CapitalManagementLearning';
 import { TrainingSection } from './components/TrainingSection';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [currentView, setCurrentView] = React.useState<'dashboard' | 'journal' | 'heatmap' | 'trading-mastery'>('dashboard');
+  const [currentView, setCurrentView] = React.useState<'dashboard' | 'journal' | 'heatmap' | 'trading-mastery' | 'business-ops' | 'psychology' | 'capital-mgmt'>('dashboard');
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -39,6 +42,18 @@ function App() {
     setCurrentView('trading-mastery');
   };
 
+  const handleNavigateToBusinessOps = () => {
+    setCurrentView('business-ops');
+  };
+
+  const handleNavigateToPsychology = () => {
+    setCurrentView('psychology');
+  };
+
+  const handleNavigateToCapitalMgmt = () => {
+    setCurrentView('capital-mgmt');
+  };
+
   const handleNavigateToDashboard = () => {
     setCurrentView('dashboard');
   };
@@ -53,7 +68,16 @@ function App() {
     if (currentView === 'trading-mastery') {
       return <TradingMasteryLearning onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
     }
-    return <Dashboard onLogout={handleLogout} onNavigateToJournal={handleNavigateToJournal} onNavigateToHeatmap={handleNavigateToHeatmap} onNavigateToTradingMastery={handleNavigateToTradingMastery} />;
+    if (currentView === 'business-ops') {
+      return <BusinessOperationsLearning onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
+    }
+    if (currentView === 'psychology') {
+      return <TradingPsychologyLearning onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
+    }
+    if (currentView === 'capital-mgmt') {
+      return <CapitalManagementLearning onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
+    }
+    return <Dashboard onLogout={handleLogout} onNavigateToJournal={handleNavigateToJournal} onNavigateToHeatmap={handleNavigateToHeatmap} onNavigateToTradingMastery={handleNavigateToTradingMastery} onNavigateToBusinessOps={handleNavigateToBusinessOps} onNavigateToPsychology={handleNavigateToPsychology} onNavigateToCapitalMgmt={handleNavigateToCapitalMgmt} />;
   }
 
   return (
