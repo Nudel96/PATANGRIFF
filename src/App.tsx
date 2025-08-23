@@ -11,11 +11,12 @@ import { Footer } from './components/Footer';
 import { Dashboard } from './components/Dashboard';
 import { TradingJournal } from './components/TradingJournal';
 import { CurrencyHeatmap } from './components/CurrencyHeatmap';
+import { TradingMasteryLearning } from './components/TradingMasteryLearning';
 import { TrainingSection } from './components/TrainingSection';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [currentView, setCurrentView] = React.useState<'dashboard' | 'journal' | 'heatmap'>('dashboard');
+  const [currentView, setCurrentView] = React.useState<'dashboard' | 'journal' | 'heatmap' | 'trading-mastery'>('dashboard');
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -34,6 +35,10 @@ function App() {
     setCurrentView('heatmap');
   };
 
+  const handleNavigateToTradingMastery = () => {
+    setCurrentView('trading-mastery');
+  };
+
   const handleNavigateToDashboard = () => {
     setCurrentView('dashboard');
   };
@@ -45,7 +50,10 @@ function App() {
     if (currentView === 'heatmap') {
       return <CurrencyHeatmap onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
     }
-    return <Dashboard onLogout={handleLogout} onNavigateToJournal={handleNavigateToJournal} onNavigateToHeatmap={handleNavigateToHeatmap} />;
+    if (currentView === 'trading-mastery') {
+      return <TradingMasteryLearning onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
+    }
+    return <Dashboard onLogout={handleLogout} onNavigateToJournal={handleNavigateToJournal} onNavigateToHeatmap={handleNavigateToHeatmap} onNavigateToTradingMastery={handleNavigateToTradingMastery} />;
   }
 
   return (

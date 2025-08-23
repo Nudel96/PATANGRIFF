@@ -49,9 +49,10 @@ interface DashboardProps {
   onLogout: () => void;
   onNavigateToJournal: () => void;
   onNavigateToHeatmap: () => void;
+  onNavigateToTradingMastery: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJournal, onNavigateToHeatmap }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJournal, onNavigateToHeatmap, onNavigateToTradingMastery }) => {
   const [activeSection, setActiveSection] = useState('overview');
 
   const pillarsProgress = [
@@ -172,7 +173,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJour
               ))}
               <Button 
                 className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground"
-                onClick={() => setActiveSection('trading-mastery')}
+                onClick={onNavigateToTradingMastery}
               >
                 Continue Training
                 <ChevronRight className="ml-2 w-4 h-4" />
