@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 import { Dashboard } from './components/Dashboard';
 import { TradingJournal } from './components/TradingJournal';
 import { CurrencyHeatmap } from './components/CurrencyHeatmap';
+import { TrainingSection } from './components/TrainingSection';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -56,6 +57,7 @@ function App() {
         <Stats />
         <FourPillars />
         <PlatformTools />
+        <TrainingSection />
         <Community />
         <Pricing />
       </main>
