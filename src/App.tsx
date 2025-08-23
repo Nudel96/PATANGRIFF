@@ -10,10 +10,11 @@ import { Pricing } from './components/Pricing';
 import { Footer } from './components/Footer';
 import { Dashboard } from './components/Dashboard';
 import { TradingJournal } from './components/TradingJournal';
+import { CurrencyHeatmap } from './components/CurrencyHeatmap';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [currentView, setCurrentView] = React.useState<'dashboard' | 'journal'>('dashboard');
+  const [currentView, setCurrentView] = React.useState<'dashboard' | 'journal' | 'heatmap'>('dashboard');
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -28,6 +29,10 @@ function App() {
     setCurrentView('journal');
   };
 
+  const handleNavigateToHeatmap = () => {
+    setCurrentView('heatmap');
+  };
+
   const handleNavigateToDashboard = () => {
     setCurrentView('dashboard');
   };
@@ -36,7 +41,10 @@ function App() {
     if (currentView === 'journal') {
       return <TradingJournal onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
     }
-    return <Dashboard onLogout={handleLogout} onNavigateToJournal={handleNavigateToJournal} />;
+    if (currentView === 'heatmap') {
+      return <CurrencyHeatmap onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
+    }
+    return <Dashboard onLogout={handleLogout} onNavigateToJournal={handleNavigateToJournal} onNavigateToHeatmap={handleNavigateToHeatmap} />;
   }
 
   return (

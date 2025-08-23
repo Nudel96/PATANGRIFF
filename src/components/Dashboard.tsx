@@ -30,9 +30,10 @@ import {
 interface DashboardProps {
   onLogout: () => void;
   onNavigateToJournal: () => void;
+  onNavigateToHeatmap: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJournal }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJournal, onNavigateToHeatmap }) => {
   const pillarsProgress = [
     { name: 'Trading Mastery', progress: 75, color: 'primary', icon: TrendingUp },
     { name: 'Business Operations', progress: 45, color: 'secondary', icon: Building2 },
@@ -273,7 +274,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJour
               </Button>
               <Button variant="outline" className="w-full justify-start border-secondary/20 hover:bg-secondary/10">
                 <FileText className="w-4 h-4 mr-3 text-secondary" />
-                Log New Trade
+                <button onClick={onNavigateToHeatmap}>Market Heatmap</button>
               </Button>
               <Button variant="outline" className="w-full justify-start border-primary/20 hover:bg-primary/10">
                 <BookOpen className="w-4 h-4 mr-3 text-primary" />
