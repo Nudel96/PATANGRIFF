@@ -9,9 +9,11 @@ import { Community } from './components/Community';
 import { Pricing } from './components/Pricing';
 import { Footer } from './components/Footer';
 import { Dashboard } from './components/Dashboard';
+import { TradingJournal } from './components/TradingJournal';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [currentView, setCurrentView] = React.useState<'dashboard' | 'journal'>('dashboard');
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -19,10 +21,22 @@ function App() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setCurrentView('dashboard');
+  };
+
+  const handleNavigateToJournal = () => {
+    setCurrentView('journal');
+  };
+
+  const handleNavigateToDashboard = () => {
+    setCurrentView('dashboard');
   };
 
   if (isLoggedIn) {
-    return <Dashboard onLogout={handleLogout} />;
+    if (currentView === 'journal') {
+      return <TradingJournal onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
+    }
+    return <Dashboard onLogout={handleLogout} onNavigateToJournal={handleNavigateToJournal} />;
   }
 
   return (

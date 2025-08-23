@@ -29,7 +29,9 @@ import {
   Brain,
   Activity,
   Clock,
-  Zap
+  Zap,
+  ArrowLeft,
+  LogOut
 } from 'lucide-react';
 
 interface Trade {
@@ -63,7 +65,12 @@ interface ChecklistItem {
   required: boolean;
 }
 
-export const TradingJournal = () => {
+interface TradingJournalProps {
+  onBack: () => void;
+  onLogout: () => void;
+}
+
+export const TradingJournal: React.FC<TradingJournalProps> = ({ onBack, onLogout }) => {
   const [activeTab, setActiveTab] = useState('checklist');
   const [trades, setTrades] = useState<Trade[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -248,19 +255,39 @@ export const TradingJournal = () => {
 
   return (
     <div className="min-h-screen bg-background p-6">
-      <div className="container-max mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center space-x-3 mb-4">
-            <div className="bg-primary/10 p-3 rounded-xl">
-              <FileText className="w-8 h-8 text-primary" />
+      {/* Header */}
+      <header className="bg-card/50 backdrop-blur-sm border-b border-border/50 sticky top-0 z-40">
+        <div className="container-max mx-auto px-6">
+          <div className="flex items-center justify-between h-16">
+            {/* Back Button and Title */}
+            <div className="flex items-center space-x-4">
+              <Button variant="ghost" size="sm" onClick={onBack}>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Dashboard
+              </Button>
+              <div className="flex items-center space-x-3">
+                <div className="bg-primary/10 p-2 rounded-lg">
+                  <FileText className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold gradient-text">Trading Journal</h1>
+                  <p className="text-sm text-foreground/70">Professional trade analysis</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold gradient-text">Trading Journal</h1>
-              <p className="text-foreground/70">Professional trade analysis and performance tracking</p>
+
+            {/* Header Actions */}
+            <div className="flex items-center space-x-4">
+              <Button variant="outline" size="sm" onClick={onLogout}>
+                <LogOut className="w-4 h-4 mr-2" />
+                Exit Portal
+              </Button>
             </div>
           </div>
         </div>
+      </header>
+
+      <div className="container-max mx-auto">
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-4 bg-muted/20">

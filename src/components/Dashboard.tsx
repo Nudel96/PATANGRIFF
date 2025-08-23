@@ -29,9 +29,10 @@ import {
 
 interface DashboardProps {
   onLogout: () => void;
+  onNavigateToJournal: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ onLogout, onNavigateToJournal }) => {
   const pillarsProgress = [
     { name: 'Trading Mastery', progress: 75, color: 'primary', icon: TrendingUp },
     { name: 'Business Operations', progress: 45, color: 'secondary', icon: Building2 },
@@ -285,7 +286,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
               <Button 
                 variant="outline" 
                 className="w-full justify-start border-primary/20 hover:bg-primary/10"
-                onClick={() => window.open('/trading-journal', '_blank')}
+                onClick={onNavigateToJournal}
               >
                 <FileText className="w-4 h-4 mr-3 text-primary" />
                 Trading Journal
