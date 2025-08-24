@@ -290,6 +290,14 @@
 			if (!formData.name.trim() || !formData.description.trim()) {
 				throw new Error('Name and description are required');
 			}
+			
+			if (formData.name.trim().length < 3) {
+				throw new Error('Squad name must be at least 3 characters');
+			}
+			
+			if (formData.description.trim().length < 10) {
+				throw new Error('Squad description must be at least 10 characters');
+			}
 
 			// Create the squad with all current features
 			const newSquad = createSquad({
@@ -325,12 +333,11 @@
 			closeModal();
 			dispatch('squadCreated', newSquad);
 			
-			// Show success message
-			console.log('Squad created successfully:', newSquad);
+			console.log('Squad created successfully with ID:', newSquad.id);
 		} catch (error) {
 			isLoading = false;
 			console.error('Failed to create squad:', error);
-			// In a real app, you'd show an error toast here
+			alert(`Failed to create squad: ${error.message}`);
 		}
 	}
 
