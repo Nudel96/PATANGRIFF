@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { SquadsHub } from './SquadsHub';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -102,6 +103,14 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
   const [filterType, setFilterType] = useState('all');
   const [sortBy, setSortBy] = useState('recent');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+  // Add squads view state
+  const [showSquads, setShowSquads] = useState(false);
+
+  // If showing squads, render the SquadsHub component
+  if (showSquads) {
+    return <SquadsHub />;
+  }
 
   // Sample data
   const samplePosts: Post[] = [
@@ -733,7 +742,7 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
               <span className="hidden sm:inline">Resources</span>
             </TabsTrigger>
             <TabsTrigger value="help" className="flex items-center space-x-2">
-              <HelpCircle className="w-4 h-4" />
+            <TabsTrigger value="squads" onClick={() => setShowSquads(true)}>Squads</TabsTrigger>
               <span className="hidden sm:inline">Help</span>
             </TabsTrigger>
           </TabsList>
