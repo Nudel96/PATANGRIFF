@@ -53,6 +53,7 @@ interface DashboardProps {
   onLogout: () => void;
   onNavigateToJournal: () => void;
   onNavigateToHeatmap: () => void;
+  onNavigateToCommunity: () => void;
   onNavigateToTradingMastery: () => void;
   onNavigateToBusinessOps: () => void;
   onNavigateToPsychology: () => void;
@@ -63,6 +64,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
   onLogout, 
   onNavigateToJournal, 
   onNavigateToHeatmap, 
+  onNavigateToCommunity,
   onNavigateToTradingMastery,
   onNavigateToBusinessOps,
   onNavigateToPsychology,
@@ -94,8 +96,20 @@ export const Dashboard: React.FC<DashboardProps> = ({
     { action: 'Achievement unlocked: Discipline Warrior', time: '2 days ago', type: 'achievement', icon: Award }
   ];
 
-  // Main navigation sections
-  const mainSections = [
+  // Add Community section
+  const communitySection = {
+    id: 'community',
+    title: 'Community Hub',
+    subtitle: 'Brotherhood of Warriors',
+    description: 'Connect with fellow traders, share insights, join squads, and participate in challenges. Access exclusive forums and mentorship.',
+    icon: Users,
+    color: 'secondary',
+    features: ['Discussion Forums', 'Trade Gallery', 'Squads & Accountability', 'Events & AMAs'],
+    action: 'Enter Community',
+    onClick: onNavigateToCommunity
+  };
+
+  const updatedMainSections = [
     {
       id: 'learning',
       title: 'Learning Center',
@@ -118,6 +132,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
       action: 'View Markets',
       onClick: onNavigateToHeatmap
     },
+    communitySection,
     {
       id: 'journal',
       title: 'Trading Journal',
@@ -168,8 +183,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Main Navigation Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-        {mainSections.map((section, index) => (
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
+        {updatedMainSections.map((section, index) => (
           <Card key={section.id} className="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" onClick={section.onClick}>
             <CardHeader className="text-center pb-4">
               <div className={`bg-${section.color}/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-${section.color}/20 transition-colors`}>
@@ -288,13 +303,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <LineChart className="w-5 h-5 text-secondary" />
               <span className="text-sm">Check Markets</span>
             </Button>
+            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={onNavigateToCommunity}>
+              <Users className="w-5 h-5 text-secondary" />
+              <span className="text-sm">Community</span>
+            </Button>
             <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={onNavigateToTradingMastery}>
               <BookOpen className="w-5 h-5 text-primary" />
               <span className="text-sm">Continue Learning</span>
             </Button>
             <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
               <MessageCircle className="w-5 h-5 text-secondary" />
-              <span className="text-sm">Community</span>
+              <span className="text-sm">Support</span>
             </Button>
           </div>
         </CardContent>
@@ -674,6 +693,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <Button 
                 variant="ghost" 
                 size="sm"
+                onClick={onNavigateToCommunity}
                 className="flex items-center space-x-2"
               >
                 <Users className="w-4 h-4" />
@@ -737,6 +757,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <Button 
                 variant="ghost" 
                 size="sm"
+                onClick={onNavigateToCommunity}
               >
                 <Users className="w-4 h-4" />
               </Button>
