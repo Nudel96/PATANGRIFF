@@ -268,6 +268,8 @@
 			const savedUserSquads = JSON.parse(localStorage.getItem('userSquads') || '[]');
 			if (savedUserSquads.length > 0) {
 				userSquads.update(current => {
+				}
+				)
 				
 				// Update the squads store to reflect the new squad
 				squads.update(current => [...current, newSquad]);
