@@ -1,15 +1,14 @@
-import path from 'path';
-import react from '@vitejs/plugin-react';
+import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
+	plugins: [sveltekit()],
+	optimizeDeps: {
+		include: ['lucide-svelte']
+	},
+	server: {
+		fs: {
+			allow: ['..']
+		}
+	}
 });
