@@ -21,10 +21,7 @@ export const Header: React.FC<HeaderProps> = ({ onLogin }) => {
   }, []);
 
   const navItems = [
-    { label: 'Platform', href: '#platform' },
     { label: 'Education', href: '#education' },
-    { label: 'Community', href: '#community' },
-    { label: 'Pricing', href: '#pricing' },
   ];
 
   return (
