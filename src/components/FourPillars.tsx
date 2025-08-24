@@ -1,10 +1,15 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { TrendingUp, Building2, DollarSign, Brain, ArrowRight } from 'lucide-react';
 
 export const FourPillars = () => {
+  const [openPillar, setOpenPillar] = React.useState<string | null>(null);
+
   const pillars = [
     {
+      id: 'trading-mastery',
       icon: TrendingUp,
       title: 'TRADING MASTERY',
       subtitle: 'Strategy → Macro → Technicals → Execution',
@@ -15,9 +20,18 @@ export const FourPillars = () => {
         'Systematic bias/timing protocols',
         'Risk mathematics and execution rules'
       ],
-      color: 'primary'
+      color: 'primary',
+      detailedDescription: 'Transform from chart-watcher to market operator through our comprehensive 30-level progression system. Master the complete trading sequence: macro-economic regime identification → technical confluence analysis → precise execution with mathematical risk control. Learn to read market regimes across 6 critical factors, develop systematic bias detection protocols, and execute with institutional-grade precision. This pillar builds the analytical foundation that separates professional operators from retail traders.',
+      outcomes: [
+        'Systematic market regime analysis across all timeframes',
+        'Professional-grade technical analysis with confluence factors',
+        'Mathematical position sizing and risk control protocols',
+        'Institutional execution techniques and order management',
+        'Advanced pattern recognition and market structure analysis'
+      ]
     },
     {
+      id: 'business-operations',
       icon: Building2,
       title: 'BUSINESS OPERATIONS',
       subtitle: 'Trading as Professional Enterprise',
@@ -28,9 +42,18 @@ export const FourPillars = () => {
         'KPI tracking and performance metrics',
         'Asset building through documentation'
       ],
-      color: 'secondary'
+      color: 'secondary',
+      detailedDescription: 'Elevate trading from hobby to professional enterprise through systematic business operations. Develop comprehensive Standard Operating Procedures (SOPs) for every trading activity, implement KPI tracking systems that measure what matters, and build scalable processes that create lasting competitive advantages. Learn to structure your trading operation like an institutional fund, with proper documentation, performance metrics, and growth protocols.',
+      outcomes: [
+        'Complete trading business framework and structure',
+        'Systematic SOPs for all trading and business activities',
+        'Advanced KPI tracking and performance optimization',
+        'Scalable process documentation and knowledge management',
+        'Professional business development and growth strategies'
+      ]
     },
     {
+      id: 'capital-management',
       icon: DollarSign,
       title: 'CAPITAL MANAGEMENT',
       subtitle: 'Survival and Growth Protocols',
@@ -41,9 +64,18 @@ export const FourPillars = () => {
         'Buffer maintenance systems',
         'Survival and recovery planning'
       ],
-      color: 'primary'
+      color: 'primary',
+      detailedDescription: 'Build the financial foundation that ensures trading longevity through all market conditions. Master bankroll management with proper allocation strategies, implement cashflow separation protocols that protect your lifestyle, and develop survival systems that handle worst-case scenarios. Learn institutional-grade capital management techniques including correlation-adjusted position sizing, drawdown recovery protocols, and systematic capital allocation across multiple strategies and timeframes.',
+      outcomes: [
+        'Professional bankroll structure and allocation strategies',
+        'Systematic cashflow separation and lifestyle protection',
+        'Advanced risk-adjusted position sizing methodologies',
+        'Comprehensive survival and recovery planning protocols',
+        'Institutional-grade capital management techniques'
+      ]
     },
     {
+      id: 'trading-psychology',
       icon: Brain,
       title: 'TRADING PSYCHOLOGY',
       subtitle: 'Warrior Mental Conditioning',
@@ -54,9 +86,21 @@ export const FourPillars = () => {
         'Professional identity formation',
         'Pressure leadership development'
       ],
-      color: 'secondary'
+      color: 'secondary',
+      detailedDescription: 'Develop the mental conditioning required for consistent market success through our proven psychological framework. Master the 7 Pillars of Resilience, implement anti-tilt protocols that maintain clarity under pressure, and forge the professional identity that commands respect in high-stakes trading environments. This pillar transforms your relationship with risk, uncertainty, and performance pressure into competitive advantages.',
+      outcomes: [
+        'Complete mastery of the 7 Pillars of Resilience framework',
+        'Advanced anti-tilt strategies and emotional regulation',
+        'Professional identity formation and confidence building',
+        'Pressure leadership development and stress optimization',
+        'Systematic mental conditioning and performance psychology'
+      ]
     }
   ];
+
+  const togglePillar = (pillarId: string) => {
+    setOpenPillar(openPillar === pillarId ? null : pillarId);
+  };
 
   return (
     <section id="education" className="section-padding">
@@ -98,13 +142,45 @@ export const FourPillars = () => {
                 ))}
               </ul>
               
-              <Button 
-                variant="outline" 
-                className={`w-full border-${pillar.color}/20 hover:bg-${pillar.color}/10 group`}
-              >
-                Learn More
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Button>
+              <Collapsible open={openPillar === pillar.id} onOpenChange={() => togglePillar(pillar.id)}>
+                <CollapsibleTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    className={`w-full border-${pillar.color}/20 hover:bg-${pillar.color}/10 group`}
+                  >
+                    Learn More
+                    <ArrowRight className={`ml-2 w-4 h-4 transition-transform ${openPillar === pillar.id ? 'rotate-90' : 'group-hover:translate-x-1'}`} />
+                  </Button>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <Card className="mt-4 border-border/50">
+                    <CardContent className="p-6">
+                      <h4 className={`text-lg font-bold text-${pillar.color} mb-4`}>Complete Learning Path</h4>
+                      <p className="text-foreground/80 mb-6 leading-relaxed">
+                        {pillar.detailedDescription}
+                      </p>
+                      
+                      <h5 className="font-semibold mb-3">What You'll Master:</h5>
+                      <ul className="space-y-2 mb-6">
+                        {pillar.outcomes.map((outcome, outcomeIndex) => (
+                          <li key={outcomeIndex} className="flex items-start space-x-3">
+                            <div className={`w-1.5 h-1.5 bg-${pillar.color} rounded-full mt-2 flex-shrink-0`} />
+                            <span className="text-sm text-foreground/80">{outcome}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      
+                      <Button 
+                        size="sm"
+                        className={`bg-${pillar.color} hover:bg-${pillar.color}/90 text-${pillar.color}-foreground`}
+                      >
+                        Start This Pillar
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </CollapsibleContent>
+              </Collapsible>
             </div>
           ))}
         </div>

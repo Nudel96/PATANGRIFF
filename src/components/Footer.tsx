@@ -7,37 +7,37 @@ export const Footer = () => {
     {
       title: 'Platform',
       links: [
-        { label: 'Four Pillars', href: '#pillars' },
-        { label: 'Trading Tools', href: '#tools' },
-        { label: 'Community', href: '#community' },
-        { label: 'Pricing', href: '#pricing' }
+        { label: 'Four Pillars', href: '#pillars', description: 'Comprehensive warrior development through Trading Mastery, Business Operations, Capital Management, and Psychology' },
+        { label: 'Trading Tools', href: '#tools', description: 'Professional-grade platform tools including market heatmap, trading journal, and bias analysis systems' },
+        { label: 'Community', href: '#community', description: 'Elite brotherhood of traders with squads, forums, and collaborative learning environments' },
+        { label: 'Pricing', href: '#pricing', description: 'Flexible membership plans designed for serious traders committed to systematic transformation' }
       ]
     },
     {
       title: 'Education',
       links: [
-        { label: 'Trading Courses', href: '#' },
-        { label: 'Market Analysis', href: '#' },
-        { label: 'Live Sessions', href: '#' },
-        { label: 'Resource Library', href: '#' }
+        { label: 'Trading Courses', href: '#courses', description: '120+ progressive levels across four pillars with XP tracking and systematic skill development' },
+        { label: 'Market Analysis', href: '#analysis', description: 'Daily market insights, regime analysis, and professional-grade technical and fundamental research' },
+        { label: 'Live Sessions', href: '#sessions', description: 'Real-time trading rooms, market reviews, and interactive learning with expert mentors' },
+        { label: 'Resource Library', href: '#resources', description: 'Comprehensive collection of trading templates, checklists, and professional development materials' }
       ]
     },
     {
       title: 'Support',
       links: [
-        { label: 'Help Center', href: '#' },
-        { label: 'Contact Us', href: '#' },
-        { label: 'Community Guidelines', href: '#' },
-        { label: 'Terms of Service', href: '#' }
+        { label: 'Help Center', href: '#help', description: 'Comprehensive support documentation, tutorials, and troubleshooting guides for all platform features' },
+        { label: 'Contact Us', href: '#contact', description: '24/7 support team ready to assist with technical issues, account questions, and platform guidance' },
+        { label: 'Community Guidelines', href: '#guidelines', description: 'Standards and expectations for warrior brotherhood participation and professional conduct' },
+        { label: 'Terms of Service', href: '#terms', description: 'Legal framework governing platform usage, membership rights, and community participation' }
       ]
     },
     {
       title: 'Company',
       links: [
-        { label: 'About Us', href: '#' },
-        { label: 'Our Mission', href: '#' },
-        { label: 'Privacy Policy', href: '#' },
-        { label: 'Careers', href: '#' }
+        { label: 'About Us', href: '#about', description: 'Founded by professional traders committed to forging warriors through systematic transformation and uncompromising standards' },
+        { label: 'Our Mission', href: '#mission', description: 'Transform chart-watchers into market operators through discipline, pressure, and systematic development that commands respect' },
+        { label: 'Privacy Policy', href: '#privacy', description: 'Comprehensive data protection and privacy practices ensuring secure handling of your personal and trading information' },
+        { label: 'Careers', href: '#careers', description: 'Join our team of elite trading professionals and help forge the next generation of market warriors' }
       ]
     }
   ];
@@ -89,9 +89,15 @@ export const Footer = () => {
                     <li key={linkIndex}>
                       <a 
                         href={link.href}
-                        className="text-foreground/60 hover:text-primary transition-colors duration-200"
+                        className="text-foreground/60 hover:text-primary transition-colors duration-200 group"
+                        title={link.description}
                       >
-                        {link.label}
+                        <div className="group-hover:text-primary transition-colors">
+                          <div className="font-medium">{link.label}</div>
+                          <div className="text-xs text-foreground/50 mt-1 leading-relaxed">
+                            {link.description}
+                          </div>
+                        </div>
                       </a>
                     </li>
                   ))}
