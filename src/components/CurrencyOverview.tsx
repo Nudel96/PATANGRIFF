@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
+import { USDEconomicDashboard } from './USDEconomicDashboard';
 import { 
   ArrowLeft,
   LogOut,
@@ -75,6 +76,7 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
   const [refreshing, setRefreshing] = useState(false);
 
   // Sample currency data with comprehensive indicators
+  const [showUSDDashboard, setShowUSDDashboard] = useState(false);
   const currencyData: Record<string, CurrencyData> = {
     USD: {
       code: 'USD',
@@ -863,26 +865,33 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
     { id: 'GDP', name: 'GDP', icon: BarChart3 },
     { id: 'PMI', name: 'PMI & Business', icon: Activity },
     { id: 'Retail Sales', name: 'Retail Sales', icon: DollarSign },
-    { id: 'Inflation', name: 'Inflation', icon: TrendingUp },
-    { id: 'Employment Change', name: 'Employment', icon: Target },
-    { id: 'Unemployment', name: 'Unemployment', icon: TrendingDown },
-    { id: 'Interest Rates', name: 'Interest Rates', icon: Zap }
-  ];
-
-  const filteredIndicators = activeCategory === 'all' 
-    ? currentCurrency.indicators 
-    : currentCurrency.indicators.filter(indicator => indicator.category === activeCategory);
-
-  const getImpactColor = (impact: string) => {
-    return impact === 'High' ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground';
-  };
-
-  const getChangeColor = (change: number, direction: string) => {
-    const isPositive = change > 0;
-    const isGoodForCurrency = 
-      (direction === 'Higher positive' && isPositive) ||
-      (direction === 'Lower positive' && !isPositive) ||
+    // Check if it's a USD-related asset for comprehensive dashboard
+    if (asset === 'USDCAD' || asset === 'USDCHF' || asset === 'USDZAR' || 
+        asset === 'EURUSD' || asset === 'GBPUSD' || asset === 'AUDUSD' || 
+        asset === 'NZDUSD' || asset === 'USDJPY') {
+      setShowUSDDashboard(true);
+      return;
       (direction === 'Tighter positive' && isPositive);
+    
+    // Extract currency from asset pair for other currencies
+    let currency = '';
+    if (asset.includes('USD')) {
+      currency = asset.replace('USD', '');
+    } else if (asset === 'EURGBP') {
+      currency = 'EUR';
+    } else if (asset === 'AUDNZD') {
+      currency = 'AUD';
+    } else if (asset === 'EURNZD') {
+      currency = 'EUR';
+    } else if (asset === 'GBPAUD' || asset === 'GBPCAD' || asset === 'GBPCHF') {
+      currency = 'GBP';
+    } else if (asset === 'NZDCAD') {
+      currency = 'NZD';
+    } else if (asset === 'CHFJPY') {
+      currency = 'CHF';
+    } else {
+      currency = 'USD';
+    }
     
     if (change === 0) return 'text-muted-foreground';
     return isGoodForCurrency ? 'text-primary' : 'text-destructive';
@@ -914,12 +923,24 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
 
   const getCurrencyIcon = (code: string) => {
     switch (code) {
-      case 'USD': return <DollarSign className="w-4 h-4" />;
+        onBack={() => {
+          setShowCurrencyOverview(false);
+          setShowUSDDashboard(false);
+        }}
       case 'EUR': return <Euro className="w-4 h-4" />;
       case 'GBP': return <PoundSterling className="w-4 h-4" />;
       default: return <Globe className="w-4 h-4" />;
     }
   };
+
+  if (showUSDDashboard) {
+    return (
+      <USDEconomicDashboard 
+        onBack={() => setShowUSDDashboard(false)}
+        onLogout={onLogout}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
