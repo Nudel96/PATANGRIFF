@@ -665,112 +665,165 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
 
           {/* Indicators List */}
           <div className="lg:col-span-3">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold">
-                {activeCategory === 'all' ? 'All Indicators' : categories.find(c => c.id === activeCategory)?.name}
-              </h3>
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <Eye className="w-4 h-4" />
-                <span>{filteredIndicators.length} indicators</span>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              {filteredIndicators.map(indicator => (
-                <Card key={indicator.id} className="military-card">
-                  <CardHeader className="pb-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-3 mb-2">
-                          <CardTitle className="text-lg">{indicator.name}</CardTitle>
-                          <Badge className={getImpactColor(indicator.impact)}>
-                            {indicator.impact}
-                          </Badge>
-                          {indicator.isFlash && (
-                            <Badge className="bg-secondary/10 text-secondary">
-                              Flash
-                            </Badge>
-                          )}
-                        </div>
-                        <p className="text-sm text-muted-foreground">{indicator.description}</p>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-sm text-muted-foreground">Weight</div>
-                        <div className="font-bold">{indicator.weight}</div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                      <div className="text-center p-3 bg-muted/10 rounded-lg">
-                        <div className="text-sm text-muted-foreground mb-1">Actual</div>
-                        <div className="font-bold text-lg">
-                          {indicator.lastValue}
-                          {indicator.unit === 'pp' ? '%' : indicator.unit === 'k' ? 'K' : ''}
-                        </div>
-                      </div>
-                      <div className="text-center p-3 bg-muted/10 rounded-lg">
-                        <div className="text-sm text-muted-foreground mb-1">Forecast</div>
-                        <div className="font-bold text-lg">
-                          {indicator.forecast}
-                          {indicator.unit === 'pp' ? '%' : indicator.unit === 'k' ? 'K' : ''}
-                        </div>
-                      </div>
-                      <div className="text-center p-3 bg-muted/10 rounded-lg">
-                        <div className="text-sm text-muted-foreground mb-1">Previous</div>
-                        <div className="font-bold text-lg">
-                          {indicator.previous}
-                          {indicator.unit === 'pp' ? '%' : indicator.unit === 'k' ? 'K' : ''}
-                        </div>
-                      </div>
-                      <div className="text-center p-3 bg-muted/10 rounded-lg">
-                        <div className="text-sm text-muted-foreground mb-1">Change</div>
-                        <div className={`font-bold text-lg flex items-center justify-center space-x-1 ${
-                          getChangeColor(indicator.change || 0, indicator.direction)
-                        }`}>
-                          {getChangeIcon(indicator.change || 0)}
-                          <span>
-                            {indicator.change && indicator.change > 0 ? '+' : ''}{indicator.change}
-                            {indicator.unit === 'pp' ? '%' : indicator.unit === 'k' ? 'K' : ''}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between text-sm">
-                      <div className="flex items-center space-x-4">
-                        <div>
-                          <span className="text-muted-foreground">Direction: </span>
-                          <span className="font-medium">{indicator.direction}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">Frequency: </span>
-                          <span className="font-medium">{indicator.frequency}</span>
-                        </div>
-                      </div>
-                      {indicator.nextRelease && (
-                        <div className="flex items-center space-x-1 text-primary">
-                          <Calendar className="w-4 h-4" />
-                          <span>Next: {indicator.nextRelease.toLocaleDateString()}</span>
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {filteredIndicators.length === 0 && (
-              <Card className="military-card">
-                <CardContent className="text-center py-12">
-                  <AlertCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No Indicators Found</h3>
-                  <p className="text-muted-foreground">
-                    No indicators available for the selected category and currency.
-                  </p>
-                </CardContent>
-              </Card>
-            )}
+            {/* Simplified Economic Dashboard */}
+            <Card className="military-card">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <BarChart3 className="w-5 h-5 text-primary" />
+                    <span>{currentCurrency.name} Economic Dashboard</span>
+                  </div>
+                  <Badge className="bg-primary/10 text-primary border-primary/20">
+                    Live Data
+                  </Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-border/50 bg-muted/20">
+                        <th className="text-left p-4 font-semibold">Metric</th>
+                        <th className="text-center p-4 font-semibold">Actual</th>
+                        <th className="text-center p-4 font-semibold">Forecasted</th>
+                        <th className="text-center p-4 font-semibold">Change Δ</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* GDP Growth */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">GDP Growth</td>
+                        <td className="p-4 text-center font-bold">3.10%</td>
+                        <td className="p-4 text-center">2.80%</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-primary/20 text-primary">0.30%</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* Manufacturing PMIs */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">Manufacturing PMIs</td>
+                        <td className="p-4 text-center font-bold">49.3</td>
+                        <td className="p-4 text-center">48.2</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-primary/20 text-primary">1.10</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* Services PMIs */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">Services PMIs</td>
+                        <td className="p-4 text-center font-bold">54.1</td>
+                        <td className="p-4 text-center">53.5</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-primary/20 text-primary">0.60</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* Retail Sales MoM */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">Retail Sales MoM</td>
+                        <td className="p-4 text-center font-bold">0.40</td>
+                        <td className="p-4 text-center">0.60</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-destructive/20 text-destructive">-0.20</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* CPI YoY */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">CPI YoY</td>
+                        <td className="p-4 text-center font-bold">2.9%</td>
+                        <td className="p-4 text-center">2.9%</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-muted text-muted-foreground">0.0%</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* Core CPI MoM */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">Core CPI MoM</td>
+                        <td className="p-4 text-center font-bold">0.2%</td>
+                        <td className="p-4 text-center">0.3%</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-primary/20 text-primary">-0.1%</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* PPI YoY */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">PPI YoY</td>
+                        <td className="p-4 text-center font-bold">3.3%</td>
+                        <td className="p-4 text-center">3.5%</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-primary/20 text-primary">-0.2%</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* Core PCE */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">Core PCE</td>
+                        <td className="p-4 text-center font-bold">2.8%</td>
+                        <td className="p-4 text-center">2.9%</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-primary/20 text-primary">-0.10%</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* NFP */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">NFP</td>
+                        <td className="p-4 text-center font-bold">256k</td>
+                        <td className="p-4 text-center">160k</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-primary/20 text-primary">96k</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* Unemployment Rate */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">Unemployment Rate</td>
+                        <td className="p-4 text-center font-bold">4.1%</td>
+                        <td className="p-4 text-center">4.2%</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-primary/20 text-primary">-0.1%</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* Unemployment Claims */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">Unemployment Claims</td>
+                        <td className="p-4 text-center font-bold">223K</td>
+                        <td className="p-4 text-center">221K</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-destructive/20 text-destructive">+2K</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* ADP (USD) */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">ADP (USD)</td>
+                        <td className="p-4 text-center font-bold">122K</td>
+                        <td className="p-4 text-center">139K</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-destructive/20 text-destructive">-17K</Badge>
+                        </td>
+                      </tr>
+                      
+                      {/* JOLTS Job Openings */}
+                      <tr className="border-b border-border/50 hover:bg-muted/10">
+                        <td className="p-4 font-medium">JOLTS Job Openings</td>
+                        <td className="p-4 text-center font-bold">8.10M</td>
+                        <td className="p-4 text-center">7.73M</td>
+                        <td className="p-4 text-center">
+                          <Badge className="bg-primary/20 text-primary">0.37M</Badge>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
