@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 import { Dashboard } from './components/Dashboard';
 import { TradingJournal } from './components/TradingJournal';
 import { CurrencyHeatmap } from './components/CurrencyHeatmap';
+import { MemberCommunity } from './components/MemberCommunity';
 import { TradingMasteryLearning } from './components/TradingMasteryLearning';
 import { BusinessOperationsLearning } from './components/BusinessOperationsLearning';
 import { TradingPsychologyLearning } from './components/TradingPsychologyLearning';
@@ -19,7 +20,7 @@ import { TrainingSection } from './components/TrainingSection';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [currentView, setCurrentView] = React.useState<'dashboard' | 'journal' | 'heatmap' | 'trading-mastery' | 'business-ops' | 'psychology' | 'capital-mgmt'>('dashboard');
+  const [currentView, setCurrentView] = React.useState<'dashboard' | 'journal' | 'heatmap' | 'community' | 'trading-mastery' | 'business-ops' | 'psychology' | 'capital-mgmt'>('dashboard');
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -36,6 +37,10 @@ function App() {
 
   const handleNavigateToHeatmap = () => {
     setCurrentView('heatmap');
+  };
+
+  const handleNavigateToCommunity = () => {
+    setCurrentView('community');
   };
 
   const handleNavigateToTradingMastery = () => {
@@ -65,6 +70,9 @@ function App() {
     if (currentView === 'heatmap') {
       return <CurrencyHeatmap onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
     }
+    if (currentView === 'community') {
+      return <MemberCommunity onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
+    }
     if (currentView === 'trading-mastery') {
       return <TradingMasteryLearning onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
     }
@@ -77,7 +85,7 @@ function App() {
     if (currentView === 'capital-mgmt') {
       return <CapitalManagementLearning onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
     }
-    return <Dashboard onLogout={handleLogout} onNavigateToJournal={handleNavigateToJournal} onNavigateToHeatmap={handleNavigateToHeatmap} onNavigateToTradingMastery={handleNavigateToTradingMastery} onNavigateToBusinessOps={handleNavigateToBusinessOps} onNavigateToPsychology={handleNavigateToPsychology} onNavigateToCapitalMgmt={handleNavigateToCapitalMgmt} />;
+    return <Dashboard onLogout={handleLogout} onNavigateToJournal={handleNavigateToJournal} onNavigateToHeatmap={handleNavigateToHeatmap} onNavigateToCommunity={handleNavigateToCommunity} onNavigateToTradingMastery={handleNavigateToTradingMastery} onNavigateToBusinessOps={handleNavigateToBusinessOps} onNavigateToPsychology={handleNavigateToPsychology} onNavigateToCapitalMgmt={handleNavigateToCapitalMgmt} />;
   }
 
   return (
