@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SquadsHub } from './SquadsHub';
+import { CreateSquadModal } from './CreateSquadModal';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -106,6 +107,117 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
 
   // Add squads view state
   const [showSquads, setShowSquads] = useState(false);
+  const [showCreateSquad, setShowCreateSquad] = useState(false);
+  const [pastTasks, setPastTasks] = useState<Task[]>([]);
+
+  // Interface for past tasks that can be included in new squads
+  interface Task {
+    id: string;
+    title: string;
+    description: string;
+    category: 'trading' | 'business' | 'learning' | 'accountability';
+    priority: 'low' | 'medium' | 'high';
+    assignedDate: Date;
+    dueDate?: Date;
+    status: 'pending' | 'in-progress' | 'completed' | 'cancelled';
+    tags: string[];
+    estimatedHours?: number;
+  }
+
+  // Load past tasks on component mount
+  useEffect(() => {
+    const loadPastTasks = () => {
+      // Sample past tasks - in real implementation, this would come from API/database
+      const sampleTasks: Task[] = [
+        {
+          id: '1',
+          title: 'Complete Trading Psychology Module',
+          description: 'Finish the advanced trading psychology course and submit reflection essay',
+          category: 'learning',
+          priority: 'high',
+          assignedDate: new Date('2024-01-10'),
+          dueDate: new Date('2024-01-25'),
+          status: 'in-progress',
+          tags: ['psychology', 'education', 'self-development'],
+          estimatedHours: 8
+        },
+        {
+          id: '2',
+          title: 'Develop Risk Management SOP',
+          description: 'Create standard operating procedure for position sizing and risk management',
+          category: 'business',
+          priority: 'high',
+          assignedDate: new Date('2024-01-08'),
+          dueDate: new Date('2024-01-30'),
+          status: 'pending',
+          tags: ['risk-management', 'sop', 'business-ops'],
+          estimatedHours: 12
+        },
+        {
+          id: '3',
+          title: 'Backtest Breakout Strategy',
+          description: 'Conduct comprehensive backtesting on breakout strategy across major pairs',
+          category: 'trading',
+          priority: 'medium',
+          assignedDate: new Date('2024-01-12'),
+          dueDate: new Date('2024-02-01'),
+          status: 'pending',
+          tags: ['backtesting', 'strategy', 'analysis'],
+          estimatedHours: 16
+        },
+        {
+          id: '4',
+          title: 'Weekly Trading Journal Review',
+          description: 'Analyze weekly trading performance and identify improvement areas',
+          category: 'accountability',
+          priority: 'medium',
+          assignedDate: new Date('2024-01-15'),
+          status: 'completed',
+          tags: ['journal', 'review', 'performance'],
+          estimatedHours: 2
+        },
+        {
+          id: '5',
+          title: 'Market Correlation Analysis',
+          description: 'Study correlations between major currency pairs and commodities',
+          category: 'learning',
+          priority: 'low',
+          assignedDate: new Date('2024-01-05'),
+          dueDate: new Date('2024-02-15'),
+          status: 'pending',
+          tags: ['correlation', 'analysis', 'research'],
+          estimatedHours: 6
+        }
+      ];
+      setPastTasks(sampleTasks);
+    };
+
+    loadPastTasks();
+  }, []);
+
+  // Handler for the "Create Squad" button click
+  const handleCreateSquadClick = () => {
+    try {
+      // Check if past tasks exist
+      if (pastTasks.length === 0) {
+        console.warn('No past tasks found for squad creation');
+        // Still allow squad creation but show empty task list
+      }
+      
+      // Open the squad creation modal
+      setShowCreateSquad(true);
+    } catch (error) {
+      console.error('Error opening squad creation menu:', error);
+      // Could show error toast here
+    }
+  };
+
+  // Handler for successful squad creation
+  const handleSquadCreated = (newSquad: any) => {
+    setShowCreateSquad(false);
+    // Refresh squads list or navigate to new squad
+    console.log('New squad created:', newSquad);
+  };
 
   // If showing squads, render the SquadsHub component
   if (showSquads) {
