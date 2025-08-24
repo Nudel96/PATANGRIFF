@@ -97,7 +97,7 @@ interface MemberCommunityProps {
 }
 
 export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogout }) => {
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState('squads');
   const [selectedForum, setSelectedForum] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterAsset, setFilterAsset] = useState('all');
@@ -105,8 +105,6 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
   const [sortBy, setSortBy] = useState('recent');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  // Add squads view state
-  const [showSquads, setShowSquads] = useState(false);
   const [showCreateSquad, setShowCreateSquad] = useState(false);
   const [pastTasks, setPastTasks] = useState<Task[]>([]);
 
@@ -215,14 +213,10 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
   // Handler for successful squad creation
   const handleSquadCreated = (newSquad: any) => {
     setShowCreateSquad(false);
-    // Refresh squads list or navigate to new squad
+    setActiveTab('squads');
     console.log('New squad created:', newSquad);
   };
 
-  // If showing squads, render the SquadsHub component
-  if (showSquads) {
-    return <SquadsHub />;
-  }
 
   // Sample data
   const samplePosts: Post[] = [
@@ -476,6 +470,109 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
       ]
     }
   ];
+
+  const renderSquadsContent = () => (
+    <div className="space-y-6">
+      {/* Squads Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold">Squads Hub</h2>
+          <p className="text-muted-foreground">Collaborative Learning & Accountability Groups</p>
+        </div>
+        <Button 
+          onClick={handleCreateSquadClick}
+          className="bg-primary hover:bg-primary/90 text-primary-foreground"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Create Squad
+        </Button>
+      </div>
+
+      {/* Squad Discovery */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {sampleSquads.map((squad) => (
+          <Card key={squad.id} className="military-card group cursor-pointer hover:border-primary/30">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg">{squad.name}</CardTitle>
+                <Badge className={squad.isOpen ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary'}>
+                  {squad.isOpen ? 'Open' : 'Invite Only'}
+                </Badge>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">{squad.description}</p>
+              
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Members:</span>
+                  <span className="font-medium">{squad.memberCount}/{squad.maxMembers}</span>
+                </div>
+                
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Meetings:</span>
+                  <span className="font-medium">{squad.meetingCadence}</span>
+                </div>
+                
+                <div className="flex flex-wrap gap-1">
+                  {squad.tags.slice(0, 3).map((tag, index) => (
+                    <Badge key={index} variant="outline" className="text-xs">
+                      #{tag}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              
+              <Button className="w-full mt-4 bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+                {squad.isOpen ? 'Join Squad' : 'Request to Join'}
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderForumsContent = () => (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold">Discussion Forums</h2>
+      
+      {/* Forums Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {forums.map((forum) => (
+          <Card key={forum.id} className="military-card group cursor-pointer hover:border-primary/30">
+            <CardContent className="p-6">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="bg-primary/10 p-2 rounded-lg">
+                  <forum.icon className={`w-5 h-5 ${forum.color}`} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">{forum.name}</h3>
+                </div>
+              </div>
+              
+              <p className="text-sm text-muted-foreground mb-4">{forum.description}</p>
+              
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Posts:</span>
+                  <span className="font-medium">{forum.posts}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Members:</span>
+                  <span className="font-medium">{forum.members.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Today:</span>
+                  <span className="font-medium text-primary">{forum.todaysPosts} new</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
 
   const sampleEvents: Event[] = [
     {
