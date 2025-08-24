@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { UserSettings } from './UserSettings';
 import { 
   Shield, 
   TrendingUp, 
@@ -71,6 +72,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
   onNavigateToCapitalMgmt
 }) => {
   const [activeSection, setActiveSection] = useState('home');
+  const [showUserSettings, setShowUserSettings] = useState(false);
 
   // Quick stats for overview
   const quickStats = [
@@ -634,6 +636,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
     </div>
   );
 
+  if (showUserSettings) {
+    return (
+      <UserSettings 
+        onBack={() => setShowUserSettings(false)}
+        onLogout={onLogout}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Dashboard Header */}
@@ -709,7 +720,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <div className="w-1.5 h-1.5 bg-primary-foreground rounded-full" />
                 </div>
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" onClick={() => setShowUserSettings(true)}>
                 <Settings className="w-4 h-4" />
               </Button>
               <Button variant="outline" size="sm" onClick={onLogout}>
