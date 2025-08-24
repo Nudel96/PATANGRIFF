@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Shield, 
   TrendingUp, 
@@ -43,7 +42,11 @@ import {
   Plus,
   Filter,
   Search,
-  ArrowRight
+  ArrowRight,
+  Home,
+  Map,
+  Compass,
+  LineChart
 } from 'lucide-react';
 
 interface DashboardProps {
@@ -65,367 +68,550 @@ export const Dashboard: React.FC<DashboardProps> = ({
   onNavigateToPsychology,
   onNavigateToCapitalMgmt
 }) => {
-  const [activeSection, setActiveSection] = useState('overview');
+  const [activeSection, setActiveSection] = useState('home');
 
+  // Quick stats for overview
+  const quickStats = [
+    { label: 'Total Progress', value: '52%', icon: BarChart3, color: 'primary' },
+    { label: 'Trades Logged', value: '127', icon: FileText, color: 'secondary' },
+    { label: 'Win Rate', value: '73%', icon: Target, color: 'primary' },
+    { label: 'Days Active', value: '89', icon: Calendar, color: 'secondary' }
+  ];
+
+  // Four Pillars progress data
   const pillarsProgress = [
-    { name: 'Trading Mastery', progress: 75, color: 'primary', icon: TrendingUp },
-    { name: 'Business Operations', progress: 45, color: 'secondary', icon: Building2 },
-    { name: 'Capital Management', progress: 60, color: 'primary', icon: DollarSign },
-    { name: 'Trading Psychology', progress: 30, color: 'secondary', icon: Brain }
+    { name: 'Trading Mastery', progress: 75, color: 'primary', icon: TrendingUp, onClick: onNavigateToTradingMastery },
+    { name: 'Business Operations', progress: 45, color: 'secondary', icon: Building2, onClick: onNavigateToBusinessOps },
+    { name: 'Capital Management', progress: 60, color: 'primary', icon: DollarSign, onClick: onNavigateToCapitalMgmt },
+    { name: 'Trading Psychology', progress: 30, color: 'secondary', icon: Brain, onClick: onNavigateToPsychology }
   ];
 
+  // Recent activity data
   const recentActivity = [
-    { action: 'Completed: Risk Management Module', time: '2 hours ago', type: 'course' },
-    { action: 'New trade logged: EURUSD Long', time: '4 hours ago', type: 'trade' },
-    { action: 'Joined live session: Market Analysis', time: '1 day ago', type: 'session' },
-    { action: 'Achievement unlocked: Discipline Warrior', time: '2 days ago', type: 'achievement' }
+    { action: 'Completed: Risk Management Module', time: '2 hours ago', type: 'course', icon: CheckCircle },
+    { action: 'New trade logged: EURUSD Long', time: '4 hours ago', type: 'trade', icon: TrendingUp },
+    { action: 'Joined live session: Market Analysis', time: '1 day ago', type: 'session', icon: Video },
+    { action: 'Achievement unlocked: Discipline Warrior', time: '2 days ago', type: 'achievement', icon: Award }
   ];
 
-  const renderOverview = () => (
+  // Main navigation sections
+  const mainSections = [
+    {
+      id: 'learning',
+      title: 'Learning Center',
+      subtitle: 'Master the Four Pillars',
+      description: 'Comprehensive education across Trading Mastery, Business Operations, Psychology, and Capital Management',
+      icon: GraduationCap,
+      color: 'primary',
+      features: ['30 Levels per Pillar', 'XP Progression', 'Interactive Modules', 'Assessments'],
+      action: 'Start Learning',
+      onClick: () => setActiveSection('learning')
+    },
+    {
+      id: 'heatmap',
+      title: 'Market Heatmap',
+      subtitle: 'Real-time Market Analysis',
+      description: 'Live currency strength analysis with comprehensive economic data and trading signals',
+      icon: Activity,
+      color: 'secondary',
+      features: ['Live Data', 'Currency Strength', 'Economic Indicators', 'Trading Signals'],
+      action: 'View Markets',
+      onClick: onNavigateToHeatmap
+    },
+    {
+      id: 'journal',
+      title: 'Trading Journal',
+      subtitle: 'Track & Analyze Performance',
+      description: 'Professional trade logging with pre-trade checklists, analytics, and performance tracking',
+      icon: FileText,
+      color: 'primary',
+      features: ['Trade Logging', 'Pre-trade Checklist', 'Analytics', 'Calendar View'],
+      action: 'Open Journal',
+      onClick: onNavigateToJournal
+    }
+  ];
+
+  const renderMainDashboard = () => (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">
-            Welcome back, <span className="gradient-text">Warrior</span>
-          </h1>
-          <p className="text-foreground/70">
-            Continue your transformation from chart-watcher to market operator.
-          </p>
-        </div>
-        <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2">
-          <Award className="w-4 h-4 mr-2" />
-          Elite Member
+      <div className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          Welcome back, <span className="gradient-text">Warrior</span>
+        </h1>
+        <p className="text-xl text-foreground/70 max-w-3xl mx-auto mb-6">
+          Continue your transformation from chart-watcher to market operator. 
+          Choose your path to excellence.
+        </p>
+        <Badge className="bg-primary/10 text-primary border-primary/20 px-6 py-2 text-lg">
+          <Award className="w-5 h-5 mr-2" />
+          Elite Warrior Member
         </Badge>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="military-card">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Progress</p>
-                <p className="text-2xl font-bold text-primary">52%</p>
+      {/* Quick Stats Overview */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        {quickStats.map((stat, index) => (
+          <Card key={index} className="military-card">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                  <p className={`text-2xl font-bold text-${stat.color}`}>{stat.value}</p>
+                </div>
+                <div className={`bg-${stat.color}/10 p-2 rounded-lg`}>
+                  <stat.icon className={`w-5 h-5 text-${stat.color}`} />
+                </div>
               </div>
-              <div className="bg-primary/10 p-3 rounded-xl">
-                <BarChart3 className="w-6 h-6 text-primary" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="military-card">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Trades Logged</p>
-                <p className="text-2xl font-bold text-secondary">127</p>
-              </div>
-              <div className="bg-secondary/10 p-3 rounded-xl">
-                <FileText className="w-6 h-6 text-secondary" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="military-card">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Win Rate</p>
-                <p className="text-2xl font-bold text-primary">73%</p>
-              </div>
-              <div className="bg-primary/10 p-3 rounded-xl">
-                <Target className="w-6 h-6 text-primary" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="military-card">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Days Active</p>
-                <p className="text-2xl font-bold text-secondary">89</p>
-              </div>
-              <div className="bg-secondary/10 p-3 rounded-xl">
-                <Calendar className="w-6 h-6 text-secondary" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Four Pillars Progress */}
-        <div className="lg:col-span-2">
-          <Card className="military-card">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Shield className="w-5 h-5 text-primary" />
-                <span>Four Pillars Mastery</span>
-              </CardTitle>
+      {/* Main Navigation Sections */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        {mainSections.map((section, index) => (
+          <Card key={section.id} className="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" onClick={section.onClick}>
+            <CardHeader className="text-center pb-4">
+              <div className={`bg-${section.color}/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-${section.color}/20 transition-colors`}>
+                <section.icon className={`w-10 h-10 text-${section.color}`} />
+              </div>
+              <CardTitle className="text-2xl mb-2">{section.title}</CardTitle>
+              <p className={`text-${section.color} font-semibold`}>{section.subtitle}</p>
             </CardHeader>
-            <CardContent className="space-y-6">
-              {pillarsProgress.map((pillar, index) => (
-                <div key={index} className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className={`bg-${pillar.color}/10 p-2 rounded-lg`}>
-                        <pillar.icon className={`w-4 h-4 text-${pillar.color}`} />
-                      </div>
-                      <span className="font-semibold">{pillar.name}</span>
-                    </div>
-                    <span className={`text-${pillar.color} font-bold`}>{pillar.progress}%</span>
+            <CardContent className="text-center">
+              <p className="text-foreground/70 mb-6 leading-relaxed">
+                {section.description}
+              </p>
+              
+              <div className="grid grid-cols-2 gap-2 mb-6">
+                {section.features.map((feature, featureIndex) => (
+                  <div key={featureIndex} className="flex items-center space-x-2 text-sm">
+                    <div className={`w-2 h-2 bg-${section.color} rounded-full`} />
+                    <span className="text-foreground/80">{feature}</span>
                   </div>
-                  <Progress value={pillar.progress} className="h-2" />
-                </div>
-              ))}
+                ))}
+              </div>
+              
               <Button 
-                className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground"
-                onClick={onNavigateToTradingMastery}
+                className={`w-full bg-${section.color} hover:bg-${section.color}/90 text-${section.color}-foreground group`}
+                size="lg"
               >
-                Continue Training
-                <ChevronRight className="ml-2 w-4 h-4" />
+                {section.action}
+                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </CardContent>
           </Card>
-        </div>
+        ))}
+      </div>
 
-        {/* Recent Activity */}
-        <div>
-          <Card className="military-card">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Activity className="w-5 h-5 text-primary" />
-                <span>Recent Activity</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {recentActivity.map((activity, index) => (
-                <div key={index} className="flex items-start space-x-3 p-3 bg-muted/10 rounded-lg">
-                  <div className={`w-2 h-2 rounded-full mt-2 ${
-                    activity.type === 'course' ? 'bg-primary' :
-                    activity.type === 'trade' ? 'bg-secondary' :
-                    activity.type === 'session' ? 'bg-primary' : 'bg-secondary'
-                  }`} />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">{activity.action}</p>
-                    <p className="text-xs text-muted-foreground">{activity.time}</p>
+      {/* Secondary Features Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Four Pillars Progress */}
+        <Card className="military-card">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <Shield className="w-5 h-5 text-primary" />
+              <span>Four Pillars Progress</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {pillarsProgress.map((pillar, index) => (
+              <div key={index} className="space-y-3 cursor-pointer group" onClick={pillar.onClick}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className={`bg-${pillar.color}/10 p-2 rounded-lg group-hover:bg-${pillar.color}/20 transition-colors`}>
+                      <pillar.icon className={`w-4 h-4 text-${pillar.color}`} />
+                    </div>
+                    <span className="font-semibold group-hover:text-primary transition-colors">{pillar.name}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className={`text-${pillar.color} font-bold`}>{pillar.progress}%</span>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                   </div>
                 </div>
-              ))}
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </div>
-  );
+                <Progress value={pillar.progress} className="h-2" />
+              </div>
+            ))}
+          </CardContent>
+        </Card>
 
-  const renderTradingMastery = () => (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold mb-2 flex items-center space-x-2">
-            <TrendingUp className="w-6 h-6 text-primary" />
-            <span>Trading Mastery</span>
-          </h2>
-          <p className="text-foreground/70">30-Level Professional Development Program</p>
-        </div>
-        <Badge className="bg-primary/10 text-primary border-primary/20">Level 1/30</Badge>
+        {/* Recent Activity */}
+        <Card className="military-card">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <Activity className="w-5 h-5 text-secondary" />
+              <span>Recent Activity</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {recentActivity.map((activity, index) => (
+              <div key={index} className="flex items-start space-x-3 p-3 bg-muted/10 rounded-lg hover:bg-muted/20 transition-colors">
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                  activity.type === 'course' ? 'bg-primary/10' :
+                  activity.type === 'trade' ? 'bg-secondary/10' :
+                  activity.type === 'session' ? 'bg-primary/10' : 'bg-secondary/10'
+                }`}>
+                  <activity.icon className={`w-4 h-4 ${
+                    activity.type === 'course' ? 'text-primary' :
+                    activity.type === 'trade' ? 'text-secondary' :
+                    activity.type === 'session' ? 'text-primary' : 'text-secondary'
+                  }`} />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">{activity.action}</p>
+                  <p className="text-xs text-muted-foreground">{activity.time}</p>
+                </div>
+              </div>
+            ))}
+            
+            <Button variant="outline" className="w-full mt-4">
+              View All Activity
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Launch Trading Mastery Learning */}
+      {/* Quick Actions Bar */}
       <Card className="military-card">
-        <CardContent className="p-8 text-center">
-          <div className="bg-primary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <GraduationCap className="w-10 h-10 text-primary" />
+        <CardContent className="p-6">
+          <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2">
+            <Zap className="w-5 h-5 text-primary" />
+            <span>Quick Actions</span>
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={onNavigateToJournal}>
+              <Plus className="w-5 h-5 text-primary" />
+              <span className="text-sm">Log Trade</span>
+            </Button>
+            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={onNavigateToHeatmap}>
+              <LineChart className="w-5 h-5 text-secondary" />
+              <span className="text-sm">Check Markets</span>
+            </Button>
+            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={onNavigateToTradingMastery}>
+              <BookOpen className="w-5 h-5 text-primary" />
+              <span className="text-sm">Continue Learning</span>
+            </Button>
+            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+              <MessageCircle className="w-5 h-5 text-secondary" />
+              <span className="text-sm">Community</span>
+            </Button>
           </div>
-          <h3 className="text-2xl font-bold mb-4">Master Trading Through 30 Progressive Levels</h3>
-          <p className="text-foreground/70 mb-6 max-w-2xl mx-auto">
-            Transform from chart-watcher to market operator through our systematic 30-level progression. 
-            Each level builds upon the previous, ensuring comprehensive mastery of technical analysis, 
-            risk management, psychology, and market fundamentals.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div className="p-4 bg-green-500/10 rounded-lg">
-              <div className="text-lg font-bold text-green-500 mb-1">Levels 1-10</div>
-              <div className="text-sm text-muted-foreground">Beginner Foundations</div>
-            </div>
-            <div className="p-4 bg-blue-500/10 rounded-lg">
-              <div className="text-lg font-bold text-blue-500 mb-1">Levels 11-20</div>
-              <div className="text-sm text-muted-foreground">Intermediate Skills</div>
-            </div>
-            <div className="p-4 bg-purple-500/10 rounded-lg">
-              <div className="text-lg font-bold text-purple-500 mb-1">Levels 21-30</div>
-              <div className="text-sm text-muted-foreground">Professional Mastery</div>
-            </div>
-          </div>
-          <Button 
-            size="lg" 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold"
-            onClick={onNavigateToTradingMastery}
-          >
-            Start Your Journey
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
         </CardContent>
       </Card>
     </div>
   );
 
-  const renderBusinessOperations = () => (
+  const renderLearningSection = () => (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold mb-2 flex items-center space-x-2">
-            <Building2 className="w-6 h-6 text-secondary" />
-            <span>Business Operations</span>
-          </h2>
-          <p className="text-foreground/70">30-Level Professional Development Program</p>
+      {/* Learning Header */}
+      <div className="text-center mb-12">
+        <div className="bg-primary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <GraduationCap className="w-10 h-10 text-primary" />
         </div>
-        <Badge className="bg-secondary/10 text-secondary border-secondary/20">Level 1/30</Badge>
+        <h2 className="text-4xl font-bold mb-4">
+          Warrior Development
+          <span className="block gradient-text">Learning Center</span>
+        </h2>
+        <p className="text-xl text-foreground/70 max-w-3xl mx-auto">
+          Master the Four Pillars of Trading Excellence through our comprehensive 30-level progression system. 
+          Each pillar builds the skills needed to transform from chart-watcher to market operator.
+        </p>
       </div>
 
-      {/* Launch Business Operations Learning */}
-      <Card className="military-card">
-        <CardContent className="p-8 text-center">
-          <div className="bg-secondary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <Building2 className="w-10 h-10 text-secondary" />
-          </div>
-          <h3 className="text-2xl font-bold mb-4">Master Business Operations Through 30 Progressive Levels</h3>
-          <p className="text-foreground/70 mb-6 max-w-2xl mx-auto">
-            Transform your trading into a systematic business operation through comprehensive development 
-            of processes, analytics, and management skills across 30 structured levels.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div className="p-4 bg-green-500/10 rounded-lg">
-              <div className="text-lg font-bold text-green-500 mb-1">Levels 1-10</div>
-              <div className="text-sm text-muted-foreground">Business Foundations</div>
+      {/* Four Pillars Learning Paths */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Trading Mastery */}
+        <Card className="military-card group cursor-pointer" onClick={onNavigateToTradingMastery}>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="bg-primary/10 p-3 rounded-xl group-hover:bg-primary/20 transition-colors">
+                  <TrendingUp className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl">Trading Mastery</CardTitle>
+                  <p className="text-primary font-semibold">Analytical & Execution Excellence</p>
+                </div>
+              </div>
+              <Badge className="bg-primary/10 text-primary">Level 8/30</Badge>
             </div>
-            <div className="p-4 bg-blue-500/10 rounded-lg">
-              <div className="text-lg font-bold text-blue-500 mb-1">Levels 11-20</div>
-              <div className="text-sm text-muted-foreground">Advanced Systems</div>
+          </CardHeader>
+          <CardContent>
+            <p className="text-foreground/70 mb-4">
+              Master the complete trading sequence from macro-economic analysis to precise execution. 
+              Develop systematic approaches to market analysis and risk-managed position sizing.
+            </p>
+            <div className="space-y-2 mb-4">
+              <div className="flex justify-between text-sm">
+                <span>Progress</span>
+                <span>75%</span>
+              </div>
+              <Progress value={75} className="h-2" />
             </div>
-            <div className="p-4 bg-purple-500/10 rounded-lg">
-              <div className="text-lg font-bold text-purple-500 mb-1">Levels 21-30</div>
-              <div className="text-sm text-muted-foreground">Professional Operations</div>
+            <div className="grid grid-cols-3 gap-2 text-xs text-center mb-4">
+              <div className="p-2 bg-green-500/10 rounded">
+                <div className="font-bold text-green-500">1-10</div>
+                <div className="text-muted-foreground">Foundations</div>
+              </div>
+              <div className="p-2 bg-blue-500/10 rounded">
+                <div className="font-bold text-blue-500">11-20</div>
+                <div className="text-muted-foreground">Advanced</div>
+              </div>
+              <div className="p-2 bg-purple-500/10 rounded">
+                <div className="font-bold text-purple-500">21-30</div>
+                <div className="text-muted-foreground">Professional</div>
+              </div>
             </div>
-          </div>
-          <Button 
-            size="lg" 
-            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-6 text-lg font-semibold"
-            onClick={onNavigateToBusinessOps}
-          >
-            Start Your Journey
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
-  );
+            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground group">
+              Continue Journey
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </CardContent>
+        </Card>
 
-  const renderTradingPsychology = () => (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold mb-2 flex items-center space-x-2">
-            <Brain className="w-6 h-6 text-secondary" />
-            <span>Trading Psychology</span>
-          </h2>
-          <p className="text-foreground/70">30-Level Professional Development Program</p>
-        </div>
-        <Badge className="bg-secondary/10 text-secondary border-secondary/20">Level 1/30</Badge>
+        {/* Business Operations */}
+        <Card className="military-card group cursor-pointer" onClick={onNavigateToBusinessOps}>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="bg-secondary/10 p-3 rounded-xl group-hover:bg-secondary/20 transition-colors">
+                  <Building2 className="w-6 h-6 text-secondary" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl">Business Operations</CardTitle>
+                  <p className="text-secondary font-semibold">Professional Trading Practices</p>
+                </div>
+              </div>
+              <Badge className="bg-secondary/10 text-secondary">Level 5/30</Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <p className="text-foreground/70 mb-4">
+              Transform trading from hobby to professional enterprise. Develop systematic business 
+              operations including SOPs, KPI tracking, and scalable processes.
+            </p>
+            <div className="space-y-2 mb-4">
+              <div className="flex justify-between text-sm">
+                <span>Progress</span>
+                <span>45%</span>
+              </div>
+              <Progress value={45} className="h-2" />
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-xs text-center mb-4">
+              <div className="p-2 bg-green-500/10 rounded">
+                <div className="font-bold text-green-500">1-10</div>
+                <div className="text-muted-foreground">Foundations</div>
+              </div>
+              <div className="p-2 bg-blue-500/10 rounded">
+                <div className="font-bold text-blue-500">11-20</div>
+                <div className="text-muted-foreground">Strategy</div>
+              </div>
+              <div className="p-2 bg-purple-500/10 rounded">
+                <div className="font-bold text-purple-500">21-30</div>
+                <div className="text-muted-foreground">Scaling</div>
+              </div>
+            </div>
+            <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground group">
+              Continue Journey
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Trading Psychology */}
+        <Card className="military-card group cursor-pointer" onClick={onNavigateToPsychology}>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="bg-secondary/10 p-3 rounded-xl group-hover:bg-secondary/20 transition-colors">
+                  <Brain className="w-6 h-6 text-secondary" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl">Trading Psychology</CardTitle>
+                  <p className="text-secondary font-semibold">Mental Framework & Discipline</p>
+                </div>
+              </div>
+              <Badge className="bg-secondary/10 text-secondary">Level 3/30</Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <p className="text-foreground/70 mb-4">
+              Forge the mental conditioning required for consistent market success. Develop anti-tilt 
+              strategies, ego management, and professional identity formation.
+            </p>
+            <div className="space-y-2 mb-4">
+              <div className="flex justify-between text-sm">
+                <span>Progress</span>
+                <span>30%</span>
+              </div>
+              <Progress value={30} className="h-2" />
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-xs text-center mb-4">
+              <div className="p-2 bg-green-500/10 rounded">
+                <div className="font-bold text-green-500">1-10</div>
+                <div className="text-muted-foreground">Emotional</div>
+              </div>
+              <div className="p-2 bg-blue-500/10 rounded">
+                <div className="font-bold text-blue-500">11-20</div>
+                <div className="text-muted-foreground">Resilience</div>
+              </div>
+              <div className="p-2 bg-purple-500/10 rounded">
+                <div className="font-bold text-purple-500">21-30</div>
+                <div className="text-muted-foreground">7 Pillars</div>
+              </div>
+            </div>
+            <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground group">
+              Continue Journey
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Capital Management */}
+        <Card className="military-card group cursor-pointer" onClick={onNavigateToCapitalMgmt}>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="bg-primary/10 p-3 rounded-xl group-hover:bg-primary/20 transition-colors">
+                  <DollarSign className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl">Capital Management</CardTitle>
+                  <p className="text-primary font-semibold">Financial Risk & Money Management</p>
+                </div>
+              </div>
+              <Badge className="bg-primary/10 text-primary">Level 6/30</Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <p className="text-foreground/70 mb-4">
+              Master the financial architecture of professional trading through systematic capital 
+              allocation, bankroll management, and survival protocols.
+            </p>
+            <div className="space-y-2 mb-4">
+              <div className="flex justify-between text-sm">
+                <span>Progress</span>
+                <span>60%</span>
+              </div>
+              <Progress value={60} className="h-2" />
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-xs text-center mb-4">
+              <div className="p-2 bg-green-500/10 rounded">
+                <div className="font-bold text-green-500">1-10</div>
+                <div className="text-muted-foreground">Risk Basics</div>
+              </div>
+              <div className="p-2 bg-blue-500/10 rounded">
+                <div className="font-bold text-blue-500">11-20</div>
+                <div className="text-muted-foreground">Portfolio</div>
+              </div>
+              <div className="p-2 bg-purple-500/10 rounded">
+                <div className="font-bold text-purple-500">21-30</div>
+                <div className="text-muted-foreground">Institutional</div>
+              </div>
+            </div>
+            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground group">
+              Continue Journey
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Launch Trading Psychology Learning */}
-      <Card className="military-card">
-        <CardContent className="p-8 text-center">
-          <div className="bg-secondary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <Brain className="w-10 h-10 text-secondary" />
-          </div>
-          <h3 className="text-2xl font-bold mb-4">Master Trading Psychology Through 30 Progressive Levels</h3>
-          <p className="text-foreground/70 mb-6 max-w-2xl mx-auto">
-            Develop the mental framework and emotional discipline required for consistent trading success 
-            through systematic psychological training and the 7 Pillars of Resilience.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div className="p-4 bg-green-500/10 rounded-lg">
-              <div className="text-lg font-bold text-green-500 mb-1">Levels 1-10</div>
-              <div className="text-sm text-muted-foreground">Emotional Foundations</div>
+      {/* Community and Additional Features */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card className="military-card">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 text-lg">
+              <Users className="w-5 h-5 text-secondary" />
+              <span>Community</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-sm text-muted-foreground">Active Members:</span>
+                <span className="font-semibold text-secondary">10,247</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-muted-foreground">Daily Messages:</span>
+                <span className="font-semibold text-secondary">1,834</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-muted-foreground">Live Sessions:</span>
+                <span className="font-semibold text-secondary">3 Today</span>
+              </div>
             </div>
-            <div className="p-4 bg-blue-500/10 rounded-lg">
-              <div className="text-lg font-bold text-blue-500 mb-1">Levels 11-20</div>
-              <div className="text-sm text-muted-foreground">Mental Resilience</div>
-            </div>
-            <div className="p-4 bg-purple-500/10 rounded-lg">
-              <div className="text-lg font-bold text-purple-500 mb-1">Levels 21-30</div>
-              <div className="text-sm text-muted-foreground">7 Pillars Mastery</div>
-            </div>
-          </div>
-          <Button 
-            size="lg" 
-            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-6 text-lg font-semibold"
-            onClick={onNavigateToPsychology}
-          >
-            Start Your Journey
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
-  );
+            <Button variant="outline" className="w-full mt-4">
+              Join Discussion
+            </Button>
+          </CardContent>
+        </Card>
 
-  const renderCapitalManagement = () => (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold mb-2 flex items-center space-x-2">
-            <DollarSign className="w-6 h-6 text-primary" />
-            <span>Capital Management</span>
-          </h2>
-          <p className="text-foreground/70">30-Level Professional Development Program</p>
-        </div>
-        <Badge className="bg-primary/10 text-primary border-primary/20">Level 1/30</Badge>
+        <Card className="military-card">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 text-lg">
+              <Calendar className="w-5 h-5 text-primary" />
+              <span>Today's Schedule</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 p-2 bg-primary/10 rounded">
+                <Clock className="w-4 h-4 text-primary" />
+                <div>
+                  <div className="text-sm font-medium">Market Analysis</div>
+                  <div className="text-xs text-muted-foreground">2:00 PM EST</div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3 p-2 bg-secondary/10 rounded">
+                <Video className="w-4 h-4 text-secondary" />
+                <div>
+                  <div className="text-sm font-medium">Psychology Session</div>
+                  <div className="text-xs text-muted-foreground">4:00 PM EST</div>
+                </div>
+              </div>
+            </div>
+            <Button variant="outline" className="w-full mt-4">
+              View Full Calendar
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="military-card">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 text-lg">
+              <Award className="w-5 h-5 text-primary" />
+              <span>Achievements</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <div className="bg-primary/20 p-2 rounded">
+                  <Star className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <div className="text-sm font-medium">First Steps</div>
+                  <div className="text-xs text-muted-foreground">Complete Level 1</div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="bg-secondary/20 p-2 rounded">
+                  <Target className="w-4 h-4 text-secondary" />
+                </div>
+                <div>
+                  <div className="text-sm font-medium">Discipline Warrior</div>
+                  <div className="text-xs text-muted-foreground">Complete 10 trades</div>
+                </div>
+              </div>
+            </div>
+            <Button variant="outline" className="w-full mt-4">
+              View All Badges
+            </Button>
+          </CardContent>
+        </Card>
       </div>
-
-      {/* Launch Capital Management Learning */}
-      <Card className="military-card">
-        <CardContent className="p-8 text-center">
-          <div className="bg-primary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <DollarSign className="w-10 h-10 text-primary" />
-          </div>
-          <h3 className="text-2xl font-bold mb-4">Master Capital Management Through 30 Progressive Levels</h3>
-          <p className="text-foreground/70 mb-6 max-w-2xl mx-auto">
-            Build the financial architecture of professional trading through systematic capital allocation, 
-            risk management, and survival protocols across 30 comprehensive levels.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div className="p-4 bg-green-500/10 rounded-lg">
-              <div className="text-lg font-bold text-green-500 mb-1">Levels 1-10</div>
-              <div className="text-sm text-muted-foreground">Risk Foundations</div>
-            </div>
-            <div className="p-4 bg-blue-500/10 rounded-lg">
-              <div className="text-lg font-bold text-blue-500 mb-1">Levels 11-20</div>
-              <div className="text-sm text-muted-foreground">Portfolio Management</div>
-            </div>
-            <div className="p-4 bg-purple-500/10 rounded-lg">
-              <div className="text-lg font-bold text-purple-500 mb-1">Levels 21-30</div>
-              <div className="text-sm text-muted-foreground">Institutional Systems</div>
-            </div>
-          </div>
-          <Button 
-            size="lg" 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold"
-            onClick={onNavigateToCapitalMgmt}
-          >
-            Start Your Journey
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
-        </CardContent>
-      </Card>
     </div>
   );
 
@@ -447,6 +633,54 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </div>
             </div>
 
+            {/* Main Navigation */}
+            <nav className="hidden md:flex items-center space-x-6">
+              <Button 
+                variant={activeSection === 'home' ? 'default' : 'ghost'} 
+                size="sm"
+                onClick={() => setActiveSection('home')}
+                className="flex items-center space-x-2"
+              >
+                <Home className="w-4 h-4" />
+                <span>Dashboard</span>
+              </Button>
+              <Button 
+                variant={activeSection === 'learning' ? 'default' : 'ghost'} 
+                size="sm"
+                onClick={() => setActiveSection('learning')}
+                className="flex items-center space-x-2"
+              >
+                <GraduationCap className="w-4 h-4" />
+                <span>Learning</span>
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={onNavigateToHeatmap}
+                className="flex items-center space-x-2"
+              >
+                <Activity className="w-4 h-4" />
+                <span>Heatmap</span>
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={onNavigateToJournal}
+                className="flex items-center space-x-2"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Journal</span>
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                className="flex items-center space-x-2"
+              >
+                <Users className="w-4 h-4" />
+                <span>Community</span>
+              </Button>
+            </nav>
+
             {/* Header Actions */}
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="sm" className="relative">
@@ -467,38 +701,54 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
       </header>
 
-      <div className="container-max mx-auto px-6 py-8">
-        {/* Navigation Tabs */}
-        <Tabs value={activeSection} onValueChange={setActiveSection} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 bg-muted/20">
-            <TabsTrigger value="overview" className="flex items-center space-x-2">
-              <BarChart3 className="w-4 h-4" />
-              <span className="hidden sm:inline">Overview</span>
-            </TabsTrigger>
-            <TabsTrigger value="trading-mastery" className="flex items-center space-x-2">
-              <TrendingUp className="w-4 h-4" />
-              <span className="hidden sm:inline">Trading Mastery</span>
-            </TabsTrigger>
-            <TabsTrigger value="business-operations" className="flex items-center space-x-2">
-              <Building2 className="w-4 h-4" />
-              <span className="hidden sm:inline">Business Ops</span>
-            </TabsTrigger>
-            <TabsTrigger value="trading-psychology" className="flex items-center space-x-2">
-              <Brain className="w-4 h-4" />
-              <span className="hidden sm:inline">Psychology</span>
-            </TabsTrigger>
-            <TabsTrigger value="capital-management" className="flex items-center space-x-2">
-              <DollarSign className="w-4 h-4" />
-              <span className="hidden sm:inline">Capital Mgmt</span>
-            </TabsTrigger>
-          </TabsList>
+      {/* Mobile Navigation */}
+      <div className="md:hidden bg-card/30 backdrop-blur-sm border-b border-border/50">
+        <div className="container-max mx-auto px-6">
+          <div className="flex items-center justify-between py-3">
+            <div className="flex space-x-2">
+              <Button 
+                variant={activeSection === 'home' ? 'default' : 'ghost'} 
+                size="sm"
+                onClick={() => setActiveSection('home')}
+              >
+                <Home className="w-4 h-4" />
+              </Button>
+              <Button 
+                variant={activeSection === 'learning' ? 'default' : 'ghost'} 
+                size="sm"
+                onClick={() => setActiveSection('learning')}
+              >
+                <GraduationCap className="w-4 h-4" />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={onNavigateToHeatmap}
+              >
+                <Activity className="w-4 h-4" />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={onNavigateToJournal}
+              >
+                <FileText className="w-4 h-4" />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm"
+              >
+                <Users className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-          <TabsContent value="overview">{renderOverview()}</TabsContent>
-          <TabsContent value="trading-mastery">{renderTradingMastery()}</TabsContent>
-          <TabsContent value="business-operations">{renderBusinessOperations()}</TabsContent>
-          <TabsContent value="trading-psychology">{renderTradingPsychology()}</TabsContent>
-          <TabsContent value="capital-management">{renderCapitalManagement()}</TabsContent>
-        </Tabs>
+      {/* Main Content */}
+      <div className="container-max mx-auto px-6 py-8">
+        {activeSection === 'home' && renderMainDashboard()}
+        {activeSection === 'learning' && renderLearningSection()}
       </div>
     </div>
   );
