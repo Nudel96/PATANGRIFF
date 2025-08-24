@@ -615,5 +615,70 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
       id: '4',
       
     }
-  ]
-}
+  ];
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="bg-card/50 backdrop-blur-sm border-b border-border/50 sticky top-0 z-40">
+        <div className="container-max mx-auto px-6">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center space-x-4">
+              <Button variant="ghost" size="sm" onClick={onBack}>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Dashboard
+              </Button>
+              <div className="flex items-center space-x-3">
+                <div className="bg-secondary/10 p-2 rounded-lg">
+                  <Users className="w-6 h-6 text-secondary" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold gradient-text">Community Hub</h1>
+                  <p className="text-sm text-foreground/70">Brotherhood of Warriors</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-4">
+              <Button variant="outline" size="sm" onClick={onLogout}>
+                <LogOut className="w-4 h-4 mr-2" />
+                Exit Portal
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="container-max mx-auto px-6 py-8">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2 bg-muted/20">
+            <TabsTrigger value="squads" className="flex items-center space-x-2">
+              <Shield className="w-4 h-4" />
+              <span>Squads</span>
+            </TabsTrigger>
+            <TabsTrigger value="forums" className="flex items-center space-x-2">
+              <MessageCircle className="w-4 h-4" />
+              <span>Forums</span>
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="squads">
+            {renderSquadsContent()}
+          </TabsContent>
+
+          <TabsContent value="forums">
+            {renderForumsContent()}
+          </TabsContent>
+        </Tabs>
+
+        {/* Create Squad Modal */}
+        <CreateSquadModal
+          isOpen={showCreateSquad}
+          onClose={() => setShowCreateSquad(false)}
+          onSquadCreated={handleSquadCreated}
+          pastTasks={pastTasks}
+        />
+      </div>
+    </div>
+  );
+};
