@@ -56,6 +56,10 @@ export const Header: React.FC<HeaderProps> = ({ onLogin }) => {
                 {item.label}
               </a>
             ))}
+            <button className="justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs flex items-center space-x-2">
+              <Users className="w-4 h-4" />
+              <span>Community</span>
+            </button>
           </div>
 
           {/* CTA Buttons */}
