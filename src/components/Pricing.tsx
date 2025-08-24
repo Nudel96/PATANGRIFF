@@ -251,9 +251,7 @@ export const Pricing = () => {
         <div className="mb-16">
           <h3 className="text-2xl font-bold text-center mb-8">Bias-Tool-Solo Exclusive</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div key={index} className={`military-card relative ${
-              false ? 'border-primary/30 bg-card/70' : ''
-            }`}>
+            <div key="exclusive-6-months" className="military-card relative">
               {false && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <Badge className="bg-primary text-primary-foreground px-4 py-1">
@@ -299,7 +297,7 @@ export const Pricing = () => {
               </Button>
             </div>
 
-            <div className="military-card relative border-primary/30">
+            <div key="lifetime-access" className="military-card relative border-primary/30">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                 <Badge className="bg-primary text-primary-foreground px-4 py-1">
                   <Crown className="w-3 h-3 mr-1" />
