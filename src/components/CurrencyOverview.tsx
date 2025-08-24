@@ -865,36 +865,10 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
     { id: 'GDP', name: 'GDP', icon: BarChart3 },
     { id: 'PMI', name: 'PMI & Business', icon: Activity },
     { id: 'Retail Sales', name: 'Retail Sales', icon: DollarSign },
-    // Check if it's a USD-related asset for comprehensive dashboard
-    if (asset === 'USDCAD' || asset === 'USDCHF' || asset === 'USDZAR' || 
-        asset === 'EURUSD' || asset === 'GBPUSD' || asset === 'AUDUSD' || 
-        asset === 'NZDUSD' || asset === 'USDJPY') {
-      setShowUSDDashboard(true);
-      return;
-      (direction === 'Tighter positive' && isPositive);
-    
-    // Extract currency from asset pair for other currencies
-    let currency = '';
-    if (asset.includes('USD')) {
-      currency = asset.replace('USD', '');
-    } else if (asset === 'EURGBP') {
-      currency = 'EUR';
-    } else if (asset === 'AUDNZD') {
-      currency = 'AUD';
-    } else if (asset === 'EURNZD') {
-      currency = 'EUR';
-    } else if (asset === 'GBPAUD' || asset === 'GBPCAD' || asset === 'GBPCHF') {
-      currency = 'GBP';
-    } else if (asset === 'NZDCAD') {
-      currency = 'NZD';
-    } else if (asset === 'CHFJPY') {
-      currency = 'CHF';
-    } else {
-      currency = 'USD';
-    }
-    
-    if (change === 0) return 'text-muted-foreground';
-    return isGoodForCurrency ? 'text-primary' : 'text-destructive';
+    { id: 'Inflation', name: 'Inflation', icon: TrendingUp },
+    { id: 'Employment Change', name: 'Employment', icon: Users },
+    { id: 'Unemployment', name: 'Unemployment', icon: TrendingDown },
+    { id: 'Interest Rates', name: 'Interest Rates', icon: Zap }
   };
 
   const getChangeIcon = (change: number) => {
