@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { CurrencyOverview } from './CurrencyOverview';
 import { 
   Activity, 
   TrendingUp, 
@@ -11,7 +12,8 @@ import {
   ArrowLeft,
   LogOut,
   Target,
-  Zap
+  Zap,
+  Eye
 } from 'lucide-react';
 
 interface CurrencyScore {
@@ -47,6 +49,8 @@ export const CurrencyHeatmap: React.FC<CurrencyHeatmapProps> = ({ onBack, onLogo
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
   const [refreshing, setRefreshing] = useState(false);
   const [timeframe, setTimeframe] = useState('daily');
+  const [showCurrencyOverview, setShowCurrencyOverview] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState<string>('');
 
   // Sample data matching the reference image structure
   const [heatmapData, setHeatmapData] = useState<CurrencyScore[]>([
@@ -225,6 +229,42 @@ export const CurrencyHeatmap: React.FC<CurrencyHeatmapProps> = ({ onBack, onLogo
     }, 2000);
   };
 
+  const handleCurrencyClick = (asset: string) => {
+    // Extract currency from asset pair (e.g., EURUSD -> EUR, USDCAD -> USD)
+    let currency = '';
+    if (asset.includes('USD')) {
+      currency = asset === 'USDCAD' || asset === 'USDCHF' || asset === 'USDZAR' ? 'USD' : asset.replace('USD', '');
+    } else if (asset === 'EURGBP') {
+      currency = 'EUR';
+    } else if (asset === 'AUDNZD') {
+      currency = 'AUD';
+    } else if (asset === 'EURNZD') {
+      currency = 'EUR';
+    } else if (asset === 'GBPAUD' || asset === 'GBPCAD' || asset === 'GBPCHF') {
+      currency = 'GBP';
+    } else if (asset === 'NZDCAD') {
+      currency = 'NZD';
+    } else if (asset === 'CHFJPY') {
+      currency = 'CHF';
+    } else {
+      // For single assets like BITCOIN, COPPER, etc., default to USD
+      currency = 'USD';
+    }
+    
+    setSelectedCurrency(currency);
+    setShowCurrencyOverview(true);
+  };
+
+  if (showCurrencyOverview) {
+    return (
+      <CurrencyOverview 
+        onBack={() => setShowCurrencyOverview(false)}
+        onLogout={onLogout}
+        selectedCurrency={selectedCurrency}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -348,7 +388,18 @@ export const CurrencyHeatmap: React.FC<CurrencyHeatmapProps> = ({ onBack, onLogo
                   {heatmapData.map((item, index) => (
                     <tr key={index} className="border-b border-border/50 hover:bg-muted/10 transition-colors">
                       <td className="p-4">
-                        <span className="font-semibold text-primary">{item.asset}</span>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-semibold text-primary">{item.asset}</span>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-6 w-6 p-0"
+                            onClick={() => handleCurrencyClick(item.asset)}
+                            title="View Currency Overview"
+                          >
+                            <Eye className="w-3 h-3" />
+                          </Button>
+                        </div>
                       </td>
                       <td className="p-4 text-center">
                         <Badge className={getBiasColor(item.bias)}>
@@ -411,7 +462,7 @@ export const CurrencyHeatmap: React.FC<CurrencyHeatmapProps> = ({ onBack, onLogo
         </Card>
 
         {/* Analysis Summary */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
           <Card className="military-card">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2 text-lg">
@@ -484,6 +535,31 @@ export const CurrencyHeatmap: React.FC<CurrencyHeatmapProps> = ({ onBack, onLogo
                   <div className="font-semibold text-secondary mb-1">Medium Conviction</div>
                   <div className="text-sm text-muted-foreground">
                     {heatmapData.filter(item => Math.abs(item.score) >= 4 && Math.abs(item.score) <= 8).length} assets with moderate signals
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="military-card">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2 text-lg">
+                <Eye className="w-5 h-5 text-primary" />
+                <span>Currency Analysis</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <div className="font-semibold text-primary mb-1">Individual Analysis</div>
+                  <div className="text-sm text-muted-foreground">
+                    Click the eye icon next to any asset to view detailed fundamental analysis
+                  </div>
+                </div>
+                <div className="p-3 bg-secondary/10 rounded-lg">
+                  <div className="font-semibold text-secondary mb-1">Economic Indicators</div>
+                  <div className="text-sm text-muted-foreground">
+                    GDP, PMI, inflation, employment data and more
                   </div>
                 </div>
               </div>

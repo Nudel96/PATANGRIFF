@@ -24,24 +24,24 @@ export const Hero = () => {
           </Badge>
 
           {/* Main Headline */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            FROM CHART READER
-            <span className="block gradient-text">TO MARKET OPERATOR</span>
-            WEAKNESS IS NO OPTION
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            ELIMINATE EMOTIONAL TRADING
+            <span className="block gradient-text">WITH SYSTEMATIC BIAS ANALYSIS</span>
+            BIAS-TOOL-SOLO
           </h1>
 
           {/* Tagline */}
           <p className="text-xl md:text-2xl text-foreground/70 mb-8 max-w-3xl mx-auto leading-relaxed">
-            <span className="text-primary font-semibold">We forge warriors</span>{' '}
-            <span className="text-secondary font-semibold">even the biggest entrepreneurs</span>{' '}
-            <span className="text-primary font-semibold">respect.</span>
+            <span className="text-primary font-semibold">Make data-driven decisions</span>{' '}
+            <span className="text-secondary font-semibold">with professional-grade bias detection.</span>{' '}
+            <span className="text-primary font-semibold">Same powerful features, better value with longer plans.</span>
           </p>
 
           {/* Description */}
           <p className="text-lg text-foreground/60 mb-12 max-w-2xl mx-auto">
-            Our methodology transforms chart-watchers into operators through systems thinking, 
-            discipline, and leadership under pressure. Strategy → Macro → Technicals → Execution. 
-            Process over emotion. Capital protection. Measurable improvement.
+            Stop second-guessing your market analysis. Bias-Tool-solo provides systematic bias detection 
+            and directional clarity for confident trading decisions. All features included in every plan - 
+            choose longer terms for maximum savings.
           </p>
 
           {/* CTA Buttons */}
@@ -50,7 +50,7 @@ export const Hero = () => {
               size="lg" 
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold group"
             >
-              Start Your Transformation
+              Get Bias-Tool-Solo Now
               <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
@@ -58,7 +58,7 @@ export const Hero = () => {
               size="lg"
               className="px-8 py-6 text-lg border-primary/20 hover:bg-primary/10"
             >
-              Watch Demo
+              See Pricing Plans
             </Button>
           </div>
 
@@ -69,8 +69,8 @@ export const Hero = () => {
                 <Users className="w-6 h-6 text-primary" />
               </div>
               <div className="text-left">
-                <div className="text-2xl font-bold">10,000+</div>
-                <div className="text-sm text-foreground/60">Active Traders</div>
+                <div className="text-2xl font-bold">5,000+</div>
+                <div className="text-sm text-foreground/60">Active Users</div>
               </div>
             </div>
             
@@ -79,8 +79,8 @@ export const Hero = () => {
                 <TrendingUp className="w-6 h-6 text-secondary" />
               </div>
               <div className="text-left">
-                <div className="text-2xl font-bold">85%</div>
-                <div className="text-sm text-foreground/60">Success Rate</div>
+                <div className="text-2xl font-bold">94%</div>
+                <div className="text-sm text-foreground/60">Accuracy Rate</div>
               </div>
             </div>
             
@@ -89,8 +89,8 @@ export const Hero = () => {
                 <Target className="w-6 h-6 text-primary" />
               </div>
               <div className="text-left">
-                <div className="text-2xl font-bold">$2.5M+</div>
-                <div className="text-sm text-foreground/60">Student Profits</div>
+                <div className="text-2xl font-bold">24/7</div>
+                <div className="text-sm text-foreground/60">Market Coverage</div>
               </div>
             </div>
           </div>
