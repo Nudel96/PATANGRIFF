@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { LoginModal } from './LoginModal';
-import { Menu, X, Shield, TrendingUp } from 'lucide-react';
+import { Menu, X, Shield, TrendingUp, Users } from 'lucide-react';
 
 interface HeaderProps {
   onLogin: () => void;
