@@ -161,200 +161,153 @@
 		<div class="text-center mb-12">
 			<Badge class="mb-6 bg-secondary/10 text-secondary border-secondary/20 px-4 py-2">
 				<Users class="w-4 h-4 mr-2" />
-				Brotherhood of Warriors
+				Elite Trading Community
 			</Badge>
 			
 			<h2 class="text-4xl md:text-5xl font-bold mb-6">
-				Join the Brotherhood of
-				<span class="block gradient-text">Market Warriors</span>
+				Connect, Learn, and Grow with
+				<span class="block gradient-text">Elite Trading Professionals</span>
 			</h2>
 			
 			<p class="text-xl text-foreground/70 max-w-3xl mx-auto">
-				Connect with operators who understand that weakness is not an option. 
-				Share the battlefield with warriors whose results command entrepreneurial respect.
+				Join a community of serious traders who are committed to excellence. Access expert mentorship, 
+				collaborate with peers, and accelerate your trading journey through structured learning and accountability.
 			</p>
 		</div>
 
-		<!-- Community Features Overview -->
+		<!-- Core Community Features -->
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+			<Card class="military-card text-center group">
+				<CardContent class="p-6">
+					<div class="bg-secondary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-secondary/20 transition-colors">
+						<Users class="w-8 h-8 text-secondary" />
+					</div>
+					<h3 class="text-lg font-bold mb-3">Expert-Led Mentorship</h3>
+					<p class="text-sm text-foreground/70 leading-relaxed">Connect directly with experienced traders who provide personalized guidance, strategy reviews, and real-time market insights to accelerate your learning.</p>
+				</CardContent>
+			</Card>
+
+			<Card class="military-card text-center group">
+				<CardContent class="p-6">
+					<div class="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+						<Shield class="w-8 h-8 text-primary" />
+					</div>
+					<h3 class="text-lg font-bold mb-3">Focused Learning Squads</h3>
+					<p class="text-sm text-foreground/70 leading-relaxed">Join small, focused groups of 6-12 traders working together on specific skills. Get accountability, peer feedback, and collaborative learning experiences.</p>
+				</CardContent>
+			</Card>
+
 			<Card class="military-card text-center group">
 				<CardContent class="p-6">
 					<div class="bg-secondary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-secondary/20 transition-colors">
 						<MessageCircle class="w-8 h-8 text-secondary" />
 					</div>
-					<h3 class="text-lg font-bold mb-3">Discussion Forums</h3>
-					<p class="text-sm text-foreground/70 leading-relaxed">8 specialized forums for focused discussions on trading strategies, market analysis, and professional development.</p>
+					<h3 class="text-lg font-bold mb-3">Specialized Discussion Areas</h3>
+					<p class="text-sm text-foreground/70 leading-relaxed">Engage in focused discussions on market analysis, trading psychology, risk management, and business development with like-minded professionals.</p>
 				</CardContent>
 			</Card>
 
 			<Card class="military-card text-center group">
 				<CardContent class="p-6">
 					<div class="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-						<Camera class="w-8 h-8 text-primary" />
+						<TrendingUp class="w-8 h-8 text-primary" />
 					</div>
-					<h3 class="text-lg font-bold mb-3">Trade Gallery</h3>
-					<p class="text-sm text-foreground/70 leading-relaxed">Share trade setups, analysis, and results with the community. Learn from others' successes and mistakes.</p>
-				</CardContent>
-			</Card>
-
-			<Card class="military-card text-center group">
-				<CardContent class="p-6">
-					<div class="bg-secondary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-secondary/20 transition-colors">
-						<Shield class="w-8 h-8 text-secondary" />
-					</div>
-					<h3 class="text-lg font-bold mb-3">Squads & Accountability</h3>
-					<p class="text-sm text-foreground/70 leading-relaxed">Join small accountability groups for focused development and peer support in your trading journey.</p>
-				</CardContent>
-			</Card>
-
-			<Card class="military-card text-center group">
-				<CardContent class="p-6">
-					<div class="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-						<Calendar class="w-8 h-8 text-primary" />
-					</div>
-					<h3 class="text-lg font-bold mb-3">Events & AMAs</h3>
-					<p class="text-sm text-foreground/70 leading-relaxed">Live sessions, workshops, and Q&A events with expert traders and market analysts.</p>
+					<h3 class="text-lg font-bold mb-3">Live Market Sessions</h3>
+					<p class="text-sm text-foreground/70 leading-relaxed">Participate in live trading sessions, market analysis workshops, and Q&A events with professional traders and industry experts.</p>
 				</CardContent>
 			</Card>
 		</div>
 
-		<!-- Sample Posts Preview -->
+		<!-- Community Value Proposition -->
 		<div class="mb-16">
-			<h3 class="text-2xl font-bold text-center mb-8">Recent Community Activity</h3>
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-				{#each samplePosts as post}
-					<Card class="military-card hover:border-primary/30 transition-all duration-300 cursor-pointer">
-						<CardHeader class="pb-3">
-							<div class="flex items-start justify-between">
-								<div class="flex items-start space-x-3">
-									<div class="w-10 h-10 bg-primary/20 text-primary font-semibold text-sm rounded-full flex items-center justify-center">
-										{post.author.slice(0, 2).toUpperCase()}
-									</div>
-									<div class="flex-1">
-										<div class="flex items-center space-x-2 mb-1">
-											<span class="font-semibold">{post.author}</span>
-											<Badge class="{post.authorLevel === 'S-Tier' ? 'bg-purple-500/10 text-purple-500' :
-												post.authorLevel === 'A-Tier' ? 'bg-primary/10 text-primary' :
-												'bg-secondary/10 text-secondary'}">
-												{post.authorLevel}
-											</Badge>
-											<span class="text-xs text-muted-foreground">{post.timestamp}</span>
-										</div>
-										<h3 class="font-semibold text-sm leading-tight">{post.title}</h3>
-									</div>
-								</div>
-								<div class="flex items-center space-x-1">
-									{#if post.isQualityVerified}
-										<CheckCircle class="w-4 h-4 text-primary" title="Quality Verified" />
-									{/if}
-									{#if post.isWikiCandidate}
-										<BookOpen class="w-4 h-4 text-secondary" title="Wiki Candidate" />
-									{/if}
-									{#if post.hasImage}
-										<Image class="w-4 h-4 text-muted-foreground" title="Has Image" />
-									{/if}
-								</div>
-							</div>
-						</CardHeader>
-						<CardContent class="pt-0">
-							<p class="text-sm text-foreground/80 mb-3 line-clamp-2">{post.content}</p>
-							
-							<!-- Trade-specific info -->
-							{#if post.type === 'trade-idea' || post.type === 'trade-recap'}
-								<div class="flex items-center space-x-4 mb-3 text-xs">
-									{#if post.asset}
-										<Badge variant="outline" class="text-xs">{post.asset}</Badge>
-									{/if}
-									{#if post.direction}
-										<Badge class="text-xs {post.direction === 'long' ? 'bg-primary/10 text-primary' : 'bg-destructive/10 text-destructive'}">
-											{post.direction.toUpperCase()}
-										</Badge>
-									{/if}
-									{#if post.timeframe}
-										<span class="text-muted-foreground">{post.timeframe}</span>
-									{/if}
-									{#if post.rMultiple !== undefined}
-										<span class="font-semibold {post.rMultiple > 0 ? 'text-primary' : 'text-destructive'}">
-											{post.rMultiple > 0 ? '+' : ''}{post.rMultiple}R
-										</span>
-									{/if}
-								</div>
-							{/if}
-
-							<!-- Tags -->
-							<div class="flex flex-wrap gap-1 mb-3">
-								{#each post.tags.slice(0, 3) as tag}
-									<Badge variant="outline" class="text-xs">
-										#{tag}
-									</Badge>
-								{/each}
-								{#if post.tags.length > 3}
-									<span class="text-xs text-muted-foreground">+{post.tags.length - 3} more</span>
-								{/if}
-							</div>
-
-							<!-- Engagement stats -->
-							<div class="flex items-center justify-between text-xs text-muted-foreground">
-								<div class="flex items-center space-x-4">
-									<div class="flex items-center space-x-1">
-										<ThumbsUp class="w-3 h-3" />
-										<span>{post.likes}</span>
-									</div>
-									<div class="flex items-center space-x-1">
-										<MessageCircle class="w-3 h-3" />
-										<span>{post.replies}</span>
-									</div>
-									<div class="flex items-center space-x-1">
-										<Eye class="w-3 h-3" />
-										<span>{post.views}</span>
-									</div>
-								</div>
-								<Button variant="ghost" size="sm" class="h-6 px-2 text-xs">
-									View Thread
-									<ArrowRight class="w-3 h-3 ml-1" />
-								</Button>
-							</div>
-						</CardContent>
-					</Card>
-				{/each}
+			<div class="military-card max-w-4xl mx-auto">
+				<h3 class="text-2xl font-bold text-center mb-6">Why Traders Choose Our Community</h3>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+					<div>
+						<h4 class="text-lg font-semibold text-primary mb-3">Expert Mentorship Network</h4>
+						<p class="text-foreground/80 mb-4">
+							Connect with verified professional traders who share their strategies, review your trades, 
+							and provide personalized guidance. Our mentors have proven track records and are committed 
+							to helping you develop systematic trading skills.
+						</p>
+						<ul class="space-y-2 text-sm text-foreground/70">
+							<li class="flex items-center space-x-2">
+								<CheckCircle class="w-4 h-4 text-primary" />
+								<span>1-on-1 strategy reviews and feedback</span>
+							</li>
+							<li class="flex items-center space-x-2">
+								<CheckCircle class="w-4 h-4 text-primary" />
+								<span>Real-time market analysis and insights</span>
+							</li>
+							<li class="flex items-center space-x-2">
+								<CheckCircle class="w-4 h-4 text-primary" />
+								<span>Personalized learning path recommendations</span>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="text-lg font-semibold text-secondary mb-3">Collaborative Learning Squads</h4>
+						<p class="text-foreground/80 mb-4">
+							Join small, focused groups of 6-12 traders working together on specific skills like risk management, 
+							technical analysis, or trading psychology. Experience accelerated learning through peer accountability 
+							and collaborative problem-solving.
+						</p>
+						<ul class="space-y-2 text-sm text-foreground/70">
+							<li class="flex items-center space-x-2">
+								<CheckCircle class="w-4 h-4 text-secondary" />
+								<span>Weekly group sessions and trade reviews</span>
+							</li>
+							<li class="flex items-center space-x-2">
+								<CheckCircle class="w-4 h-4 text-secondary" />
+								<span>Peer accountability and goal tracking</span>
+							</li>
+							<li class="flex items-center space-x-2">
+								<CheckCircle class="w-4 h-4 text-secondary" />
+								<span>Collaborative projects and challenges</span>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 
-		<!-- Forums Overview -->
+		<!-- Specialized Learning Areas -->
 		<div class="mb-16">
-			<h3 class="text-2xl font-bold text-center mb-8">Specialized Discussion Forums</h3>
+			<h3 class="text-2xl font-bold text-center mb-8">Specialized Knowledge Exchange</h3>
+			<p class="text-center text-foreground/70 mb-8 max-w-3xl mx-auto">
+				Access focused discussion areas where traders share insights, analyze markets, and collaborate on 
+				specific aspects of trading and business development.
+			</p>
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-				{#each forums as forum}
+				{#each [
+					{ name: 'Market Analysis Hub', icon: BarChart3, color: 'text-green-500', description: 'Daily market breakdowns and technical analysis' },
+					{ name: 'Strategy Development', icon: Target, color: 'text-blue-500', description: 'Trading system creation and optimization' },
+					{ name: 'Risk Management', icon: Shield, color: 'text-purple-500', description: 'Capital preservation and position sizing' },
+					{ name: 'Trading Psychology', icon: Brain, color: 'text-pink-500', description: 'Mental conditioning and discipline building' }
+				] as area}
 					<Card class="military-card hover:border-primary/30 transition-all duration-300 cursor-pointer">
 						<CardHeader>
 							<div class="flex items-center space-x-3">
 								<div class="bg-muted/20 p-3 rounded-xl">
-									<svelte:component this={forum.icon} class="w-6 h-6 {forum.color}" />
+									<svelte:component this={area.icon} class="w-6 h-6 {area.color}" />
 								</div>
 								<div>
-									<CardTitle class="text-lg">{forum.name}</CardTitle>
-									<p class="text-sm text-muted-foreground">{forum.posts} posts</p>
+									<CardTitle class="text-lg">{area.name}</CardTitle>
+									<p class="text-sm text-muted-foreground">Active discussions</p>
 								</div>
 							</div>
 						</CardHeader>
 						<CardContent>
-							<div class="space-y-3">
-								<div class="text-sm text-muted-foreground">
-									Latest: "XAUUSD breakout analysis" • 2h ago
-								</div>
-								<div class="flex items-center justify-between">
-									<div class="flex items-center space-x-2">
-										<div class="flex -space-x-2">
-											{#each [1, 2, 3] as i}
-												<div class="w-6 h-6 border-2 border-background bg-primary/20 text-primary text-xs rounded-full flex items-center justify-center">
-													{String.fromCharCode(65 + i)}
-												</div>
-											{/each}
+							<p class="text-sm text-foreground/70 mb-4">{area.description}</p>
+							<div class="flex items-center justify-between">
+								<div class="flex -space-x-2">
+									{#each [1, 2, 3] as i}
+										<div class="w-6 h-6 border-2 border-background bg-primary/20 text-primary text-xs rounded-full flex items-center justify-center">
+											{String.fromCharCode(65 + i)}
 										</div>
-										<span class="text-xs text-muted-foreground">+{Math.floor(Math.random() * 20) + 5} active</span>
-									</div>
-									<ChevronRight class="w-4 h-4 text-muted-foreground" />
+									{/each}
 								</div>
+								<span class="text-xs text-muted-foreground">Expert-moderated</span>
 							</div>
 						</CardContent>
 					</Card>
@@ -362,57 +315,61 @@
 			</div>
 		</div>
 
-		<!-- Challenges Section -->
+		<!-- Community Benefits -->
 		<div class="mb-16">
-			<h3 class="text-2xl font-bold text-center mb-8">Active Challenges</h3>
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-				{#each challenges as challenge}
-					<Card class="military-card">
-						<CardHeader>
-							<div class="flex items-center justify-between">
-								<CardTitle class="text-lg">{challenge.title}</CardTitle>
-								<Badge class="bg-primary/10 text-primary">
-									{challenge.daysLeft} days left
-								</Badge>
-							</div>
-						</CardHeader>
-						<CardContent>
-							<p class="text-sm text-muted-foreground mb-4">{challenge.description}</p>
-							
-							<div class="space-y-3">
-								<div class="flex justify-between text-sm">
-									<span class="text-muted-foreground">Participants:</span>
-									<span class="font-medium">{challenge.participants}</span>
-								</div>
-								<div class="flex justify-between text-sm">
-									<span class="text-muted-foreground">Reward:</span>
-									<span class="font-medium text-primary">{challenge.reward}</span>
-								</div>
-								
-								<Button class="w-full">Join Challenge</Button>
-							</div>
-						</CardContent>
-					</Card>
-				{/each}
+			<div class="military-card max-w-5xl mx-auto">
+				<h3 class="text-2xl font-bold text-center mb-8">Transform Your Trading Through Community</h3>
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+					<div class="text-center">
+						<div class="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+							<Users class="w-8 h-8 text-primary" />
+						</div>
+						<h4 class="font-bold text-primary mb-3">Peer Learning Network</h4>
+						<p class="text-sm text-foreground/70">
+							Learn faster through collaboration with traders at your skill level. Share experiences, 
+							get feedback on your trades, and discover new strategies through peer interaction.
+						</p>
+					</div>
+					<div class="text-center">
+						<div class="bg-secondary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+							<Target class="w-8 h-8 text-secondary" />
+						</div>
+						<h4 class="font-bold text-secondary mb-3">Accountability Partners</h4>
+						<p class="text-sm text-foreground/70">
+							Stay committed to your trading goals with accountability partners who track your progress, 
+							celebrate your wins, and help you learn from setbacks.
+						</p>
+					</div>
+					<div class="text-center">
+						<div class="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+							<Award class="w-8 h-8 text-primary" />
+						</div>
+						<h4 class="font-bold text-primary mb-3">Professional Growth</h4>
+						<p class="text-sm text-foreground/70">
+							Build lasting professional relationships, expand your network, and access opportunities 
+							for career advancement in the trading and finance industry.
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
 
 		<!-- Call to Action -->
 		<div class="text-center">
 			<div class="military-card max-w-4xl mx-auto">
-				<h3 class="text-2xl font-bold mb-4">Ready to Join the Brotherhood?</h3>
+				<h3 class="text-2xl font-bold mb-4">Ready to Accelerate Your Trading Success?</h3>
 				<p class="text-foreground/70 mb-6 leading-relaxed">
-					Connect with serious traders who are committed to excellence. Share knowledge, 
-					hold each other accountable, and grow together in a community that values 
-					discipline and results above all else.
+					Join a community of dedicated traders who are serious about improving their skills and achieving 
+					consistent profitability. Get the mentorship, accountability, and collaborative learning environment 
+					you need to reach the next level in your trading career.
 				</p>
 				<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
 					<Button size="lg" class="bg-primary hover:bg-primary/90 text-primary-foreground">
-						Access Community
+						Join Our Community
 						<Users class="ml-2 w-5 h-5" />
 					</Button>
 					<Button variant="outline" size="lg" class="border-secondary/20 hover:bg-secondary/10">
-						Learn More
+						Explore Features
 					</Button>
 				</div>
 			</div>

@@ -268,11 +268,15 @@
 			const savedUserSquads = JSON.parse(localStorage.getItem('userSquads') || '[]');
 			if (savedUserSquads.length > 0) {
 				userSquads.update(current => {
+				
+				// Update the squads store to reflect the new squad
+				squads.update(current => [...current, newSquad]);
+				
 					// Merge saved squads with sample squads, avoiding duplicates
 					const existingIds = current.map(s => s.id);
 					const newSquads = savedUserSquads.filter(s => !existingIds.includes(s.id));
-					return [...current, ...newSquads];
-				});
+				// Show success feedback
+				console.log('Squad creation successful! Squad added to your collection.');
 			}
 		} catch (error) {
 			console.warn('Failed to load saved squads:', error);
