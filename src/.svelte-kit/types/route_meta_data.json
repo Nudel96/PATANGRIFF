@@ -1,0 +1,38 @@
+{
+	"/": [],
+	"/api/health": [
+		"src/routes/api/health/+server.ts"
+	],
+	"/dashboard": [
+		"src/routes/dashboard/+page.ts",
+		"src/routes/dashboard/+layout.ts",
+		"src/routes/dashboard/+layout.ts"
+	],
+	"/dashboard/community": [
+		"src/routes/dashboard/+layout.ts"
+	],
+	"/dashboard/heatmap": [
+		"src/routes/dashboard/+layout.ts"
+	],
+	"/dashboard/journal": [
+		"src/routes/dashboard/+layout.ts"
+	],
+	"/dashboard/learning": [
+		"src/routes/dashboard/+layout.ts"
+	],
+	"/dashboard/learning/business-operations": [
+		"src/routes/dashboard/+layout.ts"
+	],
+	"/dashboard/learning/capital-management": [
+		"src/routes/dashboard/+layout.ts"
+	],
+	"/dashboard/learning/trading-mastery": [
+		"src/routes/dashboard/+layout.ts"
+	],
+	"/dashboard/learning/trading-psychology": [
+		"src/routes/dashboard/+layout.ts"
+	],
+	"/dashboard/squads": [
+		"src/routes/dashboard/+layout.ts"
+	]
+}
