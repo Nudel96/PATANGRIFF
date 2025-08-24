@@ -7,6 +7,11 @@
 	import TrainingSection from '$lib/components/TrainingSection.svelte';
 	import Community from '$lib/components/Community.svelte';
 	import Pricing from '$lib/components/Pricing.svelte';
+	import FourPillars from '$lib/components/FourPillars.svelte';
+	import PlatformTools from '$lib/components/PlatformTools.svelte';
+	import TrainingSection from '$lib/components/TrainingSection.svelte';
+	import Community from '$lib/components/Community.svelte';
+	import Pricing from '$lib/components/Pricing.svelte';
 </script>
 
 <svelte:head>
@@ -17,6 +22,11 @@
 <Hero />
 <PositioningStatement />
 <Stats />
+<FourPillars />
+<PlatformTools />
+<TrainingSection />
+<Community />
+<Pricing />
 <FourPillars />
 <PlatformTools />
 <TrainingSection />
