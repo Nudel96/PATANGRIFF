@@ -14,10 +14,16 @@ export const currentView = writable<'dashboard' | 'journal' | 'heatmap' | 'commu
 export function login(user: User) {
 	isLoggedIn.set(true);
 	currentUser.set(user);
+	// Persist authentication state
+	localStorage.setItem('isLoggedIn', 'true');
+	localStorage.setItem('currentUser', JSON.stringify(user));
 }
 
 export function logout() {
 	isLoggedIn.set(false);
 	currentUser.set(null);
 	currentView.set('dashboard');
+	// Clear persisted authentication state
+	localStorage.removeItem('isLoggedIn');
+	localStorage.removeItem('currentUser');
 }

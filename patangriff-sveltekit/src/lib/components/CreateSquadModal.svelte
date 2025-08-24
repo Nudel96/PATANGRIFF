@@ -337,7 +337,7 @@
 	function canProceedToNext() {
 		switch (currentStep) {
 			case 1:
-				return formData.name.trim().length >= 3 && formData.description.trim().length >= 20;
+				return formData.name.trim().length >= 3 && formData.description.trim().length >= 10;
 			case 2:
 				return formData.category && formData.privacy;
 			case 3:
@@ -404,6 +404,9 @@
 								class="text-lg"
 							/>
 							<p class="text-xs text-muted-foreground">{formData.name.length}/50 characters</p>
+							{#if formData.name.trim().length > 0 && formData.name.trim().length < 3}
+								<p class="text-xs text-destructive">Name must be at least 3 characters</p>
+							{/if}
 						</div>
 
 						<div class="space-y-2">
@@ -415,6 +418,9 @@
 								rows={4}
 							/>
 							<p class="text-xs text-muted-foreground">{formData.description.length}/500 characters</p>
+							{#if formData.description.trim().length > 0 && formData.description.trim().length < 10}
+								<p class="text-xs text-destructive">Description must be at least 10 characters</p>
+							{/if}
 						</div>
 
 						<div class="space-y-2">

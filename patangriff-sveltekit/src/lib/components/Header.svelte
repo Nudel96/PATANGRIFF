@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import Button from './ui/Button.svelte';
 	import LoginModal from './LoginModal.svelte';
+	import { isLoggedIn } from '$lib/stores/auth';
 	import { Menu, X, Shield, TrendingUp, Users } from 'lucide-svelte';
 
 	let isMenuOpen = false;
@@ -33,6 +34,11 @@
 
 	function closeLoginModal() {
 		isLoginModalOpen = false;
+	}
+
+	function handleLoginSuccess() {
+		isLoginModalOpen = false;
+		// Navigation will be handled by the layout reactivity
 	}
 </script>
 
@@ -118,4 +124,5 @@
 	</div>
 
 	<LoginModal bind:isOpen={isLoginModalOpen} />
+	<LoginModal bind:isOpen={isLoginModalOpen} on:loginSuccess={handleLoginSuccess} />
 </header>

@@ -236,6 +236,16 @@ export function createSquad(squadData: Omit<Squad, 'id' | 'createdAt' | 'lastAct
 	userSquads.update(current => [...current, newSquad]);
 	
 	console.log('Squad created in store:', newSquad);
+	
+	// Persist to localStorage for demo purposes
+	// In production, this would be an API call
+	try {
+		const existingSquads = JSON.parse(localStorage.getItem('userSquads') || '[]');
+		localStorage.setItem('userSquads', JSON.stringify([...existingSquads, newSquad]));
+	} catch (error) {
+		console.warn('Failed to persist squad to localStorage:', error);
+	}
+	
 	return newSquad;
 }
 

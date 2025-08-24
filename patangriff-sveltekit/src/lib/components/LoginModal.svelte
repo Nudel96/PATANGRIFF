@@ -28,7 +28,7 @@
 				membershipLevel: 'Operator'
 			});
 			isOpen = false;
-			dispatch('login');
+			handleLoginSuccess();
 		}, 1500);
 	}
 
@@ -38,6 +38,10 @@
 
 	function closeModal() {
 		isOpen = false;
+	}
+
+	function handleLoginSuccess() {
+		dispatch('loginSuccess');
 	}
 </script>
 

@@ -262,6 +262,21 @@
 	onMount(() => {
 		squads.set(sampleSquads);
 		userSquads.set([sampleSquads[0], sampleSquads[2]]); // User is in Gold Trading Masters and Psychology Warriors
+		
+		// Load persisted user squads from localStorage
+		try {
+			const savedUserSquads = JSON.parse(localStorage.getItem('userSquads') || '[]');
+			if (savedUserSquads.length > 0) {
+				userSquads.update(current => {
+					// Merge saved squads with sample squads, avoiding duplicates
+					const existingIds = current.map(s => s.id);
+					const newSquads = savedUserSquads.filter(s => !existingIds.includes(s.id));
+					return [...current, ...newSquads];
+				});
+			}
+		} catch (error) {
+			console.warn('Failed to load saved squads:', error);
+		}
 	});
 
 	const categories: { id: SquadCategory | 'all', name: string, icon: any, color: string }[] = [
@@ -369,8 +384,11 @@
 	function handleSquadCreated(event) {
 		const newSquad = event.detail;
 		console.log('New squad created:', newSquad);
-		// Optionally switch to the new squad or show success message
+		// Switch to My Squads tab to show the newly created squad
 		activeTab = 'my-squads';
+		
+		// Show success feedback (in a real app, you'd use a toast notification)
+		console.log('Squad creation successful! Switched to My Squads tab.');
 	}
 
 	$: filteredSquads = $squads.filter(squad => {
