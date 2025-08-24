@@ -91,6 +91,17 @@
 			href: '/dashboard/community'
 		},
 		{
+			id: 'squads',
+			title: 'Squads Hub',
+			subtitle: 'Collaborative Learning',
+			description: 'Join focused learning groups, create accountability partnerships, and collaborate on projects with like-minded professionals.',
+			icon: Shield,
+			color: 'primary',
+			features: ['Learning Groups', 'Accountability Partners', 'Collaborative Projects', 'Peer Mentorship'],
+			action: 'Explore Squads',
+			href: '/dashboard/squads'
+		},
+		{
 			id: 'journal',
 			title: 'Trading Journal',
 			subtitle: 'Track & Analyze Performance',
@@ -340,6 +351,10 @@
 						<Button variant="outline" class="h-auto p-4 flex flex-col items-center space-y-2" on:click={() => navigateToSection('/dashboard/learning')}>
 							<BookOpen class="w-5 h-5 text-primary" />
 							<span class="text-sm">Continue Learning</span>
+						</Button>
+						<Button variant="outline" class="h-auto p-4 flex flex-col items-center space-y-2" on:click={() => navigateToSection('/dashboard/squads')}>
+							<Shield class="w-5 h-5 text-secondary" />
+							<span class="text-sm">Join Squads</span>
 						</Button>
 						<Button variant="outline" class="h-auto p-4 flex flex-col items-center space-y-2">
 							<MessageCircle class="w-5 h-5 text-secondary" />
