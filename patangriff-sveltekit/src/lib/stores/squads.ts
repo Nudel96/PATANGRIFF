@@ -234,6 +234,8 @@ export function createSquad(squadData: Omit<Squad, 'id' | 'createdAt' | 'lastAct
 	
 	squads.update(current => [...current, newSquad]);
 	userSquads.update(current => [...current, newSquad]);
+	
+	console.log('Squad created in store:', newSquad);
 	return newSquad;
 }
 

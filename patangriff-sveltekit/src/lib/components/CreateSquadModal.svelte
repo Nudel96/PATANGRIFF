@@ -285,10 +285,30 @@
 	async function handleCreateSquad() {
 		isLoading = true;
 		
-		// Simulate API call
-		setTimeout(() => {
+		try {
+			// Validate required fields
+			if (!formData.name.trim() || !formData.description.trim()) {
+				throw new Error('Name and description are required');
+			}
+
+			// Create the squad with all current features
 			const newSquad = createSquad({
-				...formData,
+				name: formData.name.trim(),
+				description: formData.description.trim(),
+				category: formData.category,
+				privacy: formData.privacy,
+				maxMembers: formData.maxMembers,
+				activityLevel: formData.activityLevel,
+				meetingCadence: formData.meetingCadence,
+				timezone: formData.timezone,
+				skillLevel: formData.skillLevel,
+				language: formData.language,
+				region: formData.region,
+				tags: formData.tags,
+				goals: formData.goals,
+				requirements: formData.requirements,
+				rules: formData.rules,
+				focusAreas: formData.focusAreas,
 				leaderId: 'current-user-id',
 				moderatorIds: [],
 				memberIds: ['current-user-id'],
@@ -304,17 +324,24 @@
 			isLoading = false;
 			closeModal();
 			dispatch('squadCreated', newSquad);
-		}, 2000);
+			
+			// Show success message
+			console.log('Squad created successfully:', newSquad);
+		} catch (error) {
+			isLoading = false;
+			console.error('Failed to create squad:', error);
+			// In a real app, you'd show an error toast here
+		}
 	}
 
 	function canProceedToNext() {
 		switch (currentStep) {
 			case 1:
-				return formData.name.trim().length >= 3 && formData.description.trim().length >= 10;
+				return formData.name.trim().length >= 3 && formData.description.trim().length >= 20;
 			case 2:
 				return formData.category && formData.privacy;
 			case 3:
-				return formData.maxMembers > 0 && formData.activityLevel && formData.skillLevel;
+				return formData.maxMembers >= 2 && formData.maxMembers <= 50 && formData.activityLevel && formData.skillLevel;
 			case 4:
 				return true; // Optional step
 			default:

@@ -23,6 +23,7 @@
 		squadStats, 
 		recommendedSquads, 
 		selectedSquad,
+		createSquad,
 		type Squad,
 		type SquadCategory 
 	} from '$lib/stores/squads';
@@ -363,6 +364,13 @@
 	function closeSquadDetail() {
 		selectedSquadId = '';
 		selectedSquad.set(null);
+	}
+
+	function handleSquadCreated(event) {
+		const newSquad = event.detail;
+		console.log('New squad created:', newSquad);
+		// Optionally switch to the new squad or show success message
+		activeTab = 'my-squads';
 	}
 
 	$: filteredSquads = $squads.filter(squad => {
@@ -749,7 +757,7 @@
 					</div>
 
 					<div class="max-w-2xl mx-auto">
-						<Button on:click={() => showCreateModal = true} class="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-8 text-lg">
+						<Button on:click={() => showCreateModal = true} class="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground py-8 text-lg">
 							<Plus class="w-6 h-6 mr-3" />
 							Launch Squad Creation Wizard
 						</Button>
@@ -911,6 +919,5 @@
 		</div>
 
 		<!-- Create Squad Modal -->
-		<CreateSquadModal bind:isOpen={showCreateModal} />
+		<CreateSquadModal bind:isOpen={showCreateModal} on:squadCreated={handleSquadCreated} />
 	</div>
-{/if}
