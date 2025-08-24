@@ -509,7 +509,9 @@
 									max="50"
 									bind:value={formData.maxMembers}
 								/>
-								<p class="text-xs text-muted-foreground">Recommended: 6-15 for optimal engagement</p>
+								<p class="text-xs text-muted-foreground {formData.maxMembers < 2 || formData.maxMembers > 50 ? 'text-destructive' : ''}">
+									Recommended: 6-15 for optimal engagement (2-50 allowed)
+								</p>
 							</div>
 
 							<div class="space-y-2">
