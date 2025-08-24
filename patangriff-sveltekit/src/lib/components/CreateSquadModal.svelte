@@ -9,6 +9,7 @@
 	import Checkbox from './ui/Checkbox.svelte';
 	import Badge from './ui/Badge.svelte';
 	import { createSquad, type SquadCategory, type SquadPrivacy } from '$lib/stores/squads';
+	import { showSuccess, showError } from '$lib/stores/toast';
 	import { 
 		X, 
 		Shield, 
@@ -333,11 +334,12 @@
 			closeModal();
 			dispatch('squadCreated', newSquad);
 			
+			showSuccess('Squad Created!', `${newSquad.name} has been created successfully.`);
 			console.log('Squad created successfully with ID:', newSquad.id);
 		} catch (error) {
 			isLoading = false;
+			showError('Creation Failed', error.message);
 			console.error('Failed to create squad:', error);
-			alert(`Failed to create squad: ${error.message}`);
 		}
 	}
 

@@ -3,6 +3,7 @@
 	import { isLoggedIn } from '$lib/stores/auth';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import ToastContainer from '$lib/components/ToastContainer.svelte';
 	import { onMount } from 'svelte';
 
 	// Initialize authentication state from localStorage on app start
@@ -25,3 +26,6 @@
 		<slot />
 	{/if}
 </div>
+
+<!-- Global Toast Container -->
+<ToastContainer />

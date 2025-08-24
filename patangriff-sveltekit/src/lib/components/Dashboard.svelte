@@ -94,10 +94,10 @@
 			id: 'squads',
 			title: 'Squads Hub',
 			subtitle: 'Collaborative Learning',
-			description: 'Join focused learning groups, create accountability partnerships, and collaborate on projects with like-minded professionals.',
+			description: 'Join focused learning groups of 6-12 traders, create accountability partnerships, and collaborate on projects with like-minded professionals.',
 			icon: Shield,
 			color: 'primary',
-			features: ['Learning Groups', 'Accountability Partners', 'Collaborative Projects', 'Peer Mentorship'],
+			features: ['Small Learning Groups', 'Accountability Partners', 'Collaborative Projects', 'Expert Mentorship'],
 			action: 'Explore Squads',
 			href: '/dashboard/squads'
 		},
