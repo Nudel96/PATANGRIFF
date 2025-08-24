@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
+import { USDEconomicDashboard } from './USDEconomicDashboard';
 import { 
   ArrowLeft,
   LogOut,
@@ -27,7 +28,8 @@ import {
   Globe,
   DollarSign,
   Euro,
-  PoundSterling
+  PoundSterling,
+  Users
 } from 'lucide-react';
 
 interface EconomicIndicator {
@@ -75,6 +77,7 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
   const [refreshing, setRefreshing] = useState(false);
 
   // Sample currency data with comprehensive indicators
+  const [showUSDDashboard, setShowUSDDashboard] = useState(false);
   const currencyData: Record<string, CurrencyData> = {
     USD: {
       code: 'USD',
@@ -84,9 +87,10 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
       bias: 'Very Bullish',
       lastUpdated: new Date(),
       indicators: [
+        // GDP Category
         {
           id: 'usd-gdp',
-          name: 'GDP Annualized q/q',
+          name: 'GDP Annualized q/q (Advance)',
           category: 'GDP',
           impact: 'High',
           direction: 'Higher positive',
@@ -98,8 +102,41 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
           previous: 2.9,
           change: 0.2,
           weight: 1.0,
-          description: 'Measures the annualized change in the value of goods and services produced'
+          description: 'Measures the annualized change in the value of goods and services produced (Advance estimate)'
         },
+        {
+          id: 'usd-gdp-second',
+          name: 'GDP Annualized q/q (Second)',
+          category: 'GDP',
+          impact: 'High',
+          direction: 'Higher positive',
+          unit: 'pp',
+          frequency: 'Quarterly',
+          nextRelease: new Date('2024-02-28'),
+          lastValue: 3.2,
+          forecast: 3.1,
+          previous: 3.1,
+          change: 0.1,
+          weight: 1.0,
+          description: 'Second estimate of GDP annualized quarterly change'
+        },
+        {
+          id: 'usd-gdp-final',
+          name: 'GDP Annualized q/q (Final)',
+          category: 'GDP',
+          impact: 'High',
+          direction: 'Higher positive',
+          unit: 'pp',
+          frequency: 'Quarterly',
+          nextRelease: new Date('2024-03-28'),
+          lastValue: 3.3,
+          forecast: 3.2,
+          previous: 3.2,
+          change: 0.1,
+          weight: 1.0,
+          description: 'Final estimate of GDP annualized quarterly change'
+        },
+        // PMI and Business Surveys Category
         {
           id: 'usd-ism-mfg',
           name: 'ISM Manufacturing PMI',
@@ -117,6 +154,57 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
           description: 'Measures manufacturing sector activity and business conditions'
         },
         {
+          id: 'usd-ism-services',
+          name: 'ISM Services PMI',
+          category: 'PMI',
+          impact: 'High',
+          direction: 'Higher positive',
+          unit: 'index',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-21'),
+          lastValue: 54.1,
+          forecast: 53.5,
+          previous: 53.8,
+          change: 0.3,
+          weight: 1.0,
+          description: 'Measures services sector activity and business conditions'
+        },
+        {
+          id: 'usd-sp-mfg-flash',
+          name: 'S&P Global Manufacturing PMI (Flash)',
+          category: 'PMI',
+          impact: 'Mid',
+          direction: 'Higher positive',
+          unit: 'index',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-24'),
+          lastValue: 48.9,
+          forecast: 48.5,
+          previous: 48.2,
+          change: 0.7,
+          weight: 0.7,
+          isFlash: true,
+          description: 'Flash estimate of S&P Global Manufacturing PMI'
+        },
+        {
+          id: 'usd-sp-services-flash',
+          name: 'S&P Global Services PMI (Flash)',
+          category: 'PMI',
+          impact: 'Mid',
+          direction: 'Higher positive',
+          unit: 'index',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-24'),
+          lastValue: 52.3,
+          forecast: 52.0,
+          previous: 51.8,
+          change: 0.5,
+          weight: 0.7,
+          isFlash: true,
+          description: 'Flash estimate of S&P Global Services PMI'
+        },
+        // Retail Sales Category
+        {
           id: 'usd-retail-sales',
           name: 'Retail Sales m/m',
           category: 'Retail Sales',
@@ -133,6 +221,39 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
           description: 'Measures month-over-month change in retail sales volume'
         },
         {
+          id: 'usd-retail-sales-ex-autos',
+          name: 'Retail Sales ex-Autos m/m',
+          category: 'Retail Sales',
+          impact: 'High',
+          direction: 'Higher positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-18'),
+          lastValue: 0.3,
+          forecast: 0.4,
+          previous: 0.1,
+          change: 0.2,
+          weight: 1.0,
+          description: 'Retail sales excluding automotive sales month-over-month'
+        },
+        {
+          id: 'usd-retail-control-group',
+          name: 'Retail Sales Control Group m/m',
+          category: 'Retail Sales',
+          impact: 'Mid',
+          direction: 'Higher positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-18'),
+          lastValue: 0.2,
+          forecast: 0.3,
+          previous: 0.0,
+          change: 0.2,
+          weight: 0.7,
+          description: 'Retail sales control group used in GDP calculations'
+        },
+        // Inflation Category
+        {
           id: 'usd-cpi',
           name: 'CPI y/y',
           category: 'Inflation',
@@ -146,8 +267,217 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
           previous: 3.1,
           change: -0.2,
           weight: 1.0,
-          description: 'Consumer Price Index measures inflation in consumer goods and services'
+          description: 'Consumer Price Index year-over-year measures inflation in consumer goods and services'
         },
+        {
+          id: 'usd-cpi-mom',
+          name: 'CPI m/m',
+          category: 'Inflation',
+          impact: 'High',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-22'),
+          lastValue: 0.2,
+          forecast: 0.3,
+          previous: 0.4,
+          change: -0.2,
+          weight: 1.0,
+          description: 'Consumer Price Index month-over-month change'
+        },
+        {
+          id: 'usd-core-cpi-yoy',
+          name: 'Core CPI y/y',
+          category: 'Inflation',
+          impact: 'High',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-22'),
+          lastValue: 2.8,
+          forecast: 2.9,
+          previous: 3.0,
+          change: -0.2,
+          weight: 1.0,
+          description: 'Core CPI excluding food and energy year-over-year'
+        },
+        {
+          id: 'usd-core-cpi-mom',
+          name: 'Core CPI m/m',
+          category: 'Inflation',
+          impact: 'High',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-22'),
+          lastValue: 0.2,
+          forecast: 0.3,
+          previous: 0.3,
+          change: -0.1,
+          weight: 1.0,
+          description: 'Core CPI excluding food and energy month-over-month'
+        },
+        {
+          id: 'usd-ppi-final-yoy',
+          name: 'PPI Final Demand y/y',
+          category: 'Inflation',
+          impact: 'Mid',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-23'),
+          lastValue: 3.3,
+          forecast: 3.5,
+          previous: 3.6,
+          change: -0.3,
+          weight: 0.7,
+          description: 'Producer Price Index Final Demand year-over-year'
+        },
+        {
+          id: 'usd-ppi-final-mom',
+          name: 'PPI Final Demand m/m',
+          category: 'Inflation',
+          impact: 'Mid',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-23'),
+          lastValue: 0.1,
+          forecast: 0.2,
+          previous: 0.3,
+          change: -0.2,
+          weight: 0.7,
+          description: 'Producer Price Index Final Demand month-over-month'
+        },
+        {
+          id: 'usd-core-ppi-yoy',
+          name: 'Core PPI y/y',
+          category: 'Inflation',
+          impact: 'Mid',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-23'),
+          lastValue: 2.8,
+          forecast: 3.0,
+          previous: 3.2,
+          change: -0.4,
+          weight: 0.7,
+          description: 'Core Producer Price Index year-over-year'
+        },
+        {
+          id: 'usd-core-ppi-mom',
+          name: 'Core PPI m/m',
+          category: 'Inflation',
+          impact: 'Mid',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-23'),
+          lastValue: 0.0,
+          forecast: 0.1,
+          previous: 0.2,
+          change: -0.2,
+          weight: 0.7,
+          description: 'Core Producer Price Index month-over-month'
+        },
+        {
+          id: 'usd-import-price',
+          name: 'Import Price Index m/m',
+          category: 'Inflation',
+          impact: 'Mid',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-24'),
+          lastValue: -0.2,
+          forecast: 0.0,
+          previous: 0.1,
+          change: -0.3,
+          weight: 0.7,
+          description: 'Import Price Index month-over-month change'
+        },
+        {
+          id: 'usd-export-price',
+          name: 'Export Price Index m/m',
+          category: 'Inflation',
+          impact: 'Mid',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-24'),
+          lastValue: -0.1,
+          forecast: 0.0,
+          previous: 0.2,
+          change: -0.3,
+          weight: 0.7,
+          description: 'Export Price Index month-over-month change'
+        },
+        {
+          id: 'usd-pce-yoy',
+          name: 'PCE Price Index y/y',
+          category: 'Inflation',
+          impact: 'High',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-26'),
+          lastValue: 2.6,
+          forecast: 2.7,
+          previous: 2.9,
+          change: -0.3,
+          weight: 1.0,
+          description: 'Personal Consumption Expenditures Price Index year-over-year'
+        },
+        {
+          id: 'usd-pce-mom',
+          name: 'PCE Price Index m/m',
+          category: 'Inflation',
+          impact: 'High',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-26'),
+          lastValue: 0.1,
+          forecast: 0.2,
+          previous: 0.3,
+          change: -0.2,
+          weight: 1.0,
+          description: 'Personal Consumption Expenditures Price Index month-over-month'
+        },
+        {
+          id: 'usd-core-pce-yoy',
+          name: 'Core PCE Price Index y/y',
+          category: 'Inflation',
+          impact: 'High',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-26'),
+          lastValue: 2.8,
+          forecast: 2.9,
+          previous: 3.0,
+          change: -0.2,
+          weight: 1.0,
+          description: 'Core PCE Price Index excluding food and energy year-over-year'
+        },
+        {
+          id: 'usd-core-pce-mom',
+          name: 'Core PCE Price Index m/m',
+          category: 'Inflation',
+          impact: 'High',
+          direction: 'Lower positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-26'),
+          lastValue: 0.2,
+          forecast: 0.3,
+          previous: 0.3,
+          change: -0.1,
+          weight: 1.0,
+          description: 'Core PCE Price Index excluding food and energy month-over-month'
+        },
+        // Employment Change Category
         {
           id: 'usd-nfp',
           name: 'Non-Farm Payrolls',
@@ -165,6 +495,55 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
           description: 'Measures the change in number of employed people in non-agricultural sectors'
         },
         {
+          id: 'usd-adp',
+          name: 'ADP Employment Change',
+          category: 'Employment Change',
+          impact: 'Mid',
+          direction: 'Higher positive',
+          unit: 'k',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-17'),
+          lastValue: 122,
+          forecast: 139,
+          previous: 146,
+          change: -24,
+          weight: 0.7,
+          description: 'ADP private sector employment change'
+        },
+        {
+          id: 'usd-jolts',
+          name: 'JOLTS Job Openings',
+          category: 'Employment Change',
+          impact: 'Mid',
+          direction: 'Higher positive',
+          unit: 'k',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-30'),
+          lastValue: 8100,
+          forecast: 7730,
+          previous: 7673,
+          change: 427,
+          weight: 0.7,
+          description: 'Job Openings and Labor Turnover Survey - available job positions'
+        },
+        {
+          id: 'usd-jobless-claims',
+          name: 'Initial Jobless Claims',
+          category: 'Employment Change',
+          impact: 'Mid',
+          direction: 'Lower positive',
+          unit: 'k',
+          frequency: 'Weekly',
+          nextRelease: new Date('2024-01-18'),
+          lastValue: 223,
+          forecast: 221,
+          previous: 220,
+          change: 3,
+          weight: 0.7,
+          description: 'Weekly initial claims for unemployment insurance'
+        },
+        // Unemployment Category
+        {
           id: 'usd-unemployment',
           name: 'Unemployment Rate',
           category: 'Unemployment',
@@ -181,8 +560,57 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
           description: 'Percentage of labor force that is unemployed and actively seeking employment'
         },
         {
+          id: 'usd-participation-rate',
+          name: 'Participation Rate',
+          category: 'Unemployment',
+          impact: 'Mid',
+          direction: 'Higher positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-19'),
+          lastValue: 62.5,
+          forecast: 62.4,
+          previous: 62.3,
+          change: 0.2,
+          weight: 0.7,
+          description: 'Labor force participation rate as percentage of working-age population'
+        },
+        {
+          id: 'usd-hourly-earnings-yoy',
+          name: 'Average Hourly Earnings y/y',
+          category: 'Unemployment',
+          impact: 'Mid',
+          direction: 'Higher positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-19'),
+          lastValue: 4.0,
+          forecast: 3.9,
+          previous: 4.1,
+          change: -0.1,
+          weight: 0.7,
+          description: 'Average hourly earnings year-over-year change'
+        },
+        {
+          id: 'usd-hourly-earnings-mom',
+          name: 'Average Hourly Earnings m/m',
+          category: 'Unemployment',
+          impact: 'Mid',
+          direction: 'Higher positive',
+          unit: 'pp',
+          frequency: 'Monthly',
+          nextRelease: new Date('2024-01-19'),
+          lastValue: 0.4,
+          forecast: 0.3,
+          previous: 0.4,
+          change: 0.0,
+          weight: 0.7,
+          description: 'Average hourly earnings month-over-month change'
+        },
+        // Interest Rates Category
+        {
           id: 'usd-fed-rate',
-          name: 'Fed Funds Rate Decision',
+          name: 'Fed Funds Rate Decision + Statement + SEP/Dot Plot + Press Conference',
           category: 'Interest Rates',
           impact: 'High',
           direction: 'Tighter positive',
@@ -194,7 +622,7 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
           previous: 5.5,
           change: 0,
           weight: 1.0,
-          description: 'Federal Reserve interest rate decision with statement and press conference'
+          description: 'Federal Reserve interest rate decision with comprehensive policy communication including SEP projections and press conference'
         }
       ]
     },
@@ -439,29 +867,10 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
     { id: 'PMI', name: 'PMI & Business', icon: Activity },
     { id: 'Retail Sales', name: 'Retail Sales', icon: DollarSign },
     { id: 'Inflation', name: 'Inflation', icon: TrendingUp },
-    { id: 'Employment Change', name: 'Employment', icon: Target },
+    { id: 'Employment Change', name: 'Employment', icon: Users },
     { id: 'Unemployment', name: 'Unemployment', icon: TrendingDown },
     { id: 'Interest Rates', name: 'Interest Rates', icon: Zap }
   ];
-
-  const filteredIndicators = activeCategory === 'all' 
-    ? currentCurrency.indicators 
-    : currentCurrency.indicators.filter(indicator => indicator.category === activeCategory);
-
-  const getImpactColor = (impact: string) => {
-    return impact === 'High' ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground';
-  };
-
-  const getChangeColor = (change: number, direction: string) => {
-    const isPositive = change > 0;
-    const isGoodForCurrency = 
-      (direction === 'Higher positive' && isPositive) ||
-      (direction === 'Lower positive' && !isPositive) ||
-      (direction === 'Tighter positive' && isPositive);
-    
-    if (change === 0) return 'text-muted-foreground';
-    return isGoodForCurrency ? 'text-primary' : 'text-destructive';
-  };
 
   const getChangeIcon = (change: number) => {
     if (change > 0) return <TrendingUp className="w-3 h-3" />;
@@ -495,6 +904,15 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
       default: return <Globe className="w-4 h-4" />;
     }
   };
+
+  if (showUSDDashboard) {
+    return (
+      <USDEconomicDashboard 
+        onBack={() => setShowUSDDashboard(false)}
+        onLogout={onLogout}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
