@@ -139,10 +139,10 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
         {
           id: 'usd-ism-mfg',
           name: 'ISM Manufacturing PMI',
-          category: 'PMI & Business',
+          category: 'PMI',
           impact: 'High',
           direction: 'Higher positive',
-          unit: 'index points',
+          unit: 'index',
           frequency: 'Monthly',
           nextRelease: new Date('2024-01-20'),
           lastValue: 49.3,
@@ -155,10 +155,10 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
         {
           id: 'usd-ism-services',
           name: 'ISM Services PMI',
-          category: 'PMI & Business',
+          category: 'PMI',
           impact: 'High',
           direction: 'Higher positive',
-          unit: 'index points',
+          unit: 'index',
           frequency: 'Monthly',
           nextRelease: new Date('2024-01-21'),
           lastValue: 54.1,
@@ -171,10 +171,10 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
         {
           id: 'usd-sp-mfg-flash',
           name: 'S&P Global Manufacturing PMI (Flash)',
-          category: 'PMI & Business',
+          category: 'PMI',
           impact: 'Mid',
           direction: 'Higher positive',
-          unit: 'index points',
+          unit: 'index',
           frequency: 'Monthly',
           nextRelease: new Date('2024-01-24'),
           lastValue: 48.9,
@@ -188,10 +188,10 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
         {
           id: 'usd-sp-services-flash',
           name: 'S&P Global Services PMI (Flash)',
-          category: 'PMI & Business',
+          category: 'PMI',
           impact: 'Mid',
           direction: 'Higher positive',
-          unit: 'index points',
+          unit: 'index',
           frequency: 'Monthly',
           nextRelease: new Date('2024-01-24'),
           lastValue: 52.3,
@@ -866,9 +866,42 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
     { id: 'PMI', name: 'PMI & Business', icon: Activity },
     { id: 'Retail Sales', name: 'Retail Sales', icon: DollarSign },
     { id: 'Inflation', name: 'Inflation', icon: TrendingUp },
-    { id: 'Employment Change', name: 'Employment', icon: Users },
-    { id: 'Unemployment', name: 'Unemployment', icon: TrendingDown },
+    { id: 'Employment Change', name: 'Employment', icon: Target },
+    { id: 'Unemployment', name: 'Unemployment', icon: AlertCircle },
     { id: 'Interest Rates', name: 'Interest Rates', icon: Zap }
+  ];
+
+  const getChangeColor = (change: number, direction: string, asset: string) => {
+    if (change === undefined) return 'text-muted-foreground';
+    
+    const isPositive = change > 0;
+    const isGoodForCurrency = 
+      (direction === 'Higher positive' && isPositive) ||
+      (direction === 'Lower positive' && !isPositive) ||
+      (direction === 'Tighter positive' && isPositive);
+    
+    // Extract currency from asset pair for other currencies
+    let currency = '';
+    if (asset.includes('USD')) {
+      currency = asset.replace('USD', '');
+    } else if (asset === 'EURGBP') {
+      currency = 'EUR';
+    } else if (asset === 'AUDNZD') {
+      currency = 'AUD';
+    } else if (asset === 'EURNZD') {
+      currency = 'EUR';
+    } else if (asset === 'GBPAUD' || asset === 'GBPCAD' || asset === 'GBPCHF') {
+      currency = 'GBP';
+    } else if (asset === 'NZDCAD') {
+      currency = 'NZD';
+    } else if (asset === 'CHFJPY') {
+      currency = 'CHF';
+    } else {
+      currency = 'USD';
+    }
+    
+    if (change === 0) return 'text-muted-foreground';
+    return isGoodForCurrency ? 'text-primary' : 'text-destructive';
   };
 
   const getChangeIcon = (change: number) => {
@@ -897,14 +930,20 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
 
   const getCurrencyIcon = (code: string) => {
     switch (code) {
-        onBack={() => {
-          setShowCurrencyOverview(false);
-          setShowUSDDashboard(false);
-        }}
+      case 'USD': return <DollarSign className="w-4 h-4" />;
       case 'EUR': return <Euro className="w-4 h-4" />;
       case 'GBP': return <PoundSterling className="w-4 h-4" />;
       default: return <Globe className="w-4 h-4" />;
     }
+  };
+
+  const handleCurrencyClick = (currency: string) => {
+    // Check if it's a USD-related asset for comprehensive dashboard
+    if (currency === 'USD') {
+      setShowUSDDashboard(true);
+      return;
+    }
+    setActiveCurrency(currency);
   };
 
   if (showUSDDashboard) {
@@ -989,7 +1028,7 @@ export const CurrencyOverview: React.FC<CurrencyOverviewProps> = ({
                   className={`military-card cursor-pointer transition-all duration-300 ${
                     isActive ? 'border-primary/50 bg-primary/5' : 'hover:border-primary/30'
                   }`}
-                  onClick={() => setActiveCurrency(currency)}
+                  onClick={() => handleCurrencyClick(currency)}
                 >
                   <CardContent className="p-4 text-center">
                     <div className="text-2xl mb-2">{data.flag}</div>
