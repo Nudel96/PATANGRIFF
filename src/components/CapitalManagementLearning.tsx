@@ -33,7 +33,7 @@ interface CapitalManagementLearningProps {
   onLogout: () => void;
 }
 
-const CapitalManagementLearning: React.FC<CapitalManagementLearningProps> = ({ onBack, onLogout }) => {
+export const CapitalManagementLearning: React.FC<CapitalManagementLearningProps> = ({ onBack, onLogout }) => {
   const [activeTab, setActiveTab] = useState('overview');
   const [userLevel, setUserLevel] = useState(6);
   const [userXP, setUserXP] = useState(390);
