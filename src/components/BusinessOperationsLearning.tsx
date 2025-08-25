@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -6,64 +6,33 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Building2, 
-  Trophy, 
-  Star, 
-  Lock, 
-  CheckCircle, 
-  PlayCircle,
-  Award,
-  Target,
-  Brain,
-  TrendingUp,
+  ArrowLeft, 
+  LogOut, 
+  Target, 
+  BarChart3, 
+  FileText, 
+  Users, 
   DollarSign,
-  Globe,
-  ArrowLeft,
-  LogOut,
-  Zap,
-  Clock,
-  Users,
-  BarChart3,
-  Shield,
-  Lightbulb,
-  Activity,
-  Calculator,
-  Eye,
-  FileText,
-  MessageCircle,
-  Coins,
-  BookOpen,
-  PenTool,
-  Briefcase,
-  Network,
   Settings,
-  Scale,
-  Handshake,
-  Gavel
+  Award,
+  CheckCircle,
+  Lock,
+  PlayCircle,
+  BookOpen,
+  Trophy,
+  Star,
+  Clock,
+  Zap,
+  Brain,
+  Activity,
+  TrendingUp,
+  Shield,
+  Briefcase,
+  Calculator,
+  PieChart,
+  LineChart,
+  Coins
 } from 'lucide-react';
-
-interface LearningModule {
-  id: string;
-  title: string;
-  description: string;
-  type: 'lesson' | 'quiz' | 'assessment' | 'project' | 'challenge';
-  xpReward: number;
-  duration: string;
-  completed: boolean;
-  locked: boolean;
-  content?: string;
-}
-
-interface LearningLevel {
-  level: number;
-  title: string;
-  description: string;
-  tier: 'Beginner' | 'Intermediate' | 'Professional';
-  modules: LearningModule[];
-  totalXP: number;
-  unlockRequirement: number;
-  completed: boolean;
-  locked: boolean;
-}
 
 interface BusinessOperationsLearningProps {
   onBack: () => void;
@@ -71,1034 +40,947 @@ interface BusinessOperationsLearningProps {
 }
 
 export const BusinessOperationsLearning: React.FC<BusinessOperationsLearningProps> = ({ onBack, onLogout }) => {
-  const [currentLevel, setCurrentLevel] = useState(1);
-  const [userXP, setUserXP] = useState(0);
-  const [userLevel, setUserLevel] = useState(1);
-  const [selectedModule, setSelectedModule] = useState<LearningModule | null>(null);
   const [activeTab, setActiveTab] = useState('overview');
+  const [userLevel, setUserLevel] = useState(5);
+  const [userXP, setUserXP] = useState(635);
 
-  // Complete Business Operations curriculum with all 30 levels
-  const learningLevels: LearningLevel[] = [
-    // TIER 1: BEGINNER (Levels 1-10) - Foundations
+  // Business Operations Learning Path (30 levels)
+  const learningLevels = [
+    // TIER 1: FOUNDATION (Levels 1-10)
     {
       level: 1,
-      title: "Embracing the Entrepreneurial Mindset",
-      description: "Understand entrepreneurial mindset traits and see challenges as growth opportunities",
-      tier: "Beginner",
+      title: "Trading as a Business Mindset",
+      description: "Shift from hobby trading to professional business operations",
+      tier: "Foundation",
       unlockRequirement: 0,
-      completed: false,
+      completed: true,
       locked: false,
       totalXP: 50,
       modules: [
         {
-          id: "1-1",
-          title: "The Entrepreneurial Mindset",
-          description: "Learn opportunity-focus, growth orientation, and resilience building",
+          id: "bo-1-1",
+          title: "Business vs Hobby Trading",
+          description: "Understanding the fundamental differences between casual and professional trading",
           type: "lesson",
           xpReward: 30,
           duration: "20 min",
-          completed: false,
-          locked: false,
-          content: "An entrepreneurial mindset thrives on identifying and seizing opportunities even in adversity. Such mindsets are growth-oriented (viewing failure as learning), risk-tolerant, and resourceful. Entrepreneurs constantly innovate and adapt, treating obstacles as stepping stones. Developing this mindset means being proactive, curious, and ready to learn. Cultivating resilience (bouncing back from setbacks) is central to entrepreneurial success."
+          completed: true,
+          content: "Professional trading requires treating your trading activities as a legitimate business enterprise. This means systematic record-keeping, tax planning, performance measurement, and operational procedures..."
         },
         {
-          id: "1-2",
-          title: "Mindset Assessment Quiz",
-          description: "Test your understanding of entrepreneurial thinking",
+          id: "bo-1-2",
+          title: "Business Structure Quiz",
+          description: "Test your understanding of trading business fundamentals",
           type: "quiz",
           xpReward: 20,
           duration: "10 min",
-          completed: false,
-          locked: false
+          completed: true
         }
       ]
     },
     {
       level: 2,
-      title: "Defining Your Personal Mission & Values",
-      description: "Craft a personal mission statement that guides your business vision and decisions",
-      tier: "Beginner",
+      title: "Record Keeping & Documentation Systems",
+      description: "Establish comprehensive documentation and record-keeping protocols",
+      tier: "Foundation",
       unlockRequirement: 50,
-      completed: false,
-      locked: true,
-      totalXP: 50,
+      completed: true,
+      locked: false,
+      totalXP: 60,
       modules: [
         {
-          id: "2-1",
-          title: "Creating Your Mission Statement",
-          description: "Learn to craft a personal mission that guides business decisions",
+          id: "bo-2-1",
+          title: "Trading Journal Systems",
+          description: "Design and implement comprehensive trading documentation",
           type: "lesson",
-          xpReward: 30,
+          xpReward: 40,
           duration: "25 min",
-          completed: false,
-          locked: false,
-          content: "A personal mission statement is like a compass for your business and life. It defines why you work and what you stand for. Research shows personal missions give focus and motivation. Writing one helps clarify values and long-term purpose, keeping you aligned with goals. Think of it as your individual definition of success. An effective mission is brief, value-driven, and in present tense."
+          completed: true,
+          content: "A professional trading journal goes beyond simple trade logs. Include market conditions, emotional state, decision-making process, and post-trade analysis..."
         },
         {
-          id: "2-2",
-          title: "Mission Statement Workshop",
-          description: "Draft and refine your personal mission statement",
-          type: "challenge",
+          id: "bo-2-2",
+          title: "Documentation Project",
+          description: "Create your personal documentation system",
+          type: "project",
           xpReward: 20,
-          duration: "15 min",
-          completed: false,
-          locked: false
+          duration: "45 min",
+          completed: true
         }
       ]
     },
     {
       level: 3,
-      title: "Opportunity Recognition & Ideation",
-      description: "Learn to generate business ideas by spotting real problems and needs in the market",
-      tier: "Beginner",
-      unlockRequirement: 100,
-      completed: false,
-      locked: true,
-      totalXP: 60,
+      title: "Performance Measurement & KPIs",
+      description: "Develop key performance indicators and measurement systems",
+      tier: "Foundation",
+      unlockRequirement: 110,
+      completed: true,
+      locked: false,
+      totalXP: 65,
       modules: [
         {
-          id: "3-1",
-          title: "Spotting Business Opportunities",
-          description: "Master the art of seeing solutions where others see problems",
+          id: "bo-3-1",
+          title: "Trading KPIs and Metrics",
+          description: "Essential performance indicators for trading businesses",
           type: "lesson",
-          xpReward: 40,
+          xpReward: 45,
           duration: "30 min",
-          completed: false,
-          locked: false,
-          content: "Entrepreneurs see solutions where others see problems. Start by observing your everyday life, skills, or hobbies for unmet needs. Mindset exercises (like brainstorming or 'what if' scenarios) can spark ideas. Remember Lean Startup principles: every idea is an experiment. Validated learning is key: test your assumptions early rather than assuming an idea is good."
+          completed: true,
+          content: "Key Performance Indicators for trading include: Sharpe ratio, maximum drawdown, win rate, average R-multiple, profit factor, and consistency metrics..."
         },
         {
-          id: "3-2",
-          title: "Ideation Challenge",
-          description: "Generate and evaluate multiple business ideas",
-          type: "challenge",
+          id: "bo-3-2",
+          title: "KPI Implementation",
+          description: "Set up your personal KPI tracking system",
+          type: "project",
           xpReward: 20,
-          duration: "20 min",
-          completed: false,
-          locked: false
+          duration: "40 min",
+          completed: true
         }
       ]
     },
     {
       level: 4,
-      title: "Idea Validation (Lean Startup Basics)",
-      description: "Use Lean Startup methods (MVP, feedback) to test and validate your idea quickly",
-      tier: "Beginner",
-      unlockRequirement: 160,
-      completed: false,
-      locked: true,
-      totalXP: 60,
+      title: "Goal Setting & Strategic Planning",
+      description: "Create systematic goal-setting and strategic planning frameworks",
+      tier: "Foundation",
+      unlockRequirement: 175,
+      completed: true,
+      locked: false,
+      totalXP: 70,
       modules: [
         {
-          id: "4-1",
-          title: "MVP Development & Testing",
-          description: "Learn to build and test Minimum Viable Products",
+          id: "bo-4-1",
+          title: "SMART Goals for Traders",
+          description: "Specific, Measurable, Achievable, Relevant, Time-bound goal setting",
           type: "lesson",
-          xpReward: 40,
-          duration: "35 min",
-          completed: false,
-          locked: false,
-          content: "Rather than building full products, the Lean Startup method teaches starting small: create a Minimum Viable Product (MVP) to learn what customers truly need. This 'build-measure-learn' feedback loop ensures you focus on solving real problems. Make simple prototypes or surveys, then measure reactions. Validated learning means using data from experiments to decide if you should pivot or persevere."
+          xpReward: 50,
+          duration: "25 min",
+          completed: true,
+          content: "SMART goals provide structure for trading development. Example: 'Achieve 15% annual return with maximum 8% drawdown by December 31st through systematic trend-following strategy'..."
         },
         {
-          id: "4-2",
-          title: "Validation Project",
-          description: "Create and test your first MVP",
+          id: "bo-4-2",
+          title: "Strategic Planning Workshop",
+          description: "Develop your 1-year and 5-year trading business plan",
           type: "project",
           xpReward: 20,
-          duration: "25 min",
-          completed: false,
-          locked: false
+          duration: "60 min",
+          completed: true
         }
       ]
     },
     {
       level: 5,
-      title: "Crafting Your Value Proposition",
-      description: "Define a clear value proposition that explains why customers need your product/service",
-      tier: "Beginner",
-      unlockRequirement: 220,
+      title: "Standard Operating Procedures (SOPs)",
+      description: "Create systematic procedures for all trading activities",
+      tier: "Foundation",
+      unlockRequirement: 245,
       completed: false,
-      locked: true,
-      totalXP: 60,
+      locked: false,
+      totalXP: 75,
       modules: [
         {
-          id: "5-1",
-          title: "Value Proposition Design",
-          description: "Create compelling value propositions that resonate with customers",
+          id: "bo-5-1",
+          title: "SOP Development Framework",
+          description: "How to create effective standard operating procedures",
           type: "lesson",
-          xpReward: 40,
-          duration: "30 min",
+          xpReward: 55,
+          duration: "35 min",
           completed: false,
-          locked: false,
-          content: "Your value proposition is a concise statement of the unique benefits you offer. It answers: 'Why choose us?' and 'What problem do we solve?' A strong value prop is customer-focused, specific, and contrasts you with alternatives. For example, it might highlight speed, quality, or innovation. Use feedback from validation to emphasize what customers valued most."
+          content: "SOPs ensure consistency and reduce decision fatigue. Create procedures for: market analysis, trade entry, position management, exit criteria, and post-trade review..."
         },
         {
-          id: "5-2",
-          title: "Value Prop Testing",
-          description: "Test and refine your value proposition with real feedback",
-          type: "challenge",
+          id: "bo-5-2",
+          title: "Create Your Trading SOPs",
+          description: "Develop comprehensive SOPs for your trading process",
+          type: "project",
           xpReward: 20,
-          duration: "20 min",
-          completed: false,
-          locked: false
+          duration: "90 min",
+          completed: false
         }
       ]
     },
     {
       level: 6,
-      title: "Introduction to Business Model Planning",
-      description: "Outline a basic business model using frameworks like the Lean Canvas",
-      tier: "Beginner",
-      unlockRequirement: 280,
+      title: "Time Management & Productivity",
+      description: "Optimize time allocation and productivity systems",
+      tier: "Foundation",
+      unlockRequirement: 320,
       completed: false,
       locked: true,
-      totalXP: 65,
+      totalXP: 70,
       modules: [
         {
-          id: "6-1",
-          title: "Business Model Canvas",
-          description: "Learn to map your business model using proven frameworks",
+          id: "bo-6-1",
+          title: "Trading Schedule Optimization",
+          description: "Design efficient daily and weekly trading schedules",
           type: "lesson",
-          xpReward: 45,
-          duration: "40 min",
+          xpReward: 50,
+          duration: "30 min",
           completed: false,
-          locked: false,
-          content: "A business model shows how your idea makes money and delivers value. The Business Model Canvas breaks this into key parts: Customer Segments, Value Proposition, Channels, Revenue Streams, Costs, and more. Filling out a canvas helps ensure you haven't overlooked any piece of the puzzle. Focus on assumptions: who is your customer, and how will you reach and earn from them?"
+          content: "Effective time management separates professional traders from amateurs. Allocate specific time blocks for: market analysis, trade execution, education, and business development..."
         },
         {
-          id: "6-2",
-          title: "Canvas Workshop",
-          description: "Complete your business model canvas",
-          type: "project",
+          id: "bo-6-2",
+          title: "Productivity Assessment",
+          description: "Evaluate and optimize your current productivity systems",
+          type: "assessment",
           xpReward: 20,
-          duration: "25 min",
-          completed: false,
-          locked: false
+          duration: "30 min",
+          completed: false
         }
       ]
     },
     {
       level: 7,
-      title: "Goal-Setting and Personal Productivity",
-      description: "Learn to set SMART goals and establish productive routines",
-      tier: "Beginner",
-      unlockRequirement: 345,
+      title: "Technology Stack & Tools",
+      description: "Select and optimize your trading technology infrastructure",
+      tier: "Foundation",
+      unlockRequirement: 390,
       completed: false,
       locked: true,
-      totalXP: 65,
+      totalXP: 75,
       modules: [
         {
-          id: "7-1",
-          title: "SMART Goals & Productivity Systems",
-          description: "Master goal-setting and productivity frameworks",
+          id: "bo-7-1",
+          title: "Trading Technology Audit",
+          description: "Evaluate and optimize your trading technology stack",
           type: "lesson",
-          xpReward: 45,
-          duration: "35 min",
+          xpReward: 55,
+          duration: "40 min",
           completed: false,
-          locked: false,
-          content: "Clear goals drive progress. Use SMART criteria: Specific, Measurable, Achievable, Relevant, Time-bound. Break annual goals into monthly or weekly tasks. Productive routines (daily work blocks, habit trackers) help maintain momentum. Remember Covey's principle: 'Begin with the end in mind.' Focus on high-impact activities and guard against distractions."
+          content: "Professional traders require reliable technology: multiple monitors, backup internet, professional charting software, news feeds, and execution platforms..."
         },
         {
-          id: "7-2",
-          title: "Goal Setting Workshop",
-          description: "Create your SMART goals and productivity system",
-          type: "challenge",
+          id: "bo-7-2",
+          title: "Technology Implementation Plan",
+          description: "Create your technology upgrade roadmap",
+          type: "project",
           xpReward: 20,
-          duration: "20 min",
-          completed: false,
-          locked: false
+          duration: "60 min",
+          completed: false
         }
       ]
     },
     {
       level: 8,
-      title: "Basic Finance and Budgeting",
-      description: "Understand business finances by creating income and expense forecasts",
-      tier: "Beginner",
-      unlockRequirement: 410,
+      title: "Legal Structure & Compliance",
+      description: "Understand legal requirements and business structure options",
+      tier: "Foundation",
+      unlockRequirement: 465,
       completed: false,
       locked: true,
-      totalXP: 65,
+      totalXP: 80,
       modules: [
         {
-          id: "8-1",
-          title: "Business Finance Fundamentals",
-          description: "Learn cash flow, profit margins, and budgeting basics",
+          id: "bo-8-1",
+          title: "Business Entity Selection",
+          description: "LLC, Corporation, or Sole Proprietorship for traders",
           type: "lesson",
-          xpReward: 45,
+          xpReward: 60,
           duration: "35 min",
           completed: false,
-          locked: false,
-          content: "Even a solo entrepreneur must track money. Start with projected revenue and expected costs. Calculate simple profit (Revenue – Costs). Keep separate personal and business finances. Learn terms like cash flow, profit margin, and break-even point. Use spreadsheets or budgeting apps to plan. Tracking money helps you make informed decisions and measure growth."
+          content: "Business structure affects taxes, liability, and growth potential. LLCs offer flexibility and protection, while corporations enable investment and scaling..."
         },
         {
-          id: "8-2",
-          title: "Budget Creation Exercise",
-          description: "Create your first business budget and financial forecast",
+          id: "bo-8-2",
+          title: "Compliance Checklist",
+          description: "Create your regulatory compliance framework",
           type: "project",
           xpReward: 20,
-          duration: "25 min",
-          completed: false,
-          locked: false
+          duration: "45 min",
+          completed: false
         }
       ]
     },
     {
       level: 9,
-      title: "Marketing Fundamentals & Brand Basics",
-      description: "Identify your target audience and learn basic marketing principles",
-      tier: "Beginner",
-      unlockRequirement: 475,
+      title: "Tax Planning & Optimization",
+      description: "Develop tax-efficient trading business strategies",
+      tier: "Foundation",
+      unlockRequirement: 545,
       completed: false,
       locked: true,
-      totalXP: 65,
+      totalXP: 85,
       modules: [
         {
-          id: "9-1",
-          title: "Marketing & Brand Strategy",
-          description: "Build your brand identity and marketing foundation",
+          id: "bo-9-1",
+          title: "Trader Tax Strategies",
+          description: "Tax optimization techniques for trading businesses",
           type: "lesson",
-          xpReward: 45,
+          xpReward: 65,
           duration: "40 min",
           completed: false,
-          locked: false,
-          content: "Marketing is communicating your value to the right people. Start by defining your ideal customer (age, interests, pain points). Craft messaging that appeals to them. Choose 1–2 channels to test. Brand elements (logo, voice, colors) should consistently reflect your mission and values. Building a simple marketing plan helps you focus efforts."
+          content: "Mark-to-market election, business expense deductions, retirement account strategies, and tax-loss harvesting can significantly impact your bottom line..."
         },
         {
-          id: "9-2",
-          title: "Brand Identity Workshop",
-          description: "Create your brand identity and first marketing content",
-          type: "challenge",
+          id: "bo-9-2",
+          title: "Tax Planning Workshop",
+          description: "Develop your annual tax optimization strategy",
+          type: "project",
           xpReward: 20,
-          duration: "25 min",
-          completed: false,
-          locked: false
+          duration: "75 min",
+          completed: false
         }
       ]
     },
     {
       level: 10,
-      title: "Developing Productive Routines and Habits",
-      description: "Establish sustainable routines that support business growth and well-being",
-      tier: "Beginner",
-      unlockRequirement: 540,
+      title: "Foundation Tier Assessment",
+      description: "Comprehensive evaluation of business foundation knowledge",
+      tier: "Foundation",
+      unlockRequirement: 630,
       completed: false,
       locked: true,
-      totalXP: 65,
+      totalXP: 100,
       modules: [
         {
-          id: "10-1",
-          title: "Productive Routines & Self-Management",
-          description: "Build habits and routines for sustainable success",
-          type: "lesson",
-          xpReward: 45,
-          duration: "30 min",
+          id: "bo-10-1",
+          title: "Business Foundation Exam",
+          description: "Test all foundation concepts and practical application",
+          type: "assessment",
+          xpReward: 100,
+          duration: "60 min",
           completed: false,
-          locked: false,
-          content: "Successful entrepreneurs balance hard work with healthy routines. Dedicate consistent time each day to key business tasks. Use tools like time-blocking, to-do lists, or habit trackers. Also incorporate self-care: exercise, sleep, and breaks are vital. Covey's 'Sharpen the Saw' emphasizes renewal through rest and learning. Create rituals that reinforce progress."
-        },
-        {
-          id: "10-2",
-          title: "Routine Design Challenge",
-          description: "Design and implement your weekly routine system",
-          type: "challenge",
-          xpReward: 20,
-          duration: "20 min",
-          completed: false,
-          locked: false
+          content: "Comprehensive assessment covering business mindset, documentation, KPIs, goal setting, SOPs, productivity, technology, legal structure, and tax planning..."
         }
       ]
     },
 
-    // TIER 2: INTERMEDIATE (Levels 11-20) - Strategy and Systems
+    // TIER 2: STRATEGY (Levels 11-20)
     {
       level: 11,
-      title: "Strategic Planning (Annual & Quarterly)",
-      description: "Set a one-year vision and break it into quarterly goals for adaptability",
-      tier: "Intermediate",
-      unlockRequirement: 605,
+      title: "Business Model Development",
+      description: "Design sustainable trading business models",
+      tier: "Strategy",
+      unlockRequirement: 730,
       completed: false,
       locked: true,
-      totalXP: 70,
+      totalXP: 80,
       modules: [
         {
-          id: "11-1",
-          title: "Strategic Vision & OKRs",
-          description: "Master long-term planning and quarterly goal setting",
+          id: "bo-11-1",
+          title: "Trading Business Models",
+          description: "Proprietary trading, fund management, and education models",
           type: "lesson",
-          xpReward: 50,
+          xpReward: 60,
           duration: "45 min",
           completed: false,
-          locked: false,
-          content: "Long-term success requires structured planning. Define a clear 12-month vision for your business. Then adopt quarterly planning: every 3 months, review your OKRs (Objectives and Key Results) and KPIs. Quarterly planning is a strategic way to move towards your objectives by breaking annual plans into manageable 3-month increments. This lets you adjust quickly if something isn't working."
+          content: "Different business models serve different goals: proprietary trading for personal wealth, fund management for scaling capital, education for recurring revenue..."
         },
         {
-          id: "11-2",
-          title: "Annual Planning Workshop",
-          description: "Create your annual vision and quarterly breakdown",
+          id: "bo-11-2",
+          title: "Business Model Canvas",
+          description: "Create your trading business model canvas",
           type: "project",
           xpReward: 20,
-          duration: "30 min",
-          completed: false,
-          locked: false
+          duration: "90 min",
+          completed: false
         }
       ]
     },
     {
       level: 12,
-      title: "Documenting Processes and Systems",
-      description: "Create Standard Operating Procedures (SOPs) for consistency and scalability",
-      tier: "Intermediate",
-      unlockRequirement: 675,
+      title: "Revenue Diversification Strategies",
+      description: "Develop multiple income streams from trading expertise",
+      tier: "Strategy",
+      unlockRequirement: 810,
       completed: false,
       locked: true,
-      totalXP: 70,
+      totalXP: 85,
       modules: [
         {
-          id: "12-1",
-          title: "SOP Development",
-          description: "Learn to document and standardize your business processes",
+          id: "bo-12-1",
+          title: "Income Stream Development",
+          description: "Trading, education, consulting, and content monetization",
           type: "lesson",
-          xpReward: 50,
+          xpReward: 65,
           duration: "40 min",
           completed: false,
-          locked: false,
-          content: "As you grow, informal ways of working can lead to missed steps. Documenting processes ensures quality and saves time. A simple SOP lists the steps, tools, and time needed for a task. This makes delegation easier later and prevents reinventing the wheel. Standardized processes are the building blocks of a scalable operation."
+          content: "Diversified income reduces business risk: trading profits, educational courses, one-on-one coaching, content creation, affiliate marketing, and software development..."
         },
         {
-          id: "12-2",
-          title: "Process Documentation Project",
-          description: "Create your first Standard Operating Procedure",
+          id: "bo-12-2",
+          title: "Revenue Strategy Plan",
+          description: "Design your multi-stream revenue strategy",
           type: "project",
           xpReward: 20,
-          duration: "25 min",
-          completed: false,
-          locked: false
+          duration: "75 min",
+          completed: false
         }
       ]
     },
     {
       level: 13,
-      title: "Marketing Strategy and Channels",
-      description: "Develop a marketing strategy by choosing key channels and tactics",
-      tier: "Intermediate",
-      unlockRequirement: 745,
+      title: "Brand Building & Personal Marketing",
+      description: "Develop your professional trading brand and online presence",
+      tier: "Strategy",
+      unlockRequirement: 895,
       completed: false,
       locked: true,
-      totalXP: 70,
+      totalXP: 90,
       modules: [
         {
-          id: "13-1",
-          title: "Multi-Channel Marketing Strategy",
-          description: "Build comprehensive marketing systems and funnels",
+          id: "bo-13-1",
+          title: "Professional Brand Development",
+          description: "Building credibility and authority in trading markets",
           type: "lesson",
-          xpReward: 50,
-          duration: "45 min",
+          xpReward: 70,
+          duration: "50 min",
           completed: false,
-          locked: false,
-          content: "With your audience defined, pick marketing methods that fit. Content marketing builds trust over time, while paid ads can drive quick traffic. Allocate time and budget to 1–2 channels first. Define your brand voice and consistent messaging. Keep testing: track what brings engagement. Your marketing system should feed into sales."
+          content: "Your brand represents your expertise and credibility. Consistent content creation, thought leadership, and professional networking build long-term business value..."
         },
         {
-          id: "13-2",
-          title: "Marketing Plan Creation",
-          description: "Design your comprehensive marketing strategy",
+          id: "bo-13-2",
+          title: "Brand Strategy Implementation",
+          description: "Launch your professional trading brand",
           type: "project",
           xpReward: 20,
-          duration: "30 min",
-          completed: false,
-          locked: false
+          duration: "120 min",
+          completed: false
         }
       ]
     },
     {
       level: 14,
-      title: "Sales Fundamentals",
-      description: "Learn a basic sales process to convert interest into paying customers",
-      tier: "Intermediate",
-      unlockRequirement: 815,
+      title: "Client Acquisition & Relationship Management",
+      description: "Systematic approaches to acquiring and managing clients",
+      tier: "Strategy",
+      unlockRequirement: 985,
       completed: false,
       locked: true,
-      totalXP: 70,
+      totalXP: 85,
       modules: [
         {
-          id: "14-1",
-          title: "Sales Process & Relationship Building",
-          description: "Master the art of converting leads into customers",
+          id: "bo-14-1",
+          title: "Client Acquisition Systems",
+          description: "Systematic approaches to finding and converting prospects",
           type: "lesson",
-          xpReward: 50,
-          duration: "40 min",
+          xpReward: 65,
+          duration: "45 min",
           completed: false,
-          locked: false,
-          content: "Sales is about understanding customer needs and communicating how you solve them. Map a sales flow: lead generation, follow-up, presentation, handling objections, and closing. Use tools like email follow-ups or call scheduling. Focus on building relationships: listen more than you talk. Practice explaining your value proposition clearly."
+          content: "Sustainable client acquisition requires systematic processes: content marketing, referral systems, networking strategies, and value demonstration..."
         },
         {
-          id: "14-2",
-          title: "Sales Role-Play Exercise",
-          description: "Practice your sales pitch and objection handling",
-          type: "challenge",
+          id: "bo-14-2",
+          title: "CRM Implementation",
+          description: "Set up client relationship management systems",
+          type: "project",
           xpReward: 20,
-          duration: "25 min",
-          completed: false,
-          locked: false
+          duration: "60 min",
+          completed: false
         }
       ]
     },
     {
       level: 15,
-      title: "Performance Metrics and KPIs",
-      description: "Identify and track Key Performance Indicators to measure business health",
-      tier: "Intermediate",
-      unlockRequirement: 885,
+      title: "Financial Planning & Business Accounting",
+      description: "Professional financial management for trading businesses",
+      tier: "Strategy",
+      unlockRequirement: 1070,
       completed: false,
       locked: true,
-      totalXP: 75,
+      totalXP: 90,
       modules: [
         {
-          id: "15-1",
-          title: "KPI Selection & Tracking",
-          description: "Learn to choose and monitor the right business metrics",
+          id: "bo-15-1",
+          title: "Business Financial Management",
+          description: "Cash flow, budgeting, and financial planning for traders",
           type: "lesson",
-          xpReward: 55,
-          duration: "35 min",
+          xpReward: 70,
+          duration: "50 min",
           completed: false,
-          locked: false,
-          content: "KPIs are quantifiable metrics that show progress toward goals. Examples: monthly revenue, number of new clients, website traffic, or customer satisfaction score. Tracking KPIs provides clarity and focus by measuring progress. When metrics dip or rise, you get signals to adjust strategy. Use basic tools to log your numbers monthly and review trends regularly."
+          content: "Separate business and personal finances, maintain emergency funds, plan for tax obligations, and track business expenses systematically..."
         },
         {
-          id: "15-2",
-          title: "KPI Dashboard Setup",
-          description: "Create your business metrics tracking system",
+          id: "bo-15-2",
+          title: "Financial Planning Workshop",
+          description: "Create comprehensive financial plan for your trading business",
           type: "project",
           xpReward: 20,
-          duration: "25 min",
-          completed: false,
-          locked: false
+          duration: "90 min",
+          completed: false
         }
       ]
     },
     {
       level: 16,
-      title: "Delegation, Outsourcing, and Automation",
-      description: "Learn when and how to delegate or automate tasks for efficiency",
-      tier: "Intermediate",
-      unlockRequirement: 960,
+      title: "Team Building & Delegation",
+      description: "Scale operations through effective team building",
+      tier: "Strategy",
+      unlockRequirement: 1160,
       completed: false,
       locked: true,
-      totalXP: 75,
+      totalXP: 85,
       modules: [
         {
-          id: "16-1",
-          title: "Delegation & Automation Strategy",
-          description: "Master the art of letting go and scaling through others",
+          id: "bo-16-1",
+          title: "Building Trading Teams",
+          description: "Hiring, training, and managing trading team members",
           type: "lesson",
-          xpReward: 55,
-          duration: "40 min",
+          xpReward: 65,
+          duration: "45 min",
           completed: false,
-          locked: false,
-          content: "Entrepreneurs often try to do everything themselves, which can lead to decreased productivity and missed opportunities. Examine your task list: what can be automated, outsourced, or delegated? Learning to delegate through automation, outsourcing or hiring is key to scaling a business. Start small: even hiring a freelancer for low-value tasks can multiply your efficiency."
+          content: "Successful trading teams require clear roles, systematic training, performance measurement, and aligned incentives. Start with virtual assistants and analysts..."
         },
         {
-          id: "16-2",
-          title: "Delegation Implementation",
-          description: "Implement your first delegation or automation solution",
-          type: "challenge",
+          id: "bo-16-2",
+          title: "Team Structure Design",
+          description: "Design your ideal team structure and hiring plan",
+          type: "project",
           xpReward: 20,
-          duration: "30 min",
-          completed: false,
-          locked: false
+          duration: "75 min",
+          completed: false
         }
       ]
     },
     {
       level: 17,
-      title: "Resilience and Adaptability",
-      description: "Develop resilience skills to cope with setbacks and learn from failures",
-      tier: "Intermediate",
-      unlockRequirement: 1035,
+      title: "Risk Management Systems",
+      description: "Enterprise-level risk management and control systems",
+      tier: "Strategy",
+      unlockRequirement: 1245,
       completed: false,
       locked: true,
-      totalXP: 75,
+      totalXP: 90,
       modules: [
         {
-          id: "17-1",
-          title: "Building Entrepreneurial Resilience",
-          description: "Develop mental toughness and adaptability for business challenges",
+          id: "bo-17-1",
+          title: "Business Risk Management",
+          description: "Operational, financial, and strategic risk management",
           type: "lesson",
-          xpReward: 55,
-          duration: "35 min",
+          xpReward: 70,
+          duration: "50 min",
           completed: false,
-          locked: false,
-          content: "In entrepreneurship, setbacks are inevitable. Cultivating resilience means bouncing back and adapting. Resilient entrepreneurs have a growth mindset and treat failures as learning. Building resilience involves setting realistic expectations, reframing challenges, and maintaining optimism. Practices like stress management, peer support, and reflective journaling strengthen this trait."
+          content: "Business risk extends beyond trading risk: operational failures, technology breakdowns, regulatory changes, and market access issues require systematic mitigation..."
         },
         {
-          id: "17-2",
-          title: "Resilience Building Exercise",
-          description: "Practice reframing setbacks as learning opportunities",
-          type: "challenge",
+          id: "bo-17-2",
+          title: "Risk Management Framework",
+          description: "Implement comprehensive business risk controls",
+          type: "project",
           xpReward: 20,
-          duration: "20 min",
-          completed: false,
-          locked: false
+          duration: "80 min",
+          completed: false
         }
       ]
     },
     {
       level: 18,
-      title: "Building a Network and Support System",
-      description: "Learn to network effectively and build a community of mentors and peers",
-      tier: "Intermediate",
-      unlockRequirement: 1110,
+      title: "Technology Infrastructure & Automation",
+      description: "Advanced technology systems and automation strategies",
+      tier: "Strategy",
+      unlockRequirement: 1335,
       completed: false,
       locked: true,
-      totalXP: 75,
+      totalXP: 95,
       modules: [
         {
-          id: "18-1",
-          title: "Strategic Networking",
-          description: "Build meaningful professional relationships and support systems",
+          id: "bo-18-1",
+          title: "Trading Technology Architecture",
+          description: "Professional-grade technology infrastructure design",
           type: "lesson",
-          xpReward: 55,
-          duration: "40 min",
+          xpReward: 75,
+          duration: "55 min",
           completed: false,
-          locked: false,
-          content: "Successful entrepreneurs don't go it alone. A strong network provides advice, opportunities, and emotional support. Seek out industry meetups, online forums, or mastermind groups. Identify people who inspire you and reach out with genuine questions. Look for mentors who can give perspective. Networking isn't just asking for help – offer value in return."
+          content: "Professional infrastructure includes: redundant internet connections, backup power, multiple execution venues, automated reporting, and disaster recovery plans..."
         },
         {
-          id: "18-2",
-          title: "Networking Action Plan",
-          description: "Create and execute your networking strategy",
-          type: "challenge",
+          id: "bo-18-2",
+          title: "Automation Implementation",
+          description: "Automate routine business processes",
+          type: "project",
           xpReward: 20,
-          duration: "30 min",
-          completed: false,
-          locked: false
+          duration: "100 min",
+          completed: false
         }
       ]
     },
     {
       level: 19,
-      title: "Implementing Technology and Tools",
-      description: "Integrate digital tools and automation to streamline operations",
-      tier: "Intermediate",
-      unlockRequirement: 1185,
+      title: "Partnership & Joint Venture Development",
+      description: "Strategic partnerships and collaborative business development",
+      tier: "Strategy",
+      unlockRequirement: 1430,
       completed: false,
       locked: true,
-      totalXP: 80,
+      totalXP: 90,
       modules: [
         {
-          id: "19-1",
-          title: "Business Technology Stack",
-          description: "Choose and implement the right tools for your business",
+          id: "bo-19-1",
+          title: "Strategic Partnerships",
+          description: "Identifying and developing profitable business partnerships",
           type: "lesson",
-          xpReward: 60,
+          xpReward: 70,
           duration: "45 min",
           completed: false,
-          locked: false,
-          content: "Technology can greatly increase capacity. For routine tasks, use automation: email filters, scheduling apps, or chatbots for basic questions. Automation frees you from routine tasks, so you get more time for productive work. Explore tools in marketing, finance, or project management. Choose tools that integrate well together to avoid siloed systems."
+          content: "Strategic partnerships accelerate growth: technology providers, educational platforms, prop firms, and complementary service providers..."
         },
         {
-          id: "19-2",
-          title: "Tech Implementation Project",
-          description: "Set up your business technology stack",
+          id: "bo-19-2",
+          title: "Partnership Strategy",
+          description: "Develop your partnership and collaboration strategy",
           type: "project",
           xpReward: 20,
-          duration: "35 min",
-          completed: false,
-          locked: false
+          duration: "70 min",
+          completed: false
         }
       ]
     },
     {
       level: 20,
-      title: "Legal Basics and Risk Management",
-      description: "Understand essential legal steps and basic risk management",
-      tier: "Intermediate",
-      unlockRequirement: 1265,
+      title: "Strategy Tier Assessment & Business Plan",
+      description: "Comprehensive business strategy evaluation and planning",
+      tier: "Strategy",
+      unlockRequirement: 1520,
       completed: false,
       locked: true,
-      totalXP: 80,
+      totalXP: 150,
       modules: [
         {
-          id: "20-1",
-          title: "Legal Foundation & Risk Planning",
-          description: "Protect your business with proper legal and risk management",
-          type: "lesson",
-          xpReward: 60,
-          duration: "50 min",
+          id: "bo-20-1",
+          title: "Business Strategy Exam",
+          description: "Comprehensive assessment of business strategy knowledge",
+          type: "assessment",
+          xpReward: 100,
+          duration: "90 min",
           completed: false,
-          locked: false,
-          content: "Protecting yourself legally is part of running a sustainable business. Research business structures (sole proprietorship, LLC, etc.). Learn tax obligations and keep records. Use contracts for clients: even a one-page agreement builds trust and avoids disputes. Consider basic insurance if relevant. Planning for risk ensures longevity."
+          content: "Advanced assessment covering business models, revenue diversification, branding, client management, financial planning, team building, and risk management..."
         },
         {
-          id: "20-2",
-          title: "Legal & Risk Assessment",
-          description: "Complete your legal setup and risk management plan",
-          type: "assessment",
-          xpReward: 20,
-          duration: "40 min",
-          completed: false,
-          locked: false
+          id: "bo-20-2",
+          title: "Complete Business Plan",
+          description: "Create comprehensive trading business plan",
+          type: "project",
+          xpReward: 50,
+          duration: "180 min",
+          completed: false
         }
       ]
     },
 
-    // TIER 3: PROFESSIONAL (Levels 21-30) - Scaling & Sustainability
+    // TIER 3: SCALING (Levels 21-30)
     {
       level: 21,
-      title: "Advanced Financial Planning & Cash Flow Strategy",
-      description: "Create long-term financial plans and funding strategies for growth",
-      tier: "Professional",
-      unlockRequirement: 1345,
+      title: "Capital Raising & Investment Strategies",
+      description: "Advanced capital acquisition and investment management",
+      tier: "Scaling",
+      unlockRequirement: 1670,
       completed: false,
       locked: true,
-      totalXP: 80,
+      totalXP: 100,
       modules: [
         {
-          id: "21-1",
-          title: "Advanced Financial Strategy",
-          description: "Master cash flow forecasting and funding strategies",
+          id: "bo-21-1",
+          title: "Capital Raising Strategies",
+          description: "Angel investors, venture capital, and alternative funding",
           type: "lesson",
-          xpReward: 60,
-          duration: "50 min",
+          xpReward: 80,
+          duration: "60 min",
           completed: false,
-          locked: false,
-          content: "Think beyond month-to-month budgeting. Build a cash flow forecast (6–12 months) incorporating growth assumptions and seasonal changes. Learn about break-even analysis and runway. Plan for investments or loans: keep clear records for potential funders. Monitor working capital. A scalable company can expand significantly and sustainably without proportionate expense increases."
+          content: "Scaling requires capital: personal savings, family offices, angel investors, venture capital, and alternative funding sources each have different requirements and implications..."
         },
         {
-          id: "21-2",
-          title: "Financial Modeling Project",
-          description: "Create comprehensive financial forecasts and funding plans",
+          id: "bo-21-2",
+          title: "Investment Pitch Development",
+          description: "Create compelling investment presentations",
           type: "project",
           xpReward: 20,
-          duration: "40 min",
-          completed: false,
-          locked: false
+          duration: "120 min",
+          completed: false
         }
       ]
     },
     {
       level: 22,
-      title: "Leadership & Team Building",
-      description: "Develop leadership skills and plan to build a team",
-      tier: "Professional",
-      unlockRequirement: 1425,
+      title: "Institutional Client Development",
+      description: "Strategies for acquiring and serving institutional clients",
+      tier: "Scaling",
+      unlockRequirement: 1770,
       completed: false,
       locked: true,
-      totalXP: 80,
+      totalXP: 95,
       modules: [
         {
-          id: "22-1",
-          title: "Leadership Development",
-          description: "Transform from solo founder to effective leader",
+          id: "bo-22-1",
+          title: "Institutional Sales Process",
+          description: "Systematic approach to institutional client acquisition",
           type: "lesson",
-          xpReward: 60,
-          duration: "45 min",
+          xpReward: 75,
+          duration: "55 min",
           completed: false,
-          locked: false,
-          content: "Transitioning from doer to leader requires people skills. Learn to delegate with clear instructions and empower others. Effective leadership combines vision with empathy. Define roles you need and write clear job descriptions. Interview focusing on values alignment. Practice giving feedback and recognition. Great teams follow leaders who communicate purpose and trust their people."
+          content: "Institutional clients require different approaches: due diligence processes, compliance requirements, performance reporting, and relationship management..."
         },
         {
-          id: "22-2",
-          title: "Leadership Skills Assessment",
-          description: "Evaluate and develop your leadership capabilities",
-          type: "assessment",
+          id: "bo-22-2",
+          title: "Institutional Pitch Book",
+          description: "Create professional institutional presentation materials",
+          type: "project",
           xpReward: 20,
-          duration: "30 min",
-          completed: false,
-          locked: false
+          duration: "150 min",
+          completed: false
         }
       ]
     },
     {
       level: 23,
-      title: "Company Culture and Values at Scale",
-      description: "Establish core values and culture practices for growth",
-      tier: "Professional",
-      unlockRequirement: 1505,
+      title: "Fund Management & Structure",
+      description: "Hedge fund and investment management business development",
+      tier: "Scaling",
+      unlockRequirement: 1865,
       completed: false,
       locked: true,
-      totalXP: 80,
+      totalXP: 100,
       modules: [
         {
-          id: "23-1",
-          title: "Culture Design & Implementation",
-          description: "Build a strong company culture that scales",
+          id: "bo-23-1",
+          title: "Investment Fund Structures",
+          description: "Hedge funds, private equity, and managed accounts",
           type: "lesson",
-          xpReward: 60,
-          duration: "40 min",
+          xpReward: 80,
+          duration: "65 min",
           completed: false,
-          locked: false,
-          content: "A strong, positive culture attracts talent and customers. Define 3–5 core values that reflect your mission. Communicate these values in all dealings. Culture isn't just perks; it's how you treat people. Examples: team check-ins, celebrating wins, encouraging work-life balance. Your brand promise should match culture (happy team = happy customers)."
+          content: "Fund structures enable capital scaling: hedge funds for sophisticated investors, managed accounts for customization, and private equity for long-term strategies..."
         },
         {
-          id: "23-2",
-          title: "Culture Implementation Plan",
-          description: "Create your company culture framework",
+          id: "bo-23-2",
+          title: "Fund Structure Analysis",
+          description: "Evaluate optimal fund structure for your strategy",
           type: "project",
           xpReward: 20,
-          duration: "35 min",
-          completed: false,
-          locked: false
+          duration: "100 min",
+          completed: false
         }
       ]
     },
     {
       level: 24,
-      title: "Scaling Operations and Processes",
-      description: "Plan for scalable operations by enhancing processes for growth",
-      tier: "Professional",
-      unlockRequirement: 1585,
+      title: "Regulatory Compliance & Licensing",
+      description: "Advanced regulatory requirements and licensing procedures",
+      tier: "Scaling",
+      unlockRequirement: 1965,
       completed: false,
       locked: true,
-      totalXP: 85,
+      totalXP: 95,
       modules: [
         {
-          id: "24-1",
-          title: "Operational Scaling Strategy",
-          description: "Design operations that can handle exponential growth",
+          id: "bo-24-1",
+          title: "Investment Advisor Licensing",
+          description: "Series 65, RIA registration, and compliance requirements",
           type: "lesson",
-          xpReward: 65,
-          duration: "50 min",
+          xpReward: 75,
+          duration: "60 min",
           completed: false,
-          locked: false,
-          content: "True scaling means accommodating more customers without collapsing under complexity. Review your SOPs: can they handle double volume? Invest in systems that support growth. Consider outsourcing for non-core functions at larger scale. Standardized, replicable processes make scaling manageable. Ensure quality control measures so standards stay high during growth."
+          content: "Managing client money requires proper licensing: Series 65 for investment advisors, RIA registration for firms, and ongoing compliance obligations..."
         },
         {
-          id: "24-2",
-          title: "Scaling Readiness Assessment",
-          description: "Evaluate your business's readiness for scale",
-          type: "assessment",
+          id: "bo-24-2",
+          title: "Compliance Program Design",
+          description: "Create comprehensive compliance and risk management program",
+          type: "project",
           xpReward: 20,
-          duration: "30 min",
-          completed: false,
-          locked: false
+          duration: "120 min",
+          completed: false
         }
       ]
     },
     {
       level: 25,
-      title: "Advanced Brand Building & Marketing at Scale",
-      description: "Strengthen brand strategy for broader reach and thought leadership",
-      tier: "Professional",
-      unlockRequirement: 1670,
+      title: "International Expansion & Global Markets",
+      description: "Expanding trading operations to international markets",
+      tier: "Scaling",
+      unlockRequirement: 2060,
       completed: false,
       locked: true,
-      totalXP: 85,
+      totalXP: 100,
       modules: [
         {
-          id: "25-1",
-          title: "Thought Leadership & PR Strategy",
-          description: "Build authority and scale your marketing impact",
+          id: "bo-25-1",
+          title: "Global Market Access",
+          description: "International trading opportunities and regulatory considerations",
           type: "lesson",
-          xpReward: 65,
-          duration: "45 min",
+          xpReward: 80,
+          duration: "55 min",
           completed: false,
-          locked: false,
-          content: "At larger scale, consistent brand messaging and high-quality outreach are key. Develop content that positions you as an authority. Encourage customer testimonials. Consider collaborations or PR. Build loyalty programs or referral incentives. Ensure all communications reflect your brand values. Invest in branding assets to reflect your maturity."
+          content: "Global expansion requires understanding: international regulations, tax treaties, currency considerations, and local market structures..."
         },
         {
-          id: "25-2",
-          title: "Brand Scaling Campaign",
-          description: "Design and launch a major brand building initiative",
+          id: "bo-25-2",
+          title: "International Strategy",
+          description: "Develop your global expansion strategy",
           type: "project",
           xpReward: 20,
-          duration: "40 min",
-          completed: false,
-          locked: false
+          duration: "90 min",
+          completed: false
         }
       ]
     },
     {
       level: 26,
-      title: "Strategic Leadership and Vision (Institutional Thinking)",
-      description: "Embrace strategic leadership with long-term vision development",
-      tier: "Professional",
-      unlockRequirement: 1755,
+      title: "Advanced Analytics & Business Intelligence",
+      description: "Sophisticated analytics and data-driven decision making",
+      tier: "Scaling",
+      unlockRequirement: 2160,
       completed: false,
       locked: true,
-      totalXP: 85,
+      totalXP: 95,
       modules: [
         {
-          id: "26-1",
-          title: "Visionary Leadership",
-          description: "Develop institutional thinking and strategic vision",
+          id: "bo-26-1",
+          title: "Business Intelligence Systems",
+          description: "Advanced analytics for trading business optimization",
           type: "lesson",
-          xpReward: 65,
+          xpReward: 75,
           duration: "50 min",
           completed: false,
-          locked: false,
-          content: "Look beyond day-to-day tasks to focus on 'big picture' strategy. Create a 3–5 year plan addressing market positioning, expansion, and team growth. Use scenario planning: consider best-case and worst-case futures. Develop habits like regular strategic reviews. Covey's habits emphasize beginning with the end in mind and sharpening the saw. Communicate vision to inspire and align efforts."
+          content: "Business intelligence transforms data into actionable insights: client analytics, performance attribution, risk analytics, and operational efficiency metrics..."
         },
         {
-          id: "26-2",
-          title: "Strategic Vision Workshop",
-          description: "Create your comprehensive long-term strategic plan",
+          id: "bo-26-2",
+          title: "Analytics Dashboard",
+          description: "Build comprehensive business analytics dashboard",
           type: "project",
           xpReward: 20,
-          duration: "45 min",
-          completed: false,
-          locked: false
+          duration: "100 min",
+          completed: false
         }
       ]
     },
     {
       level: 27,
-      title: "Founder Psychology and Well-Being",
-      description: "Focus on self-leadership and well-being for sustainable success",
-      tier: "Professional",
-      unlockRequirement: 1840,
+      title: "Succession Planning & Exit Strategies",
+      description: "Long-term business sustainability and exit planning",
+      tier: "Scaling",
+      unlockRequirement: 2255,
       completed: false,
       locked: true,
-      totalXP: 85,
+      totalXP: 100,
       modules: [
         {
-          id: "27-1",
-          title: "Founder Mental Health & Performance",
-          description: "Master the psychology of sustainable leadership",
+          id: "bo-27-1",
+          title: "Business Exit Strategies",
+          description: "Sale, merger, succession, and legacy planning",
           type: "lesson",
-          xpReward: 65,
-          duration: "45 min",
+          xpReward: 80,
+          duration: "60 min",
           completed: false,
-          locked: false,
-          content: "Leading a growing business can be emotionally demanding. Tackle issues like imposter syndrome, perfectionism, and work-life balance. Incorporate mindfulness to manage stress. Build a support system for accountability and perspective. Practice gratitude and celebrate wins. A healthy founder is a resilient leader; neglecting well-being can undermine everything else."
+          content: "Exit planning ensures business continuity: management buyouts, strategic sales, public offerings, and succession planning require years of preparation..."
         },
         {
-          id: "27-2",
-          title: "Well-Being Action Plan",
-          description: "Design your personal well-being and performance system",
-          type: "challenge",
+          id: "bo-27-2",
+          title: "Exit Strategy Plan",
+          description: "Develop comprehensive exit and succession strategy",
+          type: "project",
           xpReward: 20,
-          duration: "25 min",
-          completed: false,
-          locked: false
+          duration: "150 min",
+          completed: false
         }
       ]
     },
     {
       level: 28,
-      title: "Delegation Mastery & Leadership Development",
-      description: "Master delegation at scale and develop others in leadership roles",
-      tier: "Professional",
-      unlockRequirement: 1925,
+      title: "Innovation & Technology Leadership",
+      description: "Leading innovation in trading technology and methodologies",
+      tier: "Scaling",
+      unlockRequirement: 2355,
       completed: false,
       locked: true,
-      totalXP: 90,
+      totalXP: 95,
       modules: [
         {
-          id: "28-1",
-          title: "Advanced Delegation & Team Development",
-          description: "Lead leaders and master organizational delegation",
+          id: "bo-28-1",
+          title: "Innovation Management",
+          description: "Leading technological and methodological innovation",
           type: "lesson",
-          xpReward: 70,
-          duration: "50 min",
+          xpReward: 75,
+          duration: "55 min",
           completed: false,
-          locked: false,
-          content: "With growth, you'll manage managers or multiple contractors. Practice true delegation: entrust outcomes, not just tasks. Provide training, clear KPIs, and feedback loops. Develop accountability culture where people take initiative. Host regular check-ins to coach rather than micromanage. Empower second-in-command leaders by involving them in strategy."
+          content: "Innovation leadership requires: technology trend analysis, R&D investment, intellectual property development, and systematic innovation processes..."
         },
         {
-          id: "28-2",
-          title: "Leadership Development Program",
-          description: "Create systems for developing others as leaders",
+          id: "bo-28-2",
+          title: "Innovation Strategy",
+          description: "Develop innovation roadmap and R&D strategy",
           type: "project",
           xpReward: 20,
-          duration: "40 min",
-          completed: false,
-          locked: false
+          duration: "120 min",
+          completed: false
         }
       ]
     },
     {
       level: 29,
-      title: "Innovation and Continuous Improvement",
-      description: "Embed a culture of innovation and kaizen for competitive advantage",
-      tier: "Professional",
-      unlockRequirement: 2015,
+      title: "Industry Leadership & Thought Leadership",
+      description: "Establishing industry authority and thought leadership",
+      tier: "Scaling",
+      unlockRequirement: 2450,
       completed: false,
       locked: true,
-      totalXP: 90,
+      totalXP: 100,
       modules: [
         {
-          id: "29-1",
-          title: "Innovation Systems & Continuous Improvement",
-          description: "Build systems for ongoing innovation and improvement",
+          id: "bo-29-1",
+          title: "Thought Leadership Development",
+          description: "Building industry authority and influence",
           type: "lesson",
-          xpReward: 70,
-          duration: "45 min",
+          xpReward: 80,
+          duration: "60 min",
           completed: false,
-          locked: false,
-          content: "Mature businesses continually refine processes and innovate. Encourage feedback loops: regularly ask customers and employees how to improve. Implement quarterly retrospectives to identify inefficiencies. Foster experimentation: allocate time for new ideas. Stay informed of industry trends. Remember: 'The only strategy guaranteed to fail is not taking risks.'"
+          content: "Thought leadership creates industry influence: original research, speaking engagements, media appearances, and industry advisory positions..."
         },
         {
-          id: "29-2",
-          title: "Innovation Framework Implementation",
-          description: "Set up your continuous improvement and innovation systems",
+          id: "bo-29-2",
+          title: "Leadership Platform",
+          description: "Launch your thought leadership platform",
           type: "project",
           xpReward: 20,
-          duration: "35 min",
-          completed: false,
-          locked: false
+          duration: "180 min",
+          completed: false
         }
       ]
     },
     {
       level: 30,
-      title: "Sustainability and Legacy Planning",
-      description: "Plan for long-term sustainability, social responsibility, and legacy",
-      tier: "Professional",
-      unlockRequirement: 2105,
+      title: "Master Business Operator Certification",
+      description: "Final assessment and certification as master business operator",
+      tier: "Scaling",
+      unlockRequirement: 2550,
       completed: false,
       locked: true,
-      totalXP: 90,
+      totalXP: 200,
       modules: [
         {
-          id: "30-1",
-          title: "Legacy & Sustainability Strategy",
-          description: "Create plans for lasting impact and business sustainability",
-          type: "lesson",
-          xpReward: 50,
-          duration: "45 min",
-          completed: false,
-          locked: false,
-          content: "Consider the big picture: how will your business endure? Think about sustainable practices (financial, social, environmental). Many businesses adopt a triple bottom line (profit, people, planet). Plan your legacy: do you intend to sell, hand over, or diversify? Draft a succession plan. Sustainable businesses plan for transitions and continual impact."
-        },
-        {
-          id: "30-2",
-          title: "Legacy Planning Workshop",
-          description: "Create your sustainability and succession plans",
-          type: "project",
-          xpReward: 20,
-          duration: "30 min",
-          completed: false,
-          locked: false
-        },
-        {
-          id: "30-3",
-          title: "Business Operations Mastery Assessment",
-          description: "Comprehensive evaluation of your business operations expertise",
+          id: "bo-30-1",
+          title: "Master Business Exam",
+          description: "Comprehensive master-level business assessment",
           type: "assessment",
-          xpReward: 20,
-          duration: "60 min",
+          xpReward: 150,
+          duration: "120 min",
           completed: false,
-          locked: false
+          content: "Final examination testing all aspects of trading business mastery: strategy, operations, scaling, leadership, and innovation..."
+        },
+        {
+          id: "bo-30-2",
+          title: "Business Mastery Thesis",
+          description: "Present comprehensive business development case study",
+          type: "project",
+          xpReward: 50,
+          duration: "240 min",
+          completed: false
         }
       ]
     }
   ];
 
-  // Update level locks based on user XP
-  useEffect(() => {
-    const updatedLevels = learningLevels.map(level => ({
-      ...level,
-      locked: userXP < level.unlockRequirement
-    }));
-    // This would normally update state, but for demo purposes we'll keep it simple
-  }, [userXP]);
-
-  const completeModule = (moduleId: string, xpReward: number) => {
-    setUserXP(prev => prev + xpReward);
-    // Update module completion status
-    // This would normally update the backend
+  const getTierColor = (tier: string) => {
+    switch (tier) {
+      case 'Foundation': return 'bg-green-500';
+      case 'Strategy': return 'bg-blue-500';
+      case 'Scaling': return 'bg-purple-500';
+      default: return 'bg-gray-500';
+    }
   };
 
   const getTierProgress = (tier: string) => {
@@ -1107,17 +989,8 @@ export const BusinessOperationsLearning: React.FC<BusinessOperationsLearningProp
     return (completedLevels / tierLevels.length) * 100;
   };
 
-  const getTierColor = (tier: string) => {
-    switch (tier) {
-      case 'Beginner': return 'bg-green-500';
-      case 'Intermediate': return 'bg-blue-500';
-      case 'Professional': return 'bg-purple-500';
-      default: return 'bg-gray-500';
-    }
-  };
-
-  const renderLevelCard = (level: LearningLevel) => {
-    const completedModules = level.modules.filter(m => m.completed).length;
+  const renderLevelCard = (level: any) => {
+    const completedModules = level.modules.filter((m: any) => m.completed).length;
     const totalModules = level.modules.length;
     const progress = totalModules > 0 ? (completedModules / totalModules) * 100 : 0;
 
@@ -1127,7 +1000,6 @@ export const BusinessOperationsLearning: React.FC<BusinessOperationsLearningProp
         className={`military-card cursor-pointer transition-all duration-300 ${
           level.locked ? 'opacity-50' : 'hover:border-primary/30'
         }`}
-        onClick={() => !level.locked && setCurrentLevel(level.level)}
       >
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
@@ -1140,7 +1012,7 @@ export const BusinessOperationsLearning: React.FC<BusinessOperationsLearningProp
                 ) : level.completed ? (
                   <CheckCircle className="w-6 h-6 text-primary" />
                 ) : (
-                  <BookOpen className="w-6 h-6 text-secondary" />
+                  <Building2 className="w-6 h-6 text-secondary" />
                 )}
               </div>
               <div>
@@ -1190,107 +1062,6 @@ export const BusinessOperationsLearning: React.FC<BusinessOperationsLearningProp
     );
   };
 
-  const renderModuleContent = (module: LearningModule) => {
-    return (
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">{module.title}</h2>
-            <p className="text-muted-foreground">{module.description}</p>
-          </div>
-          <div className="flex items-center space-x-4">
-            <Badge className="bg-primary/10 text-primary">
-              <Coins className="w-3 h-3 mr-1" />
-              {module.xpReward} XP
-            </Badge>
-            <Badge variant="outline">
-              <Clock className="w-3 h-3 mr-1" />
-              {module.duration}
-            </Badge>
-          </div>
-        </div>
-
-        <Card className="military-card">
-          <CardContent className="p-6">
-            {module.type === 'lesson' && (
-              <div className="space-y-4">
-                <div className="prose prose-invert max-w-none">
-                  <p className="text-foreground/80 leading-relaxed">{module.content}</p>
-                </div>
-                <div className="flex justify-between items-center pt-4 border-t border-border/50">
-                  <Button variant="outline" onClick={() => setSelectedModule(null)}>
-                    Back to Level
-                  </Button>
-                  <Button 
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
-                    onClick={() => completeModule(module.id, module.xpReward)}
-                  >
-                    Complete Lesson
-                    <CheckCircle className="w-4 h-4 ml-2" />
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            {module.type === 'quiz' && (
-              <div className="space-y-4">
-                <div className="text-center py-8">
-                  <Trophy className="w-16 h-16 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Knowledge Quiz</h3>
-                  <p className="text-muted-foreground mb-6">Test your understanding and earn XP!</p>
-                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                    Start Quiz
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            {module.type === 'challenge' && (
-              <div className="space-y-4">
-                <div className="text-center py-8">
-                  <Target className="w-16 h-16 text-secondary mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Practical Challenge</h3>
-                  <p className="text-muted-foreground mb-6">Apply your knowledge in a real-world scenario</p>
-                  <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
-                    Start Challenge
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            {module.type === 'project' && (
-              <div className="space-y-4">
-                <div className="text-center py-8">
-                  <FileText className="w-16 h-16 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Business Project</h3>
-                  <p className="text-muted-foreground mb-6">Create deliverables for your business</p>
-                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                    Start Project
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            {module.type === 'assessment' && (
-              <div className="space-y-4">
-                <div className="text-center py-8">
-                  <Award className="w-16 h-16 text-secondary mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Tier Assessment</h3>
-                  <p className="text-muted-foreground mb-6">Comprehensive evaluation of your skills</p>
-                  <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
-                    Begin Assessment
-                  </Button>
-                </div>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    );
-  };
-
-  const currentLevelData = learningLevels.find(l => l.level === currentLevel);
-
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -1308,17 +1079,17 @@ export const BusinessOperationsLearning: React.FC<BusinessOperationsLearningProp
                 </div>
                 <div>
                   <h1 className="text-xl font-bold gradient-text">Business Operations</h1>
-                  <p className="text-sm text-foreground/70">30-Level Entrepreneurial Development</p>
+                  <p className="text-sm text-foreground/70">Professional Trading Enterprise</p>
                 </div>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 bg-primary/10 px-3 py-1 rounded-lg">
-                <Coins className="w-4 h-4 text-primary" />
-                <span className="font-bold text-primary">{userXP} XP</span>
+              <div className="flex items-center space-x-2 bg-secondary/10 px-3 py-1 rounded-lg">
+                <Coins className="w-4 h-4 text-secondary" />
+                <span className="font-bold text-secondary">{userXP} XP</span>
               </div>
-              <Badge className="bg-secondary/10 text-secondary border-secondary/20">
+              <Badge className="bg-primary/10 text-primary border-primary/20">
                 Level {userLevel}
               </Badge>
               <Button variant="outline" size="sm" onClick={onLogout}>
@@ -1331,280 +1102,273 @@ export const BusinessOperationsLearning: React.FC<BusinessOperationsLearningProp
       </header>
 
       <div className="container-max mx-auto px-6 py-8">
-        {selectedModule ? (
-          renderModuleContent(selectedModule)
-        ) : (
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-5 bg-muted/20">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="beginner">Beginner</TabsTrigger>
-              <TabsTrigger value="intermediate">Intermediate</TabsTrigger>
-              <TabsTrigger value="professional">Professional</TabsTrigger>
-              <TabsTrigger value="progress">Progress</TabsTrigger>
-            </TabsList>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-5 bg-muted/20">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="foundation">Foundation</TabsTrigger>
+            <TabsTrigger value="strategy">Strategy</TabsTrigger>
+            <TabsTrigger value="scaling">Scaling</TabsTrigger>
+            <TabsTrigger value="progress">Progress</TabsTrigger>
+          </TabsList>
 
-            <TabsContent value="overview" className="space-y-8">
-              {/* Learning Path Overview */}
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold mb-4">
-                  Master Business Operations Through
-                  <span className="block gradient-text">30 Progressive Levels</span>
-                </h2>
-                <p className="text-xl text-foreground/70 max-w-3xl mx-auto">
-                  Transform from solo entrepreneur to business leader through systematic development 
-                  of entrepreneurial skills, strategic thinking, and operational excellence.
-                </p>
-              </div>
+          <TabsContent value="overview" className="space-y-8">
+            {/* Learning Path Overview */}
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">
+                Business Operations Mastery
+                <span className="block gradient-text">Professional Trading Enterprise</span>
+              </h2>
+              <p className="text-xl text-foreground/70 max-w-3xl mx-auto">
+                Transform your trading from hobby to professional enterprise through systematic business development. 
+                Master the operational excellence that separates professionals from amateurs.
+              </p>
+            </div>
 
-              {/* Tier Overview Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <Card className="military-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <div className="bg-green-500/20 p-2 rounded-lg">
-                        <Lightbulb className="w-5 h-5 text-green-500" />
-                      </div>
-                      <span>Beginner Tier</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="text-2xl font-bold text-green-500">Levels 1-10</div>
-                      <p className="text-sm text-muted-foreground">
-                        Entrepreneurial foundations, mission development, and basic business planning.
-                      </p>
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span>Progress</span>
-                          <span>{getTierProgress('Beginner').toFixed(0)}%</span>
-                        </div>
-                        <Progress value={getTierProgress('Beginner')} className="h-2" />
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Total XP Available: 605
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="military-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <div className="bg-blue-500/20 p-2 rounded-lg">
-                        <Settings className="w-5 h-5 text-blue-500" />
-                      </div>
-                      <span>Intermediate Tier</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="text-2xl font-bold text-blue-500">Levels 11-20</div>
-                      <p className="text-sm text-muted-foreground">
-                        Strategic planning, systems development, and operational excellence.
-                      </p>
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span>Progress</span>
-                          <span>{getTierProgress('Intermediate').toFixed(0)}%</span>
-                        </div>
-                        <Progress value={getTierProgress('Intermediate')} className="h-2" />
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Total XP Available: 740
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="military-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <div className="bg-purple-500/20 p-2 rounded-lg">
-                        <Scale className="w-5 h-5 text-purple-500" />
-                      </div>
-                      <span>Professional Tier</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="text-2xl font-bold text-purple-500">Levels 21-30</div>
-                      <p className="text-sm text-muted-foreground">
-                        Leadership mastery, scaling strategies, and legacy planning.
-                      </p>
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span>Progress</span>
-                          <span>{getTierProgress('Professional').toFixed(0)}%</span>
-                        </div>
-                        <Progress value={getTierProgress('Professional')} className="h-2" />
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Total XP Available: 850
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Current Level Focus */}
-              {currentLevelData && (
-                <Card className="military-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <Zap className="w-5 h-5 text-primary" />
-                      <span>Continue Your Journey</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <h3 className="text-lg font-semibold mb-2">
-                          Level {currentLevelData.level}: {currentLevelData.title}
-                        </h3>
-                        <p className="text-muted-foreground mb-4">{currentLevelData.description}</p>
-                        <div className="space-y-2">
-                          {currentLevelData.modules.map((module, index) => (
-                            <div key={module.id} className="flex items-center justify-between p-2 bg-muted/10 rounded">
-                              <div className="flex items-center space-x-2">
-                                {module.completed ? (
-                                  <CheckCircle className="w-4 h-4 text-primary" />
-                                ) : (
-                                  <PlayCircle className="w-4 h-4 text-secondary" />
-                                )}
-                                <span className="text-sm">{module.title}</span>
-                              </div>
-                              <div className="flex items-center space-x-1 text-xs text-primary">
-                                <Coins className="w-3 h-3" />
-                                <span>{module.xpReward}</span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-center">
-                        <Button 
-                          size="lg" 
-                          className="bg-primary hover:bg-primary/90 text-primary-foreground"
-                          onClick={() => setSelectedModule(currentLevelData.modules[0])}
-                        >
-                          Continue Learning
-                          <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-            </TabsContent>
-
-            <TabsContent value="beginner" className="space-y-6">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Beginner Tier (Levels 1-10)</h2>
-                <p className="text-lg text-muted-foreground">
-                  Build entrepreneurial foundations with mindset development, mission crafting, and basic business planning.
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {learningLevels.filter(level => level.tier === 'Beginner').map(renderLevelCard)}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="intermediate" className="space-y-6">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Intermediate Tier (Levels 11-20)</h2>
-                <p className="text-lg text-muted-foreground">
-                  Develop strategic planning, operational systems, and advanced business management skills.
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {learningLevels.filter(level => level.tier === 'Intermediate').map(renderLevelCard)}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="professional" className="space-y-6">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Professional Tier (Levels 21-30)</h2>
-                <p className="text-lg text-muted-foreground">
-                  Master leadership, scaling strategies, innovation systems, and legacy planning.
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {learningLevels.filter(level => level.tier === 'Professional').map(renderLevelCard)}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="progress" className="space-y-6">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Your Learning Progress</h2>
-                <p className="text-lg text-muted-foreground">
-                  Track your advancement through the Business Operations curriculum.
-                </p>
-              </div>
-
-              {/* Overall Progress */}
+            {/* Tier Overview Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               <Card className="military-card">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
-                    <BarChart3 className="w-5 h-5 text-primary" />
-                    <span>Overall Progress</span>
+                    <div className="bg-green-500/20 p-2 rounded-lg">
+                      <Building2 className="w-5 h-5 text-green-500" />
+                    </div>
+                    <span>Foundation Tier</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-primary mb-2">{userLevel}/30</div>
-                      <div className="text-sm text-muted-foreground">Levels Completed</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-secondary mb-2">{userXP}</div>
-                      <div className="text-sm text-muted-foreground">Total XP Earned</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-primary mb-2">
-                        {Math.round((userLevel / 30) * 100)}%
+                  <div className="space-y-4">
+                    <div className="text-2xl font-bold text-green-500">Levels 1-10</div>
+                    <p className="text-sm text-muted-foreground">
+                      Business fundamentals, documentation systems, KPIs, and operational foundations.
+                    </p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Progress</span>
+                        <span>{getTierProgress('Foundation').toFixed(0)}%</span>
                       </div>
-                      <div className="text-sm text-muted-foreground">Course Completion</div>
+                      <Progress value={getTierProgress('Foundation')} className="h-2" />
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Total XP Available: 730
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Achievements */}
               <Card className="military-card">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
-                    <Award className="w-5 h-5 text-secondary" />
-                    <span>Business Achievements</span>
+                    <div className="bg-blue-500/20 p-2 rounded-lg">
+                      <Target className="w-5 h-5 text-blue-500" />
+                    </div>
+                    <span>Strategy Tier</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="text-center p-4 bg-primary/10 rounded-lg">
-                      <Lightbulb className="w-8 h-8 text-primary mx-auto mb-2" />
-                      <div className="text-sm font-medium">Entrepreneur</div>
-                      <div className="text-xs text-muted-foreground">Complete Level 1</div>
+                  <div className="space-y-4">
+                    <div className="text-2xl font-bold text-blue-500">Levels 11-20</div>
+                    <p className="text-sm text-muted-foreground">
+                      Business models, revenue diversification, branding, and strategic development.
+                    </p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Progress</span>
+                        <span>{getTierProgress('Strategy').toFixed(0)}%</span>
+                      </div>
+                      <Progress value={getTierProgress('Strategy')} className="h-2" />
                     </div>
-                    <div className="text-center p-4 bg-muted/10 rounded-lg opacity-50">
-                      <Target className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                      <div className="text-sm font-medium">Strategist</div>
-                      <div className="text-xs text-muted-foreground">Complete Tier 2</div>
-                    </div>
-                    <div className="text-center p-4 bg-muted/10 rounded-lg opacity-50">
-                      <Users className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                      <div className="text-sm font-medium">Leader</div>
-                      <div className="text-xs text-muted-foreground">Master Delegation</div>
-                    </div>
-                    <div className="text-center p-4 bg-muted/10 rounded-lg opacity-50">
-                      <Trophy className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                      <div className="text-sm font-medium">Visionary</div>
-                      <div className="text-xs text-muted-foreground">Complete Level 30</div>
+                    <div className="text-sm text-muted-foreground">
+                      Total XP Available: 940
                     </div>
                   </div>
                 </CardContent>
               </Card>
-            </TabsContent>
-          </Tabs>
-        )}
+
+              <Card className="military-card">
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <div className="bg-purple-500/20 p-2 rounded-lg">
+                      <Crown className="w-5 h-5 text-purple-500" />
+                    </div>
+                    <span>Scaling Tier</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="text-2xl font-bold text-purple-500">Levels 21-30</div>
+                    <p className="text-sm text-muted-foreground">
+                      Capital raising, institutional clients, fund management, and industry leadership.
+                    </p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Progress</span>
+                        <span>{getTierProgress('Scaling').toFixed(0)}%</span>
+                      </div>
+                      <Progress value={getTierProgress('Scaling')} className="h-2" />
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Total XP Available: 985
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Current Focus */}
+            <Card className="military-card">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Zap className="w-5 h-5 text-primary" />
+                  <span>Continue Your Business Development</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">
+                      Level {userLevel}: {learningLevels[userLevel - 1]?.title}
+                    </h3>
+                    <p className="text-muted-foreground mb-4">{learningLevels[userLevel - 1]?.description}</p>
+                    <div className="space-y-2">
+                      {learningLevels[userLevel - 1]?.modules.map((module: any, index: number) => (
+                        <div key={module.id} className="flex items-center justify-between p-2 bg-muted/10 rounded">
+                          <div className="flex items-center space-x-2">
+                            {module.completed ? (
+                              <CheckCircle className="w-4 h-4 text-primary" />
+                            ) : (
+                              <PlayCircle className="w-4 h-4 text-secondary" />
+                            )}
+                            <span className="text-sm">{module.title}</span>
+                          </div>
+                          <div className="flex items-center space-x-1 text-xs text-secondary">
+                            <Coins className="w-3 h-3" />
+                            <span>{module.xpReward}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <Button 
+                      size="lg" 
+                      className="bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+                    >
+                      Continue Learning
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="foundation" className="space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4">Foundation Tier (Levels 1-10)</h2>
+              <p className="text-lg text-muted-foreground">
+                Build the operational foundation for your professional trading enterprise.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {learningLevels.filter(level => level.tier === 'Foundation').map(renderLevelCard)}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="strategy" className="space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4">Strategy Tier (Levels 11-20)</h2>
+              <p className="text-lg text-muted-foreground">
+                Develop advanced business strategies and systematic growth frameworks.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {learningLevels.filter(level => level.tier === 'Strategy').map(renderLevelCard)}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="scaling" className="space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4">Scaling Tier (Levels 21-30)</h2>
+              <p className="text-lg text-muted-foreground">
+                Master institutional-level business operations and industry leadership.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {learningLevels.filter(level => level.tier === 'Scaling').map(renderLevelCard)}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="progress" className="space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4">Your Business Development Progress</h2>
+              <p className="text-lg text-muted-foreground">
+                Track your advancement through the complete Business Operations curriculum.
+              </p>
+            </div>
+
+            {/* Overall Progress */}
+            <Card className="military-card">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <BarChart3 className="w-5 h-5 text-secondary" />
+                  <span>Overall Progress</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-secondary mb-2">{userLevel}/30</div>
+                    <div className="text-sm text-muted-foreground">Levels Completed</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-primary mb-2">{userXP}</div>
+                    <div className="text-sm text-muted-foreground">Total XP Earned</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-secondary mb-2">
+                      {Math.round((userLevel / 30) * 100)}%
+                    </div>
+                    <div className="text-sm text-muted-foreground">Course Completion</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Achievements */}
+            <Card className="military-card">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Award className="w-5 h-5 text-primary" />
+                  <span>Business Achievements</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center p-4 bg-secondary/10 rounded-lg">
+                    <Building2 className="w-8 h-8 text-secondary mx-auto mb-2" />
+                    <div className="text-sm font-medium">Business Mindset</div>
+                    <div className="text-xs text-muted-foreground">Complete Level 1</div>
+                  </div>
+                  <div className="text-center p-4 bg-primary/10 rounded-lg">
+                    <FileText className="w-8 h-8 text-primary mx-auto mb-2" />
+                    <div className="text-sm font-medium">Documentation Master</div>
+                    <div className="text-xs text-muted-foreground">Complete Level 2</div>
+                  </div>
+                  <div className="text-center p-4 bg-secondary/10 rounded-lg">
+                    <BarChart3 className="w-8 h-8 text-secondary mx-auto mb-2" />
+                    <div className="text-sm font-medium">KPI Tracker</div>
+                    <div className="text-xs text-muted-foreground">Complete Level 3</div>
+                  </div>
+                  <div className="text-center p-4 bg-muted/10 rounded-lg opacity-50">
+                    <Target className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                    <div className="text-sm font-medium">SOP Developer</div>
+                    <div className="text-xs text-muted-foreground">Complete Level 5</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
