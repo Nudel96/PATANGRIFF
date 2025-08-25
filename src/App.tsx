@@ -15,7 +15,7 @@ import { MemberCommunity } from './components/MemberCommunity';
 import { TradingMasteryLearning } from './components/TradingMasteryLearning';
 import { BusinessOperationsLearning } from './components/BusinessOperationsLearning';
 import { TradingPsychologyLearning } from './components/TradingPsychologyLearning';
-import CapitalManagementLearning from './components/CapitalManagementLearning';
+import { CapitalManagementLearning } from './components/CapitalManagementLearning';
 import { TrainingSection } from './components/TrainingSection';
 
 function App() {
@@ -41,10 +41,6 @@ function App() {
 
   const handleNavigateToCommunity = () => {
     setCurrentView('community');
-  };
-
-  const handleNavigateToForum = () => {
-    setCurrentView('forum');
   };
 
   const handleNavigateToTradingMastery = () => {
@@ -75,7 +71,7 @@ function App() {
       return <CurrencyHeatmap onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
     }
     if (currentView === 'community') {
-      return <MemberCommunity onBack={handleNavigateToDashboard} onLogout={handleLogout} onNavigateToForum={handleNavigateToForum} />;
+      return <MemberCommunity onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
     }
     if (currentView === 'trading-mastery') {
       return <TradingMasteryLearning onBack={handleNavigateToDashboard} onLogout={handleLogout} />;

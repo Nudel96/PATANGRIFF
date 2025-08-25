@@ -55,7 +55,6 @@ interface DashboardProps {
   onNavigateToJournal: () => void;
   onNavigateToHeatmap: () => void;
   onNavigateToCommunity: () => void;
-  onNavigateToForum: () => void;
   onNavigateToTradingMastery: () => void;
   onNavigateToBusinessOps: () => void;
   onNavigateToPsychology: () => void;
@@ -67,7 +66,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
   onNavigateToJournal, 
   onNavigateToHeatmap, 
   onNavigateToCommunity,
-  onNavigateToForum,
   onNavigateToTradingMastery,
   onNavigateToBusinessOps,
   onNavigateToPsychology,
@@ -105,24 +103,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
     id: 'community',
     title: 'Community Hub',
     subtitle: 'Brotherhood of Warriors',
-    description: 'Connect with fellow traders through squads, accountability groups, and collaborative learning. Build lasting professional relationships.',
+    description: 'Connect with fellow traders, share insights, join squads, and participate in challenges. Access exclusive forums and mentorship.',
     icon: Users,
     color: 'secondary',
-    features: ['Elite Squads', 'Accountability Groups', 'Peer Mentorship', 'Collaborative Projects'],
+    features: ['Discussion Forums', 'Trade Gallery', 'Squads & Accountability', 'Events & AMAs'],
     action: 'Enter Community',
     onClick: onNavigateToCommunity
-  };
-
-  const forumSection = {
-    id: 'forum',
-    title: 'Trading Forum',
-    subtitle: 'Professional Discussion Hub',
-    description: 'Engage in structured discussions across specialized trading topics. Share analysis, trade ideas, and learn from experienced professionals.',
-    icon: MessageCircle,
-    color: 'primary',
-    features: ['Discussion Forums', 'Trade Analysis', 'Market Insights', 'Expert Q&A'],
-    action: 'Join Discussions',
-    onClick: onNavigateToForum
   };
 
   const updatedMainSections = [
@@ -149,7 +135,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
       onClick: onNavigateToHeatmap
     },
     communitySection,
-    forumSection,
     {
       id: 'journal',
       title: 'Trading Journal',
@@ -688,15 +673,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <Button 
                 variant="ghost" 
                 size="sm"
-                onClick={onNavigateToForum}
-                className="flex items-center space-x-2"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>Forum</span>
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="sm"
                 onClick={onNavigateToCommunity}
                 className="flex items-center space-x-2"
               >
@@ -757,13 +733,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 onClick={onNavigateToJournal}
               >
                 <FileText className="w-4 h-4" />
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={onNavigateToForum}
-              >
-                <MessageCircle className="w-4 h-4" />
               </Button>
               <Button 
                 variant="ghost" 
