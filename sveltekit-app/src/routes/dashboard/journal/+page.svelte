@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { trades, tradingStats, addTrade } from '$lib/stores/trading';
+  import { trades, tradingStats, addTrade, openTrade, closeTrade } from '$lib/stores/trading';
+  import { toast } from '$lib/stores/toast';
   import { Button } from '$lib/components/ui/button';
   import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card';
   import { Badge } from '$lib/components/ui/badge';
@@ -8,7 +9,6 @@
   import { Label } from '$lib/components/ui/label';
   import { Textarea } from '$lib/components/ui/textarea';
   import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '$lib/components/ui/select';
-  import { Progress } from '$lib/components/ui/progress';
   import { 
     FileText, 
     Plus, 
@@ -17,11 +17,11 @@
     Calculator,
     Brain,
     TrendingUp,
-    TrendingDown,
     PlayCircle,
     StopCircle,
     Eye,
-    Save
+    X,
+    AlertTriangle
   } from 'lucide-svelte';
   
   let showTradeForm = false;
@@ -31,7 +31,6 @@
     entryPrice: 0,
     stopPrice: 0,
     targetPrice: 0,
-    quantity: 0,
     riskAmount: 0,
     riskPercent: 0,
     session: 'London' as 'Asia' | 'London' | 'NY',
@@ -52,7 +51,15 @@
   }
 
   function handleAddTrade() {
-    if (!newTrade.instrument || !newTrade.entryPrice || !newTrade.stopPrice) return;
+    if (!newTrade.instrument || !newTrade.entryPrice || !newTrade.stopPrice) {
+      toast.error('Please fill in all required fields');
+      return;
+    }
+    
+    const plannedRR = calculatePlannedRR();
+    if (plannedRR < 1.5) {
+      toast.warning('Risk/Reward ratio below minimum requirement (1.5:1)');
+    }
     
     addTrade({
       date: new Date(),
@@ -61,14 +68,14 @@
       entryPrice: newTrade.entryPrice,
       stopPrice: newTrade.stopPrice,
       targetPrice: newTrade.targetPrice,
-      quantity: newTrade.quantity,
-      riskAmount: newTrade.riskAmount,
-      riskPercent: newTrade.riskPercent,
-      plannedRR: calculatePlannedRR(),
+      quantity: 100000, // Default quantity
+      riskAmount: newTrade.riskAmount || 300,
+      riskPercent: newTrade.riskPercent || 1.0,
+      plannedRR: plannedRR,
       status: 'pending',
       session: newTrade.session,
       notes: newTrade.notes,
-      checklistScore: 85,
+      checklistScore: 85, // Mock checklist score
       setup: newTrade.setup
     });
 
@@ -79,7 +86,6 @@
       entryPrice: 0,
       stopPrice: 0,
       targetPrice: 0,
-      quantity: 0,
       riskAmount: 0,
       riskPercent: 0,
       session: 'London',
@@ -87,6 +93,20 @@
       setup: 'breakout'
     };
     showTradeForm = false;
+    toast.success('Trade added to journal');
+  }
+
+  function handleOpenTrade(tradeId: string) {
+    openTrade(tradeId);
+    toast.success('Trade opened');
+  }
+
+  function handleCloseTrade(tradeId: string) {
+    const trade = $trades.find(t => t.id === tradeId);
+    if (trade) {
+      closeTrade(tradeId, trade.targetPrice || trade.entryPrice, 'Manual close');
+      toast.success('Trade closed');
+    }
   }
 </script>
 
@@ -199,7 +219,7 @@
             <span>New Trade Entry</span>
           </div>
           <Button variant="ghost" size="sm" on:click={() => showTradeForm = false}>
-            ×
+            <X class="w-4 h-4" />
           </Button>
         </CardTitle>
       </CardHeader>
@@ -275,6 +295,33 @@
           </div>
         </div>
 
+        <!-- Risk Management -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <Label for="riskAmount">Risk Amount ($)</Label>
+            <Input
+              id="riskAmount"
+              type="number"
+              step="0.01"
+              placeholder="300.00"
+              bind:value={newTrade.riskAmount}
+            />
+          </div>
+          <div class="space-y-2">
+            <Label for="session">Session</Label>
+            <Select bind:value={newTrade.session}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Asia">Asia</SelectItem>
+                <SelectItem value="London">London</SelectItem>
+                <SelectItem value="NY">New York</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
         <!-- Risk Calculations -->
         {#if newTrade.entryPrice && newTrade.stopPrice && newTrade.targetPrice}
           <div class="p-4 bg-primary/10 rounded-lg border border-primary/20">
@@ -296,7 +343,25 @@
               </div>
             </div>
           </div>
+          
+          {#if calculatePlannedRR() < 1.5}
+            <div class="flex items-center space-x-2 p-3 bg-destructive/10 border border-destructive/20 rounded-lg">
+              <AlertTriangle class="w-4 h-4 text-destructive" />
+              <span class="text-sm text-destructive">Warning: R:R ratio below minimum requirement (1.5:1)</span>
+            </div>
+          {/if}
         {/if}
+
+        <!-- Notes -->
+        <div class="space-y-2">
+          <Label for="notes">Trade Notes</Label>
+          <Textarea
+            id="notes"
+            placeholder="Add your trade analysis and reasoning..."
+            bind:value={newTrade.notes}
+            rows={3}
+          />
+        </div>
 
         <div class="flex justify-between">
           <Button variant="outline" on:click={() => showTradeForm = false}>
@@ -367,23 +432,29 @@
             </div>
           </div>
 
+          {#if trade.notes}
+            <div class="mb-4 p-3 bg-muted/10 rounded-lg">
+              <p class="text-sm">{trade.notes}</p>
+            </div>
+          {/if}
+
           <div class="flex justify-between items-center">
             <div class="text-xs text-muted-foreground">
               Created: {trade.createdAt.toLocaleString()}
             </div>
             <div class="flex space-x-2">
               {#if trade.status === 'pending'}
-                <Button size="sm">
+                <Button size="sm" on:click={() => handleOpenTrade(trade.id)}>
                   <PlayCircle class="w-4 h-4 mr-1" />
                   Open
                 </Button>
                 <Button size="sm" variant="outline">
-                  ×
+                  <X class="w-4 h-4 mr-1" />
                   Invalidate
                 </Button>
               {/if}
               {#if trade.status === 'open'}
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="outline" on:click={() => handleCloseTrade(trade.id)}>
                   <StopCircle class="w-4 h-4 mr-1" />
                   Close
                 </Button>

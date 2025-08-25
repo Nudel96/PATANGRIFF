@@ -5,17 +5,18 @@ import { browser } from '$app/environment';
 export const load: LayoutLoad = async ({ url }) => {
   // Check authentication on client side
   if (browser) {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const authData = localStorage.getItem('auth');
+    const isLoggedIn = authData ? JSON.parse(authData).isLoggedIn : false;
+    
     if (!isLoggedIn) {
       throw redirect(302, '/');
     }
     
     // Load user data
-    const userData = localStorage.getItem('userData');
-    const user = userData ? JSON.parse(userData) : null;
+    const userData = authData ? JSON.parse(authData).user : null;
     
     return {
-      user,
+      user: userData,
       currentPath: url.pathname
     };
   }

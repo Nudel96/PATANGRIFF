@@ -1,9 +1,7 @@
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ fetch }) => {
-  // Load dashboard data
-  // In a real app, this would fetch from API
-  
+export const load: PageLoad = async () => {
+  // Mock dashboard data - no backend calls
   const quickStats = [
     { label: 'Total Progress', value: '52%', icon: 'BarChart3', color: 'primary' },
     { label: 'Trades Logged', value: '127', icon: 'FileText', color: 'secondary' },

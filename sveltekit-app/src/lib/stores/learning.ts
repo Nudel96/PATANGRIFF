@@ -1,4 +1,6 @@
 import { writable, derived } from 'svelte/store';
+import { browser } from '$app/environment';
+import { getStoredData, setStoredData } from '$lib/utils';
 
 export interface LearningModule {
   id: string;
@@ -34,6 +36,47 @@ export const tradingMasteryProgress = writable<number>(75);
 export const businessOpsProgress = writable<number>(45);
 export const capitalMgmtProgress = writable<number>(60);
 export const psychologyProgress = writable<number>(30);
+
+// Initialize from localStorage
+if (browser) {
+  const learningData = getStoredData('learning', {
+    userXP: 0,
+    userLevel: 1,
+    completedModules: [],
+    tradingMasteryProgress: 75,
+    businessOpsProgress: 45,
+    capitalMgmtProgress: 60,
+    psychologyProgress: 30
+  });
+  
+  userXP.set(learningData.userXP);
+  userLevel.set(learningData.userLevel);
+  completedModules.set(learningData.completedModules);
+  tradingMasteryProgress.set(learningData.tradingMasteryProgress);
+  businessOpsProgress.set(learningData.businessOpsProgress);
+  capitalMgmtProgress.set(learningData.capitalMgmtProgress);
+  psychologyProgress.set(learningData.psychologyProgress);
+}
+
+// Persist to localStorage
+if (browser) {
+  const stores = [userXP, userLevel, completedModules, tradingMasteryProgress, businessOpsProgress, capitalMgmtProgress, psychologyProgress];
+  
+  stores.forEach(store => {
+    store.subscribe(() => {
+      const data = {
+        userXP: getStoredData('learning', {}).userXP || 0,
+        userLevel: getStoredData('learning', {}).userLevel || 1,
+        completedModules: getStoredData('learning', {}).completedModules || [],
+        tradingMasteryProgress: getStoredData('learning', {}).tradingMasteryProgress || 75,
+        businessOpsProgress: getStoredData('learning', {}).businessOpsProgress || 45,
+        capitalMgmtProgress: getStoredData('learning', {}).capitalMgmtProgress || 60,
+        psychologyProgress: getStoredData('learning', {}).psychologyProgress || 30
+      };
+      setStoredData('learning', data);
+    });
+  });
+}
 
 // Derived overall progress
 export const overallProgress = derived(
@@ -102,7 +145,7 @@ export function earnAchievement(achievement: {
   icon: string;
 }) {
   const newAchievement = {
-    id: Date.now().toString(),
+    id: generateId(),
     ...achievement,
     earnedAt: new Date()
   };

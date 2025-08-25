@@ -4,6 +4,7 @@
   import { Button } from '$lib/components/ui/button';
   import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card';
   import { Progress } from '$lib/components/ui/progress';
+  import { overallProgress, tradingMasteryProgress, businessOpsProgress, capitalMgmtProgress, psychologyProgress } from '$lib/stores/learning';
   import { 
     Award, 
     Users, 
@@ -21,10 +22,10 @@
   export let data;
   
   const pillarsProgress = [
-    { name: 'Trading Mastery', progress: 75, color: 'primary', icon: TrendingUp, path: '/dashboard/learning/trading-mastery' },
-    { name: 'Business Operations', progress: 45, color: 'secondary', icon: Building2, path: '/dashboard/learning/business-ops' },
-    { name: 'Capital Management', progress: 60, color: 'primary', icon: DollarSign, path: '/dashboard/learning/capital-mgmt' },
-    { name: 'Trading Psychology', progress: 30, color: 'secondary', icon: Brain, path: '/dashboard/learning/psychology' }
+    { name: 'Trading Mastery', progress: $tradingMasteryProgress, color: 'primary', icon: TrendingUp, path: '/dashboard/learning/trading-mastery' },
+    { name: 'Business Operations', progress: $businessOpsProgress, color: 'secondary', icon: Building2, path: '/dashboard/learning/business-ops' },
+    { name: 'Capital Management', progress: $capitalMgmtProgress, color: 'primary', icon: DollarSign, path: '/dashboard/learning/capital-mgmt' },
+    { name: 'Trading Psychology', progress: $psychologyProgress, color: 'secondary', icon: Brain, path: '/dashboard/learning/psychology' }
   ];
 
   const mainSections = [
@@ -106,7 +107,6 @@
               <p class="text-2xl font-bold text-{stat.color}">{stat.value}</p>
             </div>
             <div class="bg-{stat.color}/10 p-2 rounded-lg">
-              <!-- Icon would be rendered here based on stat.icon -->
               <div class="w-5 h-5 bg-{stat.color} rounded"></div>
             </div>
           </div>
@@ -119,7 +119,7 @@
   <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
     {#each mainSections as section}
       <Card class="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" 
-            on:click={() => goto(section.path)}>
+            on:click={() => goto(section.path)} on:keydown={(e) => e.key === 'Enter' && goto(section.path)} role="button" tabindex="0">
         <CardHeader class="text-center pb-4">
           <div class="bg-{section.color}/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-{section.color}/20 transition-colors">
             <svelte:component this={section.icon} class="w-10 h-10 text-{section.color}" />
@@ -150,68 +150,32 @@
     {/each}
   </div>
 
-  <!-- Secondary Features Grid -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-    <!-- Four Pillars Progress -->
-    <Card class="military-card">
-      <CardHeader>
-        <CardTitle class="flex items-center space-x-2">
-          <svelte:component this={GraduationCap} class="w-5 h-5 text-primary" />
-          <span>Four Pillars Progress</span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent class="space-y-6">
-        {#each pillarsProgress as pillar}
-          <div class="space-y-3 cursor-pointer group" on:click={() => goto(pillar.path)}>
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-3">
-                <div class="bg-{pillar.color}/10 p-2 rounded-lg group-hover:bg-{pillar.color}/20 transition-colors">
-                  <svelte:component this={pillar.icon} class="w-4 h-4 text-{pillar.color}" />
-                </div>
-                <span class="font-semibold group-hover:text-primary transition-colors">{pillar.name}</span>
+  <!-- Four Pillars Progress -->
+  <Card class="military-card">
+    <CardHeader>
+      <CardTitle class="flex items-center space-x-2">
+        <GraduationCap class="w-5 h-5 text-primary" />
+        <span>Four Pillars Progress</span>
+      </CardTitle>
+    </CardHeader>
+    <CardContent class="space-y-6">
+      {#each pillarsProgress as pillar}
+        <div class="space-y-3 cursor-pointer group" on:click={() => goto(pillar.path)} on:keydown={(e) => e.key === 'Enter' && goto(pillar.path)} role="button" tabindex="0">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="bg-{pillar.color}/10 p-2 rounded-lg group-hover:bg-{pillar.color}/20 transition-colors">
+                <svelte:component this={pillar.icon} class="w-4 h-4 text-{pillar.color}" />
               </div>
-              <div class="flex items-center space-x-2">
-                <span class="text-{pillar.color} font-bold">{pillar.progress}%</span>
-                <ChevronRight class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-              </div>
+              <span class="font-semibold group-hover:text-primary transition-colors">{pillar.name}</span>
             </div>
-            <Progress value={pillar.progress} class="h-2" />
-          </div>
-        {/each}
-      </CardContent>
-    </Card>
-
-    <!-- Recent Activity -->
-    <Card class="military-card">
-      <CardHeader>
-        <CardTitle class="flex items-center space-x-2">
-          <Activity class="w-5 h-5 text-secondary" />
-          <span>Recent Activity</span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent class="space-y-4">
-        {#each data.recentActivity as activity}
-          <div class="flex items-start space-x-3 p-3 bg-muted/10 rounded-lg hover:bg-muted/20 transition-colors">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center {
-              activity.type === 'course' ? 'bg-primary/10' :
-              activity.type === 'trade' ? 'bg-secondary/10' :
-              activity.type === 'session' ? 'bg-primary/10' : 'bg-secondary/10'
-            }">
-              <!-- Icon would be rendered here based on activity.icon -->
-              <div class="w-4 h-4 bg-{activity.type === 'course' ? 'primary' : 'secondary'} rounded"></div>
-            </div>
-            <div class="flex-1">
-              <p class="text-sm font-medium">{activity.action}</p>
-              <p class="text-xs text-muted-foreground">{activity.time}</p>
+            <div class="flex items-center space-x-2">
+              <span class="text-{pillar.color} font-bold">{pillar.progress}%</span>
+              <ChevronRight class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
             </div>
           </div>
-        {/each}
-        
-        <Button variant="outline" class="w-full mt-4">
-          View All Activity
-          <ArrowRight class="ml-2 w-4 h-4" />
-        </Button>
-      </CardContent>
-    </Card>
-  </div>
+          <Progress value={pillar.progress} class="h-2" />
+        </div>
+      {/each}
+    </CardContent>
+  </Card>
 </div>

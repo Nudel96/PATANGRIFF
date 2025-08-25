@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { heatmapData, lastUpdated, selectedTimeframe, marketSummary, refreshMarketData } from '$lib/stores/market';
   import { Button } from '$lib/components/ui/button';
   import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card';
@@ -11,7 +10,8 @@
     RefreshCw,
     Target,
     TrendingUp,
-    Eye
+    Eye,
+    Zap
   } from 'lucide-svelte';
   
   let refreshing = false;
