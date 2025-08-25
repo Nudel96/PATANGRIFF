@@ -15,7 +15,7 @@ import { MemberCommunity } from './components/MemberCommunity';
 import { TradingMasteryLearning } from './components/TradingMasteryLearning';
 import { BusinessOperationsLearning } from './components/BusinessOperationsLearning';
 import { TradingPsychologyLearning } from './components/TradingPsychologyLearning';
-import { CapitalManagementLearning } from './components/CapitalManagementLearning';
+import CapitalManagementLearning from './components/CapitalManagementLearning';
 import { TrainingSection } from './components/TrainingSection';
 
 function App() {
