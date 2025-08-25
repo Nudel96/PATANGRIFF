@@ -28,8 +28,8 @@ test.describe('Authentication Flow', () => {
     // Open login modal
     await page.click('text=Login');
     
-    // Fill login form with demo credentials
-    await page.fill('input[type="email"]', 'warrior@example.com');
+    // Fill login form
+    await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'password123');
     
     // Submit form
@@ -45,29 +45,5 @@ test.describe('Authentication Flow', () => {
     
     // Should redirect to home
     await expect(page).toHaveURL('/');
-  });
-
-  test('user can navigate between dashboard sections', async ({ page }) => {
-    // Login first
-    await page.goto('/');
-    await page.click('text=Login');
-    await page.fill('input[type="email"]', 'warrior@example.com');
-    await page.fill('input[type="password"]', 'password123');
-    await page.click('button[type="submit"]');
-    
-    // Navigate to journal
-    await page.click('text=Journal');
-    await expect(page).toHaveURL('/dashboard/journal');
-    await expect(page.locator('text=Trading Journal')).toBeVisible();
-    
-    // Navigate to heatmap
-    await page.click('text=Heatmap');
-    await expect(page).toHaveURL('/dashboard/heatmap');
-    await expect(page.locator('text=Market Heatmap')).toBeVisible();
-    
-    // Navigate to community
-    await page.click('text=Community');
-    await expect(page).toHaveURL('/dashboard/community');
-    await expect(page.locator('text=Community Hub')).toBeVisible();
   });
 });

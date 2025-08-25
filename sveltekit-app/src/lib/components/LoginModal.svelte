@@ -2,7 +2,7 @@
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
-  import { Dialog } from '$lib/components/ui/dialog';
+  import { Dialog, DialogContent, DialogHeader, DialogTitle } from '$lib/components/ui/dialog';
   import { Badge } from '$lib/components/ui/badge';
   import { Shield, Eye, EyeOff, Mail, Lock, ArrowRight } from 'lucide-svelte';
   
@@ -10,8 +10,8 @@
   export let onLogin: () => void;
   
   let showPassword = false;
-  let email = 'warrior@example.com';
-  let password = 'password123';
+  let email = '';
+  let password = '';
   let isLoading = false;
 
   async function handleLogin(event: Event) {
@@ -27,8 +27,8 @@
 </script>
 
 <Dialog bind:open={isOpen}>
-  <div class="sm:max-w-md bg-card border-border/50 rounded-lg p-6">
-    <div class="text-center mb-6">
+  <DialogContent class="sm:max-w-md bg-card border-border/50">
+    <DialogHeader class="text-center">
       <div class="flex items-center justify-center mb-4">
         <div class="relative">
           <Shield class="w-12 h-12 text-primary" />
@@ -37,15 +37,15 @@
           </div>
         </div>
       </div>
-      <h2 class="text-2xl font-bold">
+      <DialogTitle class="text-2xl font-bold">
         <span class="gradient-text">WARRIOR ACCESS</span>
-      </h2>
+      </DialogTitle>
       <Badge class="bg-primary/10 text-primary border-primary/20 mt-2">
         Elite Operator Portal
       </Badge>
-    </div>
+    </DialogHeader>
 
-    <form on:submit={handleLogin} class="space-y-6">
+    <form on:submit={handleLogin} class="space-y-6 mt-6">
       <div class="space-y-4">
         <div class="space-y-2">
           <Label for="email" class="text-sm font-semibold">
@@ -121,7 +121,10 @@
 
       <div class="text-center">
         <p class="text-sm text-muted-foreground">
-          Demo credentials: warrior@example.com / password123
+          New to the brotherhood?{' '}
+          <a href="#pricing" class="text-primary hover:text-primary/80 font-medium">
+            Join the Warriors
+          </a>
         </p>
       </div>
     </form>
@@ -141,5 +144,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </DialogContent>
 </Dialog>

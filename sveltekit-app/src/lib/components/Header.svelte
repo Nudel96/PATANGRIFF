@@ -24,14 +24,17 @@
   ];
 
   function handleLogin() {
-    // Mock login for demo
-    const success = login('warrior@example.com', 'password123');
-    if (success) {
-      toast.success('Welcome back, Warrior!');
-      isLoginModalOpen = false;
-    } else {
-      toast.error('Invalid credentials');
-    }
+    // Simulate login
+    const mockUser = {
+      id: '1',
+      email: 'warrior@example.com',
+      displayName: 'Elite Warrior',
+      membershipLevel: 'Operator' as const
+    };
+    
+    login(mockUser);
+    toast.success('Welcome back, Warrior!');
+    isLoginModalOpen = false;
   }
 </script>
 

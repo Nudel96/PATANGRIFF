@@ -1,11 +1,14 @@
 <script lang="ts">
   import '../app.css';
   import { onMount } from 'svelte';
+  import { page } from '$app/stores';
+  import { isLoggedIn } from '$lib/stores/auth';
   import ToastContainer from '$lib/components/ToastContainer.svelte';
   
-  // Initialize any global setup
+  // Initialize theme and other global setup
   onMount(() => {
-    // Global initialization logic
+    // Theme initialization would go here
+    // Any global setup logic
   });
 </script>
 

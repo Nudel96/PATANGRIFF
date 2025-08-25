@@ -1,8 +1,5 @@
 <script lang="ts">
-  import { squads, squadStats, createSquad } from '$lib/stores/community';
-  import { forumPosts } from '$lib/stores/community';
-  import { mockForumCategories } from '$lib/data/mockData';
-  import { toast } from '$lib/stores/toast';
+  import { squads, squadStats } from '$lib/stores/squads';
   import { Button } from '$lib/components/ui/button';
   import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card';
   import { Badge } from '$lib/components/ui/badge';
@@ -19,9 +16,7 @@
     Activity,
     BarChart3,
     Trophy,
-    ArrowRight,
-    Building2,
-    Brain
+    ArrowRight
   } from 'lucide-svelte';
   
   let activeTab = 'forums';
@@ -61,7 +56,7 @@
     { 
       id: 'mindset-performance', 
       name: 'Mindset & Performance', 
-      icon: Brain, 
+      icon: Activity, 
       color: 'text-pink-500', 
       posts: 345,
       description: 'Mental models, emotional regulation, habit tracking',
@@ -69,29 +64,6 @@
       todaysPosts: 11
     }
   ];
-
-  function handleCreateSquad() {
-    // Mock squad creation
-    const newSquad = {
-      name: 'New Squad',
-      description: 'A new collaborative learning group',
-      category: 'trading-strategies',
-      privacy: 'open' as const,
-      maxMembers: 8,
-      currentMembers: 1,
-      leaderId: '1',
-      memberIds: ['1'],
-      tags: ['new', 'learning'],
-      goals: ['Learn together', 'Share knowledge'],
-      meetingCadence: 'Weekly',
-      timezone: 'America/New_York',
-      isActive: true
-    };
-    
-    createSquad(newSquad);
-    toast.success('Squad created successfully!');
-    showCreateSquad = false;
-  }
 </script>
 
 <svelte:head>
@@ -128,55 +100,10 @@
           </p>
         </div>
 
-        <!-- Forum Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card class="military-card text-center">
-            <CardContent class="p-6">
-              <div class="bg-primary/10 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <MessageCircle class="w-6 h-6 text-primary" />
-              </div>
-              <div class="text-2xl font-bold text-primary mb-1">4,847</div>
-              <div class="text-sm text-muted-foreground">Total Posts</div>
-            </CardContent>
-          </Card>
-          
-          <Card class="military-card text-center">
-            <CardContent class="p-6">
-              <div class="bg-secondary/10 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Users class="w-6 h-6 text-secondary" />
-              </div>
-              <div class="text-2xl font-bold text-secondary mb-1">12,456</div>
-              <div class="text-sm text-muted-foreground">Active Members</div>
-            </CardContent>
-          </Card>
-          
-          <Card class="military-card text-center">
-            <CardContent class="p-6">
-              <div class="bg-primary/10 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Activity class="w-6 h-6 text-primary" />
-              </div>
-              <div class="text-2xl font-bold text-primary mb-1">132</div>
-              <div class="text-sm text-muted-foreground">Posts Today</div>
-            </CardContent>
-          </Card>
-          
-          <Card class="military-card text-center">
-            <CardContent class="p-6">
-              <div class="bg-secondary/10 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <TrendingUp class="w-6 h-6 text-secondary" />
-              </div>
-              <div class="text-2xl font-bold text-secondary mb-1">89%</div>
-              <div class="text-sm text-muted-foreground">Quality Score</div>
-            </CardContent>
-          </Card>
-        </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           {#each forums as forum}
             <Card class="military-card cursor-pointer hover:border-primary/30" 
-                  on:click={() => goto(`/dashboard/community/forums/${forum.id}`)} 
-                  on:keydown={(e) => e.key === 'Enter' && goto(`/dashboard/community/forums/${forum.id}`)} 
-                  role="button" tabindex="0">
+                  on:click={() => goto(`/dashboard/community/forums/${forum.id}`)}>
               <CardContent class="p-6">
                 <div class="flex items-center space-x-3 mb-4">
                   <div class="bg-primary/10 p-2 rounded-lg">
@@ -265,33 +192,6 @@
             </Card>
           {/each}
         </div>
-
-        <!-- Create Squad Modal (Simplified) -->
-        {#if showCreateSquad}
-          <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <Card class="military-card max-w-md w-full mx-4">
-              <CardHeader>
-                <CardTitle class="flex items-center justify-between">
-                  <span>Create New Squad</span>
-                  <Button variant="ghost" size="sm" on:click={() => showCreateSquad = false}>
-                    <X class="w-4 h-4" />
-                  </Button>
-                </CardTitle>
-              </CardHeader>
-              <CardContent class="space-y-4">
-                <p class="text-muted-foreground">Squad creation feature coming soon. For now, enjoy exploring existing squads!</p>
-                <div class="flex justify-end space-x-2">
-                  <Button variant="outline" on:click={() => showCreateSquad = false}>
-                    Cancel
-                  </Button>
-                  <Button on:click={handleCreateSquad} class="bg-primary hover:bg-primary/90 text-primary-foreground">
-                    Create Demo Squad
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        {/if}
       </div>
     </TabsContent>
 
