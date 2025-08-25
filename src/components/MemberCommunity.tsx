@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SquadsHub } from './SquadsHub';
 import { CreateSquadModal } from './CreateSquadModal';
+import { ForumHub } from './ForumHub';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -97,7 +98,7 @@ interface MemberCommunityProps {
 }
 
 export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogout }) => {
-  const [activeTab, setActiveTab] = useState('squads');
+  const [activeTab, setActiveTab] = useState('forums');
   const [selectedForum, setSelectedForum] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterAsset, setFilterAsset] = useState('all');
@@ -651,23 +652,40 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
 
       <div className="container-max mx-auto px-6 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 bg-muted/20">
-            <TabsTrigger value="squads" className="flex items-center space-x-2">
-              <Shield className="w-4 h-4" />
-              <span>Squads</span>
-            </TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 bg-muted/20">
             <TabsTrigger value="forums" className="flex items-center space-x-2">
               <MessageCircle className="w-4 h-4" />
               <span>Forums</span>
             </TabsTrigger>
+            <TabsTrigger value="squads" className="flex items-center space-x-2">
+              <Shield className="w-4 h-4" />
+              <span>Squads</span>
+            </TabsTrigger>
+            <TabsTrigger value="events" className="flex items-center space-x-2">
+              <Calendar className="w-4 h-4" />
+              <span>Events</span>
+            </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="forums">
+            <ForumHub onBack={onBack} onLogout={onLogout} />
+          </TabsContent>
 
           <TabsContent value="squads">
             {renderSquadsContent()}
           </TabsContent>
 
-          <TabsContent value="forums">
-            {renderForumsContent()}
+          <TabsContent value="events">
+            <div className="text-center py-12">
+              <Calendar className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Events & Webinars</h3>
+              <p className="text-muted-foreground mb-6">
+                Community events, webinars, and meetups coming soon.
+              </p>
+              <Badge className="bg-secondary/10 text-secondary border-secondary/20">
+                Under Development
+              </Badge>
+            </div>
           </TabsContent>
         </Tabs>
 
