@@ -289,37 +289,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </Card>
       </div>
 
-      {/* Quick Actions Bar */}
-      <Card className="military-card">
-        <CardContent className="p-6">
-          <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2">
-            <Zap className="w-5 h-5 text-primary" />
-            <span>Quick Actions</span>
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={onNavigateToJournal}>
-              <Plus className="w-5 h-5 text-primary" />
-              <span className="text-sm">Log Trade</span>
-            </Button>
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={onNavigateToHeatmap}>
-              <LineChart className="w-5 h-5 text-secondary" />
-              <span className="text-sm">Check Markets</span>
-            </Button>
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={onNavigateToCommunity}>
-              <Users className="w-5 h-5 text-secondary" />
-              <span className="text-sm">Community</span>
-            </Button>
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={onNavigateToTradingMastery}>
-              <BookOpen className="w-5 h-5 text-primary" />
-              <span className="text-sm">Continue Learning</span>
-            </Button>
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
-              <MessageCircle className="w-5 h-5 text-secondary" />
-              <span className="text-sm">Support</span>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 

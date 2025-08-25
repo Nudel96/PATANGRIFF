@@ -379,37 +379,6 @@ export const Pricing = () => {
           </div>
         </div>
 
-        {/* Guarantee */}
-        <div className="text-center mb-16">
-          <div className="military-card max-w-4xl mx-auto">
-            <div className="flex items-center justify-center mb-4">
-              <div className="bg-primary/20 p-3 rounded-xl mr-4">
-                <Zap className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold">30-Day Money-Back Guarantee</h3>
-            </div>
-            <p className="text-foreground/70 leading-relaxed mb-6">
-              Try Bias-Tool-Solo risk-free for 30 days. If you're not completely satisfied with the 
-              systematic bias analysis and signal accuracy, we'll refund your entire purchase. 
-              No questions asked.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div className="flex items-center justify-center space-x-2">
-                <Check className="w-4 h-4 text-primary" />
-                <span>Full 30-day trial period</span>
-              </div>
-              <div className="flex items-center justify-center space-x-2">
-                <Check className="w-4 h-4 text-primary" />
-                <span>100% money-back guarantee</span>
-              </div>
-              <div className="flex items-center justify-center space-x-2">
-                <Check className="w-4 h-4 text-primary" />
-                <span>No questions asked policy</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* FAQ Teaser */}
         <div className="text-center">
           <h3 className="text-xl font-semibold mb-4">Ready to Eliminate Emotional Trading?</h3>
