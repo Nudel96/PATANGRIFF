@@ -14,3 +14,4 @@ export { default as TabsList } from './TabsList.svelte';
 export { default as TabsTrigger } from './TabsTrigger.svelte';
 export { default as TabsContent } from './TabsContent.svelte';
 export { default as Select } from './Select.svelte';
+export { default as Collapsible } from './Collapsible.svelte';

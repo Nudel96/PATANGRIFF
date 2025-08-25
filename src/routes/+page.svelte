@@ -1,6 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { authStore } from '$lib/stores/auth';
+	import Header from '$lib/components/Header.svelte';
+	import Hero from '$lib/components/Hero.svelte';
+	import PositioningStatement from '$lib/components/PositioningStatement.svelte';
+	import Stats from '$lib/components/Stats.svelte';
+	import FourPillars from '$lib/components/FourPillars.svelte';
+	import PlatformTools from '$lib/components/PlatformTools.svelte';
 
 	let isLoggedIn = false;
 	let showLoginModal = false;
@@ -32,6 +38,14 @@
 	function closeLoginModal() {
 		showLoginModal = false;
 	}
+
+	function handlePricing() {
+		// Scroll to pricing section or navigate to pricing page
+		const pricingSection = document.getElementById('pricing');
+		if (pricingSection) {
+			pricingSection.scrollIntoView({ behavior: 'smooth' });
+		}
+	}
 </script>
 
 <svelte:head>
@@ -42,63 +56,29 @@
 <!-- Landing Page Content -->
 <div class="min-h-screen bg-background text-foreground">
 	<!-- Header -->
-	<header class="bg-card/50 backdrop-blur-sm border-b border-border/50 sticky top-0 z-40">
-		<div class="container mx-auto px-6">
-			<div class="flex items-center justify-between h-16">
-				<!-- Logo -->
-				<div class="flex items-center space-x-3">
-					<div class="relative">
-						<div class="w-8 h-8 bg-primary rounded"></div>
-					</div>
-					<div class="flex flex-col">
-						<span class="text-xl font-bold gradient-text">PRICEACTIONTALK</span>
-						<span class="text-sm text-muted-foreground -mt-1">ELITE TRADING</span>
-					</div>
-				</div>
-
-				<!-- Login Button -->
-				<button
-					class="bg-primary text-primary-foreground px-6 py-2 rounded-md hover:bg-primary/90 font-semibold"
-					on:click={openLoginModal}
-				>
-					Login
-				</button>
-			</div>
-		</div>
-	</header>
+	<Header on:login={openLoginModal} />
 
 	<!-- Hero Section -->
-	<section class="section-padding">
-		<div class="container-max mx-auto text-center">
-			<h1 class="text-5xl md:text-7xl font-bold mb-8">
-				Transform Into A <span class="gradient-text">Market Operator</span>
-			</h1>
-			<p class="text-xl md:text-2xl text-foreground/70 max-w-4xl mx-auto mb-12">
-				Stop being a chart-watcher. Start being a market operator.
-				PAT ANGRIFF delivers the elite training and tools you need to dominate the markets.
-			</p>
+	<Hero on:login={openLoginModal} on:pricing={handlePricing} />
 
-			<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-				<button
-					class="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-md"
-					on:click={openLoginModal}
-				>
-					Access Warrior Portal →
-				</button>
-				<button class="border border-primary/20 hover:bg-primary/10 px-8 py-6 text-lg rounded-md">
-					See Pricing Plans
-				</button>
-			</div>
-		</div>
-	</section>
+	<!-- Positioning Statement -->
+	<PositioningStatement />
 
-	<!-- Placeholder for other sections -->
-	<section class="section-padding bg-card/20">
+	<!-- Stats Section -->
+	<Stats />
+
+	<!-- Four Pillars Section -->
+	<FourPillars on:startJourney={openLoginModal} />
+
+	<!-- Platform Tools Section -->
+	<PlatformTools on:accessPlatform={openLoginModal} />
+
+	<!-- Placeholder for remaining sections -->
+	<section class="section-padding bg-card/20" id="pricing">
 		<div class="container-max mx-auto text-center">
-			<h2 class="text-3xl font-bold mb-8">Landing Page Components</h2>
+			<h2 class="text-3xl font-bold mb-8">Additional Components</h2>
 			<p class="text-muted-foreground">
-				Hero, PositioningStatement, Stats, FourPillars, PlatformTools,
-				TrainingSection, Community, Pricing, and Footer components will be migrated here.
+				TrainingSection, Community, Pricing, and Footer components will be migrated next.
 			</p>
 		</div>
 	</section>
