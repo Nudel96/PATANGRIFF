@@ -7,6 +7,10 @@
 	import Stats from '$lib/components/Stats.svelte';
 	import FourPillars from '$lib/components/FourPillars.svelte';
 	import PlatformTools from '$lib/components/PlatformTools.svelte';
+	import TrainingSection from '$lib/components/TrainingSection.svelte';
+	import Community from '$lib/components/Community.svelte';
+	import Pricing from '$lib/components/Pricing.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 
 	let isLoggedIn = false;
 	let showLoginModal = false;
@@ -46,6 +50,21 @@
 			pricingSection.scrollIntoView({ behavior: 'smooth' });
 		}
 	}
+
+	function handleNewsletterSubscribe(event: CustomEvent<{ email: string }>) {
+		console.log('Newsletter subscription:', event.detail.email);
+		// In real app, this would call an API to subscribe the user
+	}
+
+	function handleSocialLink(event: CustomEvent<{ platform: string }>) {
+		console.log('Social link clicked:', event.detail.platform);
+		// In real app, this would open the appropriate social media link
+	}
+
+	function handleFooterLink(event: CustomEvent<{ section: string; link: string }>) {
+		console.log('Footer link clicked:', event.detail.section, event.detail.link);
+		// In real app, this would navigate to the appropriate page
+	}
 </script>
 
 <svelte:head>
@@ -73,16 +92,30 @@
 	<!-- Platform Tools Section -->
 	<PlatformTools on:accessPlatform={openLoginModal} />
 
-	<!-- Placeholder for remaining sections -->
-	<section class="section-padding bg-card/20" id="pricing">
-		<div class="container-max mx-auto text-center">
-			<h2 class="text-3xl font-bold mb-8">Additional Components</h2>
-			<p class="text-muted-foreground">
-				TrainingSection, Community, Pricing, and Footer components will be migrated next.
-			</p>
-		</div>
-	</section>
+	<!-- Training Section -->
+	<TrainingSection
+		on:startTraining={openLoginModal}
+		on:viewCurriculum={openLoginModal}
+		on:unlockPotential={openLoginModal}
+		on:scheduleAssessment={openLoginModal}
+	/>
+
+	<!-- Community Section -->
+	<Community on:joinCommunity={openLoginModal} />
+
+	<!-- Pricing Section -->
+	<Pricing
+		on:selectPlan={openLoginModal}
+		on:contactSupport={openLoginModal}
+	/>
 </div>
+
+<!-- Footer -->
+<Footer
+	on:subscribe={handleNewsletterSubscribe}
+	on:socialLink={handleSocialLink}
+	on:footerLink={handleFooterLink}
+/>
 
 <!-- Login Modal -->
 {#if showLoginModal}
