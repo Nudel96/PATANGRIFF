@@ -5,38 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
-import { 
-  ArrowLeft,
-  LogOut,
-  User,
-  Star,
-  Award,
-  Calendar,
-  MapPin,
-  Globe,
-  Mail,
-  MessageCircle,
-  UserPlus,
-  UserCheck,
-  Shield,
-  Crown,
-  Target,
-  TrendingUp,
-  BarChart3,
-  Brain,
-  Building2,
-  Activity,
-  Eye,
-  ThumbsUp,
-  MessageSquare,
-  Verified,
-  ExternalLink,
-  Edit,
-  Settings,
-  Flag,
-  Block,
-  Mute
-} from 'lucide-react';
+import { ArrowLeft, LogOut, User, Star, Award, Calendar, MapPin, Globe, Mail, MessageCircle, UserPlus, UserCheck, Shield, Crown, Target, TrendingUp, BarChart3, Brain, Building2, Activity, Eye, ThumbsUp, MessageSquare, Verified, ExternalLink, Edit, Settings, Flag, Blocks as Block, Route as Mute } from 'lucide-react';
 
 interface UserProfileProps {
   user: any;
