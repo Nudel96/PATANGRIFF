@@ -94,9 +94,10 @@ interface Challenge {
 interface MemberCommunityProps {
   onBack: () => void;
   onLogout: () => void;
+  onNavigateToForum?: () => void;
 }
 
-export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogout }) => {
+export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogout, onNavigateToForum }) => {
   const [activeTab, setActiveTab] = useState('squads');
   const [selectedForum, setSelectedForum] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -540,7 +541,11 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
       {/* Forums Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {forums.map((forum) => (
-          <Card key={forum.id} className="military-card group cursor-pointer hover:border-primary/30">
+          <Card 
+            key={forum.id} 
+            className="military-card group cursor-pointer hover:border-primary/30"
+            onClick={onNavigateToForum}
+          >
             <CardContent className="p-6">
               <div className="flex items-center space-x-3 mb-4">
                 <div className="bg-primary/10 p-2 rounded-lg">
