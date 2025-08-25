@@ -1,3 +1,11 @@
 {
-	"/": []
+	"/": [],
+	"/dashboard": [],
+	"/dashboard/community": [],
+	"/dashboard/heatmap": [],
+	"/dashboard/journal": [],
+	"/dashboard/learning/business-ops": [],
+	"/dashboard/learning/capital-mgmt": [],
+	"/dashboard/learning/psychology": [],
+	"/dashboard/learning/trading-mastery": []
 }

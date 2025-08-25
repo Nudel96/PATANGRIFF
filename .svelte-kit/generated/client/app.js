@@ -3,13 +3,30 @@ export { matchers } from './matchers.js';
 export const nodes = [
 	() => import('./nodes/0'),
 	() => import('./nodes/1'),
-	() => import('./nodes/2')
+	() => import('./nodes/2'),
+	() => import('./nodes/3'),
+	() => import('./nodes/4'),
+	() => import('./nodes/5'),
+	() => import('./nodes/6'),
+	() => import('./nodes/7'),
+	() => import('./nodes/8'),
+	() => import('./nodes/9'),
+	() => import('./nodes/10'),
+	() => import('./nodes/11')
 ];
 
 export const server_loads = [];
 
 export const dictionary = {
-		"/": [2]
+		"/": [3],
+		"/dashboard": [4,[2]],
+		"/dashboard/community": [5,[2]],
+		"/dashboard/heatmap": [6,[2]],
+		"/dashboard/journal": [7,[2]],
+		"/dashboard/learning/business-ops": [8,[2]],
+		"/dashboard/learning/capital-mgmt": [9,[2]],
+		"/dashboard/learning/psychology": [10,[2]],
+		"/dashboard/learning/trading-mastery": [11,[2]]
 	};
 
 export const hooks = {
