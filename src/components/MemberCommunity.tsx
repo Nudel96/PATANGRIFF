@@ -94,9 +94,10 @@ interface Challenge {
 interface MemberCommunityProps {
   onBack: () => void;
   onLogout: () => void;
+  onNavigateToForum: () => void;
 }
 
-export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogout }) => {
+export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogout, onNavigateToForum }) => {
   const [activeTab, setActiveTab] = useState('squads');
   const [selectedForum, setSelectedForum] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -610,10 +611,6 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
       attendees: 34,
       maxAttendees: 75,
       status: 'upcoming'
-    },
-    {
-      id: '4',
-      
     }
   ];
 
@@ -624,34 +621,61 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
         <div className="container-max mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" onClick={onBack}>
+              <Button variant="ghost" onClick={onBack} className="text-muted-foreground hover:text-foreground">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Dashboard
               </Button>
               <div className="flex items-center space-x-3">
-                <div className="bg-secondary/10 p-2 rounded-lg">
-                  <Users className="w-6 h-6 text-secondary" />
-                </div>
+                <MessageCircle className="w-8 h-8 text-primary" />
                 <div>
-                  <h1 className="text-xl font-bold gradient-text">Community Hub</h1>
-                  <p className="text-sm text-foreground/70">Brotherhood of Warriors</p>
+                  <h1 className="text-xl font-bold">Community Hub</h1>
+                  <p className="text-primary font-semibold">Professional Discussion Hub</p>
                 </div>
               </div>
             </div>
-
-            <div className="flex items-center space-x-4">
-              <Button variant="outline" size="sm" onClick={onLogout}>
-                <LogOut className="w-4 h-4 mr-2" />
-                Exit Portal
+            <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
+              <div className="flex items-center space-x-2 mb-2">
+                <BarChart3 className="w-4 h-4 text-primary" />
+                <span className="text-sm font-semibold text-primary">Active Categories</span>
+              </div>
+              <div className="text-xs text-muted-foreground">
+                <div className="w-2 h-2 bg-primary rounded-full inline-block mr-2" />
+                Stocks • Forex • Crypto • Commodities • Options • Psychology • Business Development
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                <div className="w-2 h-2 bg-primary rounded-full inline-block mr-2" />
+                Access our comprehensive trading forum with specialized categories for stocks, forex, crypto, commodities, 
+                and options. Share detailed trade analysis, ask questions, and learn from verified professional traders 
+                through structured discussions with rich content support including charts and real-time market data.
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                <div className="w-2 h-2 bg-primary rounded-full inline-block mr-2" />
+                <span className="text-foreground/80">Specialized trading categories and sub-forums</span>
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                <div className="w-2 h-2 bg-primary rounded-full inline-block mr-2" />
+                <span className="text-foreground/80">Verified professional traders and expert analysis</span>
+              </div>
+              
+              <Button 
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mt-6"
+                onClick={onNavigateToForum}
+              >
+                Access Trading Forum
+                <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </div>
+            <Button variant="outline" size="sm" onClick={onLogout}>
+              <LogOut className="w-4 h-4 mr-2" />
+              Logout
+            </Button>
           </div>
         </div>
       </header>
 
       <div className="container-max mx-auto px-6 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 bg-muted/20">
+          <TabsList className="grid w-full grid-cols-4 bg-muted/20">
             <TabsTrigger value="squads" className="flex items-center space-x-2">
               <Shield className="w-4 h-4" />
               <span>Squads</span>
@@ -659,6 +683,14 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
             <TabsTrigger value="forums" className="flex items-center space-x-2">
               <MessageCircle className="w-4 h-4" />
               <span>Forums</span>
+            </TabsTrigger>
+            <TabsTrigger value="events" className="flex items-center space-x-2">
+              <Calendar className="w-4 h-4" />
+              <span>Events</span>
+            </TabsTrigger>
+            <TabsTrigger value="challenges" className="flex items-center space-x-2">
+              <Trophy className="w-4 h-4" />
+              <span>Challenges</span>
             </TabsTrigger>
           </TabsList>
 
@@ -669,7 +701,160 @@ export const MemberCommunity: React.FC<MemberCommunityProps> = ({ onBack, onLogo
           <TabsContent value="forums">
             {renderForumsContent()}
           </TabsContent>
+
+          <TabsContent value="events" className="space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold">Community Events</h2>
+              <p className="text-muted-foreground">Live sessions, workshops, and community gatherings</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="military-card">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>Weekly Gold Review</CardTitle>
+                    <Badge className="bg-primary/10 text-primary">Live Today</Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-2">
+                      <Clock className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm">2:00 PM EST</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Users className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm">23 attending</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Review this week's gold trades and setups with senior mentors.
+                    </p>
+                  </div>
+                  <Button className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground">
+                    Join Session
+                  </Button>
+                </CardContent>
+              </Card>
+              
+              <Card className="military-card">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>Macro AMA</CardTitle>
+                    <Badge className="bg-secondary/10 text-secondary">Tomorrow</Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-2">
+                      <Clock className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm">4:00 PM EST</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Users className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm">67 registered</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Q&A on current macro environment with Chief Analyst.
+                    </p>
+                  </div>
+                  <Button variant="outline" className="w-full mt-4">
+                    Register
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="challenges" className="space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold">Community Challenges</h2>
+              <p className="text-muted-foreground">Compete with fellow warriors and earn recognition</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="military-card">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>30-Day Consistency Challenge</CardTitle>
+                    <Badge className="bg-primary/10 text-primary">Active</Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <p className="text-sm text-muted-foreground">
+                      Complete daily trading journal entries for 30 consecutive days.
+                    </p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Progress</span>
+                        <span>12/30 days</span>
+                      </div>
+                      <Progress value={40} className="h-2" />
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Trophy className="w-4 h-4 text-yellow-500" />
+                      <span className="text-sm">Reward: Discipline Warrior Badge</span>
+                    </div>
+                  </div>
+                  <Button variant="outline" className="w-full mt-4">
+                    View Leaderboard
+                  </Button>
+                </CardContent>
+              </Card>
+              
+              <Card className="military-card">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>Best Analysis Contest</CardTitle>
+                    <Badge className="bg-secondary/10 text-secondary">Voting Phase</Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <p className="text-sm text-muted-foreground">
+                      Submit your best market analysis for community voting.
+                    </p>
+                    <div className="flex items-center space-x-2">
+                      <Users className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm">45 submissions</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Award className="w-4 h-4 text-yellow-500" />
+                      <span className="text-sm">Reward: $500 + Expert Badge</span>
+                    </div>
+                  </div>
+                  <Button className="w-full mt-4 bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+                    Vote Now
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
         </Tabs>
+
+        {/* Quick Access to Forum */}
+        <Card className="military-card mt-8">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="bg-primary/10 p-3 rounded-xl">
+                  <MessageCircle className="w-8 h-8 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">Professional Trading Forum</h3>
+                  <p className="text-muted-foreground">Join structured discussions with verified traders</p>
+                </div>
+              </div>
+              <Button 
+                onClick={onNavigateToForum}
+                className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              >
+                Access Forum
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Create Squad Modal */}
         <CreateSquadModal

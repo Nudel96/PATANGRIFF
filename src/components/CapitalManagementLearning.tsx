@@ -27,12 +27,11 @@ import {
   Coins
 } from 'lucide-react';
 
-interface CapitalManagement LearningProps {
+interface CapitalManagementLearningProps {
   onBack: () => void;
   onLogout: () => void;
 }
 
-export const CapitalManagementLearning: React.FC<CapitalManagementLearningProps> = ({ onBack, onLogout }) => {
   const [activeTab, setActiveTab] = useState('overview');
   const [userLevel, setUserLevel] = useState(6);
   const [userXP, setUserXP] = useState(390);
