@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { authStore } from '$lib/stores/auth';
-	
+	import { Button, Card, CardHeader, CardContent, CardTitle, Badge } from '$lib/components/ui';
+	import { Shield, TrendingUp, FileText, Activity, Users, GraduationCap } from 'lucide-svelte';
+
 	// This will be replaced with the actual Dashboard component migration
-	// For now, just a placeholder with navigation
-	
+	// For now, just a placeholder with navigation using our new UI components
+
 	function handleLogout() {
 		authStore.logout();
 		goto('/');
@@ -51,8 +53,8 @@
 				<!-- Logo -->
 				<div class="flex items-center space-x-3">
 					<div class="relative">
-						<!-- Shield icon placeholder -->
-						<div class="w-8 h-8 bg-primary rounded"></div>
+						<Shield class="w-8 h-8 text-primary" />
+						<TrendingUp class="w-4 h-4 text-secondary absolute -top-1 -right-1" />
 					</div>
 					<div class="flex flex-col">
 						<span class="text-xl font-bold gradient-text">PRICEACTIONTALK</span>
@@ -62,12 +64,9 @@
 
 				<!-- User Actions -->
 				<div class="flex items-center space-x-4">
-					<button 
-						class="bg-destructive text-destructive-foreground px-4 py-2 rounded-md hover:bg-destructive/90"
-						on:click={handleLogout}
-					>
+					<Button variant="destructive" on:click={handleLogout}>
 						Logout
-					</button>
+					</Button>
 				</div>
 			</div>
 		</div>
@@ -88,48 +87,48 @@
 		<!-- Navigation Grid -->
 		<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
 			<!-- Trading Journal -->
-			<div class="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" on:click={navigateToJournal}>
-				<div class="text-center p-6">
+			<Card class="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" on:click={navigateToJournal}>
+				<CardContent class="text-center p-6">
 					<div class="bg-primary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-						<div class="w-10 h-10 bg-primary rounded"></div>
+						<FileText class="w-10 h-10 text-primary" />
 					</div>
-					<h3 class="text-2xl mb-2 font-semibold">Trading Journal</h3>
-					<p class="text-primary font-semibold">Track & Analyze</p>
-				</div>
-			</div>
+					<CardTitle class="text-2xl mb-2">Trading Journal</CardTitle>
+					<Badge variant="default" class="text-primary bg-primary/10">Track & Analyze</Badge>
+				</CardContent>
+			</Card>
 
 			<!-- Currency Heatmap -->
-			<div class="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" on:click={navigateToHeatmap}>
-				<div class="text-center p-6">
+			<Card class="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" on:click={navigateToHeatmap}>
+				<CardContent class="text-center p-6">
 					<div class="bg-secondary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-secondary/20 transition-colors">
-						<div class="w-10 h-10 bg-secondary rounded"></div>
+						<Activity class="w-10 h-10 text-secondary" />
 					</div>
-					<h3 class="text-2xl mb-2 font-semibold">Currency Heatmap</h3>
-					<p class="text-secondary font-semibold">Market Analysis</p>
-				</div>
-			</div>
+					<CardTitle class="text-2xl mb-2">Currency Heatmap</CardTitle>
+					<Badge variant="secondary" class="text-secondary bg-secondary/10">Market Analysis</Badge>
+				</CardContent>
+			</Card>
 
 			<!-- Community -->
-			<div class="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" on:click={navigateToCommunity}>
-				<div class="text-center p-6">
+			<Card class="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" on:click={navigateToCommunity}>
+				<CardContent class="text-center p-6">
 					<div class="bg-accent/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/20 transition-colors">
-						<div class="w-10 h-10 bg-accent rounded"></div>
+						<Users class="w-10 h-10 text-accent" />
 					</div>
-					<h3 class="text-2xl mb-2 font-semibold">Community</h3>
-					<p class="text-accent font-semibold">Connect & Learn</p>
-				</div>
-			</div>
+					<CardTitle class="text-2xl mb-2">Community</CardTitle>
+					<Badge variant="outline" class="text-accent border-accent/20">Connect & Learn</Badge>
+				</CardContent>
+			</Card>
 
 			<!-- Learning Hub -->
-			<div class="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" on:click={navigateToTradingMastery}>
-				<div class="text-center p-6">
+			<Card class="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" on:click={navigateToTradingMastery}>
+				<CardContent class="text-center p-6">
 					<div class="bg-muted/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-muted/20 transition-colors">
-						<div class="w-10 h-10 bg-muted rounded"></div>
+						<GraduationCap class="w-10 h-10 text-muted-foreground" />
 					</div>
-					<h3 class="text-2xl mb-2 font-semibold">Learning Hub</h3>
-					<p class="text-muted-foreground font-semibold">Master Skills</p>
-				</div>
-			</div>
+					<CardTitle class="text-2xl mb-2">Learning Hub</CardTitle>
+					<Badge variant="outline" class="text-muted-foreground border-muted">Master Skills</Badge>
+				</CardContent>
+			</Card>
 		</div>
 
 		<!-- Learning Modules -->
