@@ -43,6 +43,10 @@ function App() {
     setCurrentView('community');
   };
 
+  const handleNavigateToForum = () => {
+    setCurrentView('forum');
+  };
+
   const handleNavigateToTradingMastery = () => {
     setCurrentView('trading-mastery');
   };
@@ -71,7 +75,7 @@ function App() {
       return <CurrencyHeatmap onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
     }
     if (currentView === 'community') {
-      return <MemberCommunity onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
+      return <MemberCommunity onBack={handleNavigateToDashboard} onLogout={handleLogout} onNavigateToForum={handleNavigateToForum} />;
     }
     if (currentView === 'trading-mastery') {
       return <TradingMasteryLearning onBack={handleNavigateToDashboard} onLogout={handleLogout} />;
