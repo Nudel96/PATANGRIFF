@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { authStore } from '$lib/stores/auth';
 	import Header from '$lib/components/Header.svelte';
 	import Hero from '$lib/components/Hero.svelte';
@@ -22,7 +21,7 @@
 
 	// Redirect to dashboard if already logged in
 	$: if (isLoggedIn) {
-		goto('/dashboard');
+		window.location.href = '/dashboard';
 	}
 
 	function handleLogin() {
@@ -119,8 +118,17 @@
 
 <!-- Login Modal -->
 {#if showLoginModal}
-	<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50" on:click={closeLoginModal}>
-		<div class="bg-card p-8 rounded-lg max-w-md w-full mx-4" on:click|stopPropagation>
+	<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+		 on:click={closeLoginModal}
+		 on:keydown={(e) => e.key === 'Escape' && closeLoginModal()}
+		 role="button"
+		 tabindex="0">
+		<div class="bg-card p-8 rounded-lg max-w-md w-full mx-4"
+			 on:click|stopPropagation
+			 on:keydown|stopPropagation
+			 role="dialog"
+			 aria-modal="true"
+			 tabindex="-1">
 			<h2 class="text-2xl font-bold mb-6">Access Warrior Portal</h2>
 			<p class="text-muted-foreground mb-6">
 				This is a demo login. In the real application, this would connect to your authentication system.

@@ -1,20 +1,17 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { authStore } from '$lib/stores/auth';
-	import { Button, Card, CardContent, CardHeader, CardTitle, Badge, Progress } from '$lib/components/ui';
-	import { 
-		Shield, 
-		TrendingUp, 
-		FileText, 
-		Activity, 
-		Users, 
+	import { browser } from '$app/environment';
+	import { Button } from '$lib/components/ui';
+	import {
+		Shield,
+		TrendingUp,
+		FileText,
+		Activity,
+		Users,
 		GraduationCap,
 		Home,
 		BarChart3,
 		Target,
 		Calendar,
-		Award,
-		ArrowRight,
 		Settings,
 		LogOut,
 		Building2,
@@ -25,18 +22,16 @@
 
 	const dispatch = createEventDispatcher<{
 		logout: void;
-		navigateToJournal: void;
-		navigateToHeatmap: void;
-		navigateToCommunity: void;
-		navigateToTradingMastery: void;
-		navigateToBusinessOps: void;
-		navigateToPsychology: void;
-		navigateToCapitalMgmt: void;
 	}>();
 
-	export let activeSection: string = 'home';
-
 	let showUserSettings = false;
+
+	// Safe navigation function that only works in browser
+	function navigateTo(path: string) {
+		if (browser) {
+			window.location.href = path;
+		}
+	}
 
 	// Quick stats for overview
 	const quickStats = [
@@ -48,10 +43,10 @@
 
 	// Four Pillars progress data
 	const pillarsProgress = [
-		{ name: 'Trading Mastery', progress: 75, color: 'primary', icon: TrendingUp, onClick: () => dispatch('navigateToTradingMastery') },
-		{ name: 'Business Operations', progress: 45, color: 'secondary', icon: Building2, onClick: () => dispatch('navigateToBusinessOps') },
-		{ name: 'Capital Management', progress: 60, color: 'primary', icon: DollarSign, onClick: () => dispatch('navigateToCapitalMgmt') },
-		{ name: 'Trading Psychology', progress: 30, color: 'secondary', icon: Brain, onClick: () => dispatch('navigateToPsychology') }
+		{ name: 'Trading Mastery', progress: 75, color: 'primary', icon: TrendingUp, onClick: () => navigateTo('/dashboard/learning/trading-mastery') },
+		{ name: 'Business Operations', progress: 45, color: 'secondary', icon: Building2, onClick: () => navigateTo('/dashboard/learning/business-ops') },
+		{ name: 'Capital Management', progress: 60, color: 'primary', icon: DollarSign, onClick: () => navigateTo('/dashboard/learning/capital-mgmt') },
+		{ name: 'Trading Psychology', progress: 30, color: 'secondary', icon: Brain, onClick: () => navigateTo('/dashboard/learning/psychology') }
 	];
 
 	// Community section
@@ -64,7 +59,7 @@
 		color: 'secondary',
 		features: ['Discussion Forums', 'Trade Gallery', 'Squads & Accountability', 'Events & AMAs'],
 		action: 'Enter Community',
-		onClick: () => dispatch('navigateToCommunity')
+		onClick: () => navigateTo('/dashboard/community')
 	};
 
 	const updatedMainSections = [
@@ -77,7 +72,7 @@
 			color: 'primary',
 			features: ['30 Levels per Pillar', 'XP Progression', 'Interactive Modules', 'Assessments'],
 			action: 'Start Learning',
-			onClick: () => activeSection = 'learning'
+			onClick: () => navigateTo('/dashboard/learning')
 		},
 		{
 			id: 'heatmap',
@@ -88,7 +83,7 @@
 			color: 'secondary',
 			features: ['Live Data', 'Currency Strength', 'Economic Indicators', 'Trading Signals'],
 			action: 'View Markets',
-			onClick: () => dispatch('navigateToHeatmap')
+			onClick: () => navigateTo('/dashboard/heatmap')
 		},
 		communitySection,
 		{
@@ -100,16 +95,12 @@
 			color: 'primary',
 			features: ['Trade Logging', 'Pre-trade Checklist', 'Analytics', 'Calendar View'],
 			action: 'Open Journal',
-			onClick: () => dispatch('navigateToJournal')
+			onClick: () => navigateTo('/dashboard/journal')
 		}
 	];
 
 	function handleLogout() {
 		dispatch('logout');
-	}
-
-	function setActiveSection(section: string) {
-		activeSection = section;
 	}
 </script>
 
@@ -132,46 +123,46 @@
 
 				<!-- Main Navigation -->
 				<nav class="hidden md:flex items-center space-x-6">
-					<Button 
-						variant={activeSection === 'home' ? 'default' : 'ghost'} 
+					<Button
+						variant="ghost"
 						size="sm"
-						on:click={() => setActiveSection('home')}
+						on:click={() => navigateTo('/dashboard')}
 						class="flex items-center space-x-2"
 					>
 						<Home class="w-4 h-4" />
 						<span>Dashboard</span>
 					</Button>
-					<Button 
-						variant={activeSection === 'learning' ? 'default' : 'ghost'} 
+					<Button
+						variant="ghost"
 						size="sm"
-						on:click={() => setActiveSection('learning')}
+						on:click={() => navigateTo('/dashboard/learning')}
 						class="flex items-center space-x-2"
 					>
 						<GraduationCap class="w-4 h-4" />
 						<span>Learning</span>
 					</Button>
-					<Button 
-						variant="ghost" 
+					<Button
+						variant="ghost"
 						size="sm"
-						on:click={() => dispatch('navigateToHeatmap')}
+						on:click={() => navigateTo('/dashboard/heatmap')}
 						class="flex items-center space-x-2"
 					>
 						<Activity class="w-4 h-4" />
 						<span>Heatmap</span>
 					</Button>
-					<Button 
-						variant="ghost" 
+					<Button
+						variant="ghost"
 						size="sm"
-						on:click={() => dispatch('navigateToJournal')}
+						on:click={() => navigateTo('/dashboard/journal')}
 						class="flex items-center space-x-2"
 					>
 						<FileText class="w-4 h-4" />
 						<span>Journal</span>
 					</Button>
-					<Button 
-						variant="ghost" 
+					<Button
+						variant="ghost"
 						size="sm"
-						on:click={() => dispatch('navigateToCommunity')}
+						on:click={() => navigateTo('/dashboard/community')}
 						class="flex items-center space-x-2"
 					>
 						<Users class="w-4 h-4" />
@@ -209,38 +200,38 @@
 		<div class="container-max mx-auto px-6">
 			<div class="flex items-center justify-between py-3">
 				<div class="flex space-x-2">
-					<Button 
-						variant={activeSection === 'home' ? 'default' : 'ghost'} 
+					<Button
+						variant="ghost"
 						size="sm"
-						on:click={() => setActiveSection('home')}
+						on:click={() => navigateTo('/dashboard')}
 					>
 						<Home class="w-4 h-4" />
 					</Button>
-					<Button 
-						variant={activeSection === 'learning' ? 'default' : 'ghost'} 
+					<Button
+						variant="ghost"
 						size="sm"
-						on:click={() => setActiveSection('learning')}
+						on:click={() => navigateTo('/dashboard/learning')}
 					>
 						<GraduationCap class="w-4 h-4" />
 					</Button>
-					<Button 
-						variant="ghost" 
+					<Button
+						variant="ghost"
 						size="sm"
-						on:click={() => dispatch('navigateToHeatmap')}
+						on:click={() => navigateTo('/dashboard/heatmap')}
 					>
 						<Activity class="w-4 h-4" />
 					</Button>
-					<Button 
-						variant="ghost" 
+					<Button
+						variant="ghost"
 						size="sm"
-						on:click={() => dispatch('navigateToJournal')}
+						on:click={() => navigateTo('/dashboard/journal')}
 					>
 						<FileText class="w-4 h-4" />
 					</Button>
-					<Button 
-						variant="ghost" 
+					<Button
+						variant="ghost"
 						size="sm"
-						on:click={() => dispatch('navigateToCommunity')}
+						on:click={() => navigateTo('/dashboard/community')}
 					>
 						<Users class="w-4 h-4" />
 					</Button>
@@ -251,6 +242,6 @@
 
 	<!-- Main Content -->
 	<div class="container-max mx-auto px-6 py-8">
-		<slot {activeSection} {quickStats} {pillarsProgress} {updatedMainSections} />
+		<slot {quickStats} {pillarsProgress} {updatedMainSections} />
 	</div>
 </div>

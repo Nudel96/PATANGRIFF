@@ -1,21 +1,13 @@
 <script lang="ts">
 	import { Button, Card, CardContent, CardHeader, CardTitle, Badge } from '$lib/components/ui';
 	import { Award, ArrowRight } from 'lucide-svelte';
-	import { createEventDispatcher } from 'svelte';
-
-	const dispatch = createEventDispatcher<{
-		sectionClick: { sectionId: string };
-	}>();
 
 	export let quickStats: any[];
 	export let updatedMainSections: any[];
 
-	function handleSectionClick(section: any) {
-		if (section.onClick) {
-			section.onClick();
-		}
-		dispatch('sectionClick', { sectionId: section.id });
-	}
+
+
+
 </script>
 
 <div class="space-y-8">
@@ -56,12 +48,8 @@
 	<!-- Main Navigation Sections -->
 	<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
 		{#each updatedMainSections as section, index}
-			<Card 
-				class="military-card group cursor-pointer transition-all duration-300 hover:border-primary/30 hover:shadow-lg" 
-				on:click={() => handleSectionClick(section)}
-				on:keydown={(e) => e.key === 'Enter' && handleSectionClick(section)}
-				tabindex="0"
-				role="button"
+			<Card
+				class="military-card group transition-all duration-300 hover:border-primary/30 hover:shadow-lg"
 			>
 				<CardHeader class="text-center pb-4">
 					<div class="bg-{section.color}/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-{section.color}/20 transition-colors">
@@ -78,19 +66,21 @@
 					<div class="grid grid-cols-2 gap-2 mb-6">
 						{#each section.features as feature, featureIndex}
 							<div class="flex items-center space-x-2 text-sm">
-								<div class="w-2 h-2 bg-{section.color} rounded-full" />
+								<div class="w-2 h-2 bg-{section.color} rounded-full"></div>
 								<span class="text-foreground/80">{feature}</span>
 							</div>
 						{/each}
 					</div>
 					
-					<Button 
-						class="w-full bg-{section.color} hover:bg-{section.color}/90 text-{section.color}-foreground group"
-						size="lg"
+					<a
+						href="/dashboard/{section.id}"
+						class="block w-full bg-{section.color} hover:bg-{section.color}/90 text-{section.color}-foreground group px-6 py-3 rounded-md text-center font-medium transition-colors"
 					>
-						{section.action}
-						<ArrowRight class="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-					</Button>
+						<span class="flex items-center justify-center">
+							{section.action}
+							<ArrowRight class="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+						</span>
+					</a>
 				</CardContent>
 			</Card>
 		{/each}

@@ -18,7 +18,7 @@
 		startLevel: { pillar: string; level: number };
 	}>();
 
-	export let pillarsProgress: any[];
+	export const pillarsProgress: any[] = [];
 
 	const learningPillars = [
 		{
@@ -39,7 +39,7 @@
 			onClick: () => dispatch('navigateToPillar', { pillar: 'trading-mastery' })
 		},
 		{
-			id: 'business-operations',
+			id: 'business-ops',
 			title: 'Business Operations',
 			subtitle: 'Trading as Professional Enterprise',
 			description: 'Transform trading into a systematic business operation. Develop SOPs, implement KPI tracking, and build scalable processes.',
@@ -53,10 +53,10 @@
 				{ range: '11-20', title: 'Systems', status: 'current' },
 				{ range: '21-30', title: 'Scaling', status: 'locked' }
 			],
-			onClick: () => dispatch('navigateToPillar', { pillar: 'business-operations' })
+			onClick: () => dispatch('navigateToPillar', { pillar: 'business-ops' })
 		},
 		{
-			id: 'capital-management',
+			id: 'capital-mgmt',
 			title: 'Capital Management',
 			subtitle: 'Survival and Growth Protocols',
 			description: 'Master the financial architecture of professional trading: bankroll structure, allocation, cashflow separation, and survival protocols.',
@@ -70,10 +70,10 @@
 				{ range: '11-20', title: 'Portfolio', status: 'current' },
 				{ range: '21-30', title: 'Advanced', status: 'locked' }
 			],
-			onClick: () => dispatch('navigateToPillar', { pillar: 'capital-management' })
+			onClick: () => dispatch('navigateToPillar', { pillar: 'capital-mgmt' })
 		},
 		{
-			id: 'trading-psychology',
+			id: 'psychology',
 			title: 'Trading Psychology',
 			subtitle: 'Warrior Mental Conditioning',
 			description: 'Forge the mental framework of elite operators: protocol development, anti-tilt strategies, ego management, and professional identity formation.',
@@ -87,7 +87,7 @@
 				{ range: '11-20', title: 'Discipline', status: 'locked' },
 				{ range: '21-30', title: 'Mastery', status: 'locked' }
 			],
-			onClick: () => dispatch('navigateToPillar', { pillar: 'trading-psychology' })
+			onClick: () => dispatch('navigateToPillar', { pillar: 'psychology' })
 		}
 	];
 
@@ -165,9 +165,10 @@
 						{/each}
 					</div>
 					
-					<Button 
+					<Button
 						class="w-full bg-{pillar.color} hover:bg-{pillar.color}/90 text-{pillar.color}-foreground group"
 						size="lg"
+						on:click={pillar.onClick}
 					>
 						Continue Level {pillar.currentLevel}
 						<ArrowRight class="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />

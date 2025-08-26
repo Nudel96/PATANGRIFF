@@ -87,19 +87,19 @@
 				
 				<div class="space-y-3 mb-6">
 					<div class="flex items-center space-x-3">
-						<div class="w-2 h-2 bg-primary rounded-full" />
+						<div class="w-2 h-2 bg-primary rounded-full"></div>
 						<span class="text-foreground/80">Small, focused groups for maximum accountability</span>
 					</div>
 					<div class="flex items-center space-x-3">
-						<div class="w-2 h-2 bg-primary rounded-full" />
+						<div class="w-2 h-2 bg-primary rounded-full"></div>
 						<span class="text-foreground/80">Regular meetings and progress tracking</span>
 					</div>
 					<div class="flex items-center space-x-3">
-						<div class="w-2 h-2 bg-primary rounded-full" />
+						<div class="w-2 h-2 bg-primary rounded-full"></div>
 						<span class="text-foreground/80">Peer mentorship and collaborative learning</span>
 					</div>
 					<div class="flex items-center space-x-3">
-						<div class="w-2 h-2 bg-primary rounded-full" />
+						<div class="w-2 h-2 bg-primary rounded-full"></div>
 						<span class="text-foreground/80">Specialized focus areas and trading strategies</span>
 					</div>
 				</div>
@@ -135,19 +135,19 @@
 				
 				<div class="space-y-3 mb-6">
 					<div class="flex items-center space-x-3">
-						<div class="w-2 h-2 bg-secondary rounded-full" />
+						<div class="w-2 h-2 bg-secondary rounded-full"></div>
 						<span class="text-foreground/80">Organized categories for focused discussions</span>
 					</div>
 					<div class="flex items-center space-x-3">
-						<div class="w-2 h-2 bg-secondary rounded-full" />
+						<div class="w-2 h-2 bg-secondary rounded-full"></div>
 						<span class="text-foreground/80">Rich content support with charts and analysis</span>
 					</div>
 					<div class="flex items-center space-x-3">
-						<div class="w-2 h-2 bg-secondary rounded-full" />
+						<div class="w-2 h-2 bg-secondary rounded-full"></div>
 						<span class="text-foreground/80">Expert mentorship and professional guidance</span>
 					</div>
 					<div class="flex items-center space-x-3">
-						<div class="w-2 h-2 bg-secondary rounded-full" />
+						<div class="w-2 h-2 bg-secondary rounded-full"></div>
 						<span class="text-foreground/80">Community-driven moderation and reputation system</span>
 					</div>
 				</div>

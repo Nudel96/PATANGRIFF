@@ -150,7 +150,7 @@
 			<h3 class="text-2xl font-bold text-center mb-8">Standard Plans</h3>
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-8">
 				{#each standardPlans as plan}
-					<div class="military-card relative" class:border-primary/30={plan.popular}>
+					<div class="military-card relative {plan.popular ? 'border-primary/30' : ''}">
 						{#if plan.popular}
 							<div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
 								<Badge class="bg-primary text-primary-foreground px-4 py-1">

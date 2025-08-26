@@ -41,11 +41,13 @@
 	}
 </script>
 
-<header class="fixed top-0 w-full z-50 transition-all duration-300" 
-        class:bg-background/95={isScrolled}
+<header class="fixed top-0 w-full z-50 transition-all duration-300"
+        class:bg-background={isScrolled}
+        class:bg-opacity-95={isScrolled}
         class:backdrop-blur-md={isScrolled}
         class:border-b={isScrolled}
-        class:border-border/50={isScrolled}
+        class:border-border={isScrolled}
+        class:border-opacity-50={isScrolled}
         class:bg-transparent={!isScrolled}>
 	<div class="container-max mx-auto px-6">
 		<nav class="flex items-center justify-between h-16">

@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { authStore } from '$lib/stores/auth';
 	import TradingMasteryLearning from '$lib/components/learning/TradingMasteryLearning.svelte';
 
 	function handleBack() {
-		goto('/dashboard');
+		window.location.href = '/dashboard';
 	}
 
 	function handleLogout() {
 		authStore.logout();
-		goto('/');
+		window.location.href = '/';
 	}
 </script>
 

@@ -348,7 +348,7 @@
 													<h4 class="font-semibold mb-1">{module.title}</h4>
 													<p class="text-sm text-muted-foreground mb-2">{module.description}</p>
 													<div class="flex items-center space-x-2">
-														<Badge class={getModuleTypeColor(module.type)} class="text-xs">
+														<Badge class="{getModuleTypeColor(module.type)} text-xs">
 															{module.type}
 														</Badge>
 														<Badge variant="outline" class="text-xs">
@@ -437,7 +437,7 @@
 												<h3 class="font-semibold mb-2">{level.title}</h3>
 												<p class="text-sm text-muted-foreground mb-3">{level.description}</p>
 												<div class="flex items-center space-x-2">
-													<Badge class={getTierColor(level.tier)} class="text-xs">
+													<Badge class="{getTierColor(level.tier)} text-xs">
 														{level.tier}
 													</Badge>
 													<Badge variant="outline" class="text-xs">
@@ -481,7 +481,7 @@
 												<h3 class="font-semibold mb-2">{level.title}</h3>
 												<p class="text-sm text-muted-foreground mb-3">{level.description}</p>
 												<div class="flex items-center space-x-2">
-													<Badge class={getTierColor(level.tier)} class="text-xs">
+													<Badge class="{getTierColor(level.tier)} text-xs">
 														{level.tier}
 													</Badge>
 													<Badge variant="outline" class="text-xs">
@@ -525,7 +525,7 @@
 												<h3 class="font-semibold mb-2">{level.title}</h3>
 												<p class="text-sm text-muted-foreground mb-3">{level.description}</p>
 												<div class="flex items-center space-x-2">
-													<Badge class={getTierColor(level.tier)} class="text-xs">
+													<Badge class="{getTierColor(level.tier)} text-xs">
 														{level.tier}
 													</Badge>
 													<Badge variant="outline" class="text-xs">

@@ -78,12 +78,12 @@
 			<div class="flex items-center justify-between h-16">
 				<div class="flex items-center space-x-4">
 					<Button variant="ghost" size="sm" on:click={handleBack}>
-						<ArrowLeft class="w-4 h-4 mr-2" />
+						<ArrowLeft class="w-4 h-4 mr-2"></ArrowLeft>
 						Back to Dashboard
 					</Button>
 					<div class="flex items-center space-x-3">
 						<div class="bg-secondary/10 p-2 rounded-lg">
-							<Activity class="w-6 h-6 text-secondary" />
+							<Activity class="w-6 h-6 text-secondary"></Activity>
 						</div>
 						<div>
 							<h1 class="text-xl font-bold gradient-text">Market Heatmap</h1>
@@ -104,11 +104,11 @@
 						on:click={handleRefresh}
 						disabled={isRefreshing}
 					>
-						<RefreshCw class="w-4 h-4 mr-2 {isRefreshing ? 'animate-spin' : ''}" />
+						<RefreshCw class="w-4 h-4 mr-2 {isRefreshing ? 'animate-spin' : ''}"></RefreshCw>
 						Refresh
 					</Button>
 					<Button variant="outline" size="sm" on:click={handleLogout}>
-						<LogOut class="w-4 h-4 mr-2" />
+						<LogOut class="w-4 h-4 mr-2"></LogOut>
 						Logout
 					</Button>
 				</div>
@@ -134,7 +134,7 @@
 								<p class="text-2xl font-bold text-primary">Bullish</p>
 							</div>
 							<div class="bg-primary/10 p-3 rounded-xl">
-								<TrendingUp class="w-6 h-6 text-primary" />
+								<TrendingUp class="w-6 h-6 text-primary"></TrendingUp>
 							</div>
 						</div>
 					</CardContent>
@@ -148,7 +148,7 @@
 								<p class="text-2xl font-bold text-secondary">{highConvictionCount}</p>
 							</div>
 							<div class="bg-secondary/10 p-3 rounded-xl">
-								<Zap class="w-6 h-6 text-secondary" />
+								<Zap class="w-6 h-6 text-secondary"></Zap>
 							</div>
 						</div>
 					</CardContent>
@@ -162,7 +162,7 @@
 								<p class="text-2xl font-bold text-primary">{mediumConvictionCount}</p>
 							</div>
 							<div class="bg-primary/10 p-3 rounded-xl">
-								<BarChart3 class="w-6 h-6 text-primary" />
+								<BarChart3 class="w-6 h-6 text-primary"></BarChart3>
 							</div>
 						</div>
 					</CardContent>
@@ -176,7 +176,7 @@
 								<p class="text-2xl font-bold text-secondary">{heatmapData.length}</p>
 							</div>
 							<div class="bg-secondary/10 p-3 rounded-xl">
-								<Activity class="w-6 h-6 text-secondary" />
+								<Activity class="w-6 h-6 text-secondary"></Activity>
 							</div>
 						</div>
 					</CardContent>
@@ -187,7 +187,7 @@
 			<Card class="military-card">
 				<CardHeader>
 					<CardTitle class="flex items-center space-x-2">
-						<BarChart3 class="w-5 h-5 text-secondary" />
+						<BarChart3 class="w-5 h-5 text-secondary"></BarChart3>
 						<span>Currency Strength Heatmap</span>
 					</CardTitle>
 				</CardHeader>
@@ -246,7 +246,7 @@
 													on:click={() => handleCurrencyClick(item.asset)}
 													title="View Currency Overview"
 												>
-													<Eye class="w-3 h-3" />
+													<Eye class="w-3 h-3"></Eye>
 												</Button>
 											</div>
 										</td>
@@ -315,7 +315,7 @@
 				<Card class="military-card">
 					<CardHeader>
 						<CardTitle class="flex items-center space-x-2 text-lg">
-							<TrendingUp class="w-5 h-5 text-primary" />
+							<TrendingUp class="w-5 h-5 text-primary"></TrendingUp>
 							<span>Strongest Assets</span>
 						</CardTitle>
 					</CardHeader>
@@ -337,7 +337,7 @@
 				<Card class="military-card">
 					<CardHeader>
 						<CardTitle class="flex items-center space-x-2 text-lg">
-							<TrendingDown class="w-5 h-5 text-destructive" />
+							<TrendingDown class="w-5 h-5 text-destructive"></TrendingDown>
 							<span>Weakest Assets</span>
 						</CardTitle>
 					</CardHeader>
@@ -359,7 +359,7 @@
 				<Card class="military-card">
 					<CardHeader>
 						<CardTitle class="flex items-center space-x-2 text-lg">
-							<Zap class="w-5 h-5 text-secondary" />
+							<Zap class="w-5 h-5 text-secondary"></Zap>
 							<span>Trading Opportunities</span>
 						</CardTitle>
 					</CardHeader>
@@ -384,7 +384,7 @@
 				<Card class="military-card">
 					<CardHeader>
 						<CardTitle class="flex items-center space-x-2 text-lg">
-							<Eye class="w-5 h-5 text-primary" />
+							<Eye class="w-5 h-5 text-primary"></Eye>
 							<span>Currency Analysis</span>
 						</CardTitle>
 					</CardHeader>

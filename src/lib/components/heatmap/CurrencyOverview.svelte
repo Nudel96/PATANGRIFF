@@ -73,7 +73,7 @@
 	<!-- Header -->
 	<div class="flex items-center justify-between">
 		<Button variant="ghost" size="sm" on:click={handleClose}>
-			<ArrowLeft class="w-4 h-4 mr-2" />
+			<ArrowLeft class="w-4 h-4 mr-2"></ArrowLeft>
 			Back to Heatmap
 		</Button>
 		<div class="text-sm text-muted-foreground">
@@ -97,7 +97,7 @@
 						<div class="text-3xl font-bold {data.overallScore > 0 ? 'text-primary' : 'text-destructive'}">
 							{data.overallScore > 0 ? '+' : ''}{data.overallScore.toFixed(1)}
 						</div>
-						<Badge class={getBiasColor(data.bias)} class="text-lg px-4 py-2">
+						<Badge class="{getBiasColor(data.bias)} text-lg px-4 py-2">
 							{data.bias}
 						</Badge>
 					</div>
@@ -109,7 +109,7 @@
 		<Card class="military-card">
 			<CardHeader>
 				<CardTitle class="flex items-center space-x-2">
-					<TrendingUp class="w-5 h-5 text-primary" />
+					<TrendingUp class="w-5 h-5 text-primary"></TrendingUp>
 					<span>Economic Indicators</span>
 				</CardTitle>
 			</CardHeader>
@@ -121,10 +121,10 @@
 								<div class="flex-1">
 									<div class="flex items-center space-x-2 mb-2">
 										<h3 class="font-semibold">{indicator.name}</h3>
-										<Badge class={getCategoryColor(indicator.category)} class="text-xs">
+										<Badge class="{getCategoryColor(indicator.category)} text-xs">
 											{indicator.category}
 										</Badge>
-										<Badge class={getImpactColor(indicator.impact)} class="text-xs">
+										<Badge class="{getImpactColor(indicator.impact)} text-xs">
 											{indicator.impact} Impact
 										</Badge>
 									</div>
@@ -174,10 +174,10 @@
 								<div class="mt-4 p-3 bg-primary/10 rounded-lg">
 									<div class="flex items-center space-x-2">
 										{#if isUpcoming(indicator.nextRelease)}
-											<Clock class="w-4 h-4 text-primary" />
+											<Clock class="w-4 h-4 text-primary"></Clock>
 											<span class="text-sm font-semibold text-primary">Next Release:</span>
 										{:else}
-											<Calendar class="w-4 h-4 text-muted-foreground" />
+											<Calendar class="w-4 h-4 text-muted-foreground"></Calendar>
 											<span class="text-sm font-semibold text-muted-foreground">Last Release:</span>
 										{/if}
 										<span class="text-sm">{formatDate(indicator.nextRelease)}</span>
@@ -189,7 +189,7 @@
 
 					{#if indicators.length === 0}
 						<div class="text-center py-8">
-							<AlertCircle class="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+							<AlertCircle class="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50"></AlertCircle>
 							<h3 class="text-lg font-semibold mb-2">No indicators available</h3>
 							<p class="text-muted-foreground">
 								Economic indicator data for {currency} is not currently available.
@@ -294,7 +294,7 @@
 	{:else}
 		<Card class="military-card">
 			<CardContent class="text-center py-12">
-				<AlertCircle class="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+				<AlertCircle class="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50"></AlertCircle>
 				<h3 class="text-lg font-semibold mb-2">Currency data not available</h3>
 				<p class="text-muted-foreground">
 					No data found for currency: {currency}

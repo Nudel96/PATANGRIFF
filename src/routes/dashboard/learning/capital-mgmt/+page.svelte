@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { authStore } from '$lib/stores/auth';
 	import CapitalMgmtLearning from '$lib/components/learning/CapitalMgmtLearning.svelte';
 
 	function handleBack() {
-		goto('/dashboard');
+		window.location.href = '/dashboard';
 	}
 
 	function handleLogout() {
 		authStore.logout();
-		goto('/');
+		window.location.href = '/';
 	}
 </script>
 

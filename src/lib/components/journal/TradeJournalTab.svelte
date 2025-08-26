@@ -14,7 +14,7 @@
 		closeTrade: { tradeId: string; exitPrice: number; exitReason: string };
 	}>();
 
-	export let trades: Trade[];
+	export const trades: Trade[] = [];
 	export let filteredTrades: Trade[];
 	export let searchTerm: string;
 	export let filterSetup: string;
@@ -89,7 +89,7 @@
 	<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
 		<h2 class="text-2xl font-bold">Trade Journal</h2>
 		<Button on:click={handleNewTrade} class="bg-primary hover:bg-primary/90 text-primary-foreground">
-			<Plus class="w-4 h-4 mr-2" />
+			<Plus class="w-4 h-4 mr-2"></Plus>
 			New Trade
 		</Button>
 	</div>
@@ -97,7 +97,7 @@
 	<!-- Filters -->
 	<div class="flex flex-col sm:flex-row gap-4">
 		<div class="relative flex-1">
-			<Search class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+			<Search class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground"></Search>
 			<Input
 				placeholder="Search trades by instrument or notes..."
 				bind:value={searchTerm}
@@ -105,7 +105,7 @@
 			/>
 		</div>
 		<div class="flex items-center space-x-2">
-			<Filter class="w-4 h-4 text-muted-foreground" />
+			<Filter class="w-4 h-4 text-muted-foreground"></Filter>
 			<Select bind:value={filterSetup}>
 				<option value="all">All Setups</option>
 				{#each TRADE_SETUPS as setup}
@@ -143,21 +143,21 @@
 						<div class="flex items-center space-x-2">
 							{#if trade.status === 'pending'}
 								<Button size="sm" variant="outline" on:click={() => handleOpenTrade(trade.id)}>
-									<Play class="w-3 h-3 mr-1" />
+									<Play class="w-3 h-3 mr-1"></Play>
 									Open
 								</Button>
 							{/if}
 							{#if trade.status === 'open'}
 								<Button size="sm" variant="outline" on:click={() => handleCloseTrade(trade.id)}>
-									<Square class="w-3 h-3 mr-1" />
+									<Square class="w-3 h-3 mr-1"></Square>
 									Close
 								</Button>
 							{/if}
 							<Button size="sm" variant="ghost" on:click={() => handleEditTrade(trade)}>
-								<Edit class="w-3 h-3" />
+								<Edit class="w-3 h-3"></Edit>
 							</Button>
 							<Button size="sm" variant="ghost" on:click={() => handleDeleteTrade(trade.id)}>
-								<Trash2 class="w-3 h-3" />
+								<Trash2 class="w-3 h-3"></Trash2>
 							</Button>
 						</div>
 					</div>
@@ -243,16 +243,16 @@
 		{#if filteredTrades.length === 0}
 			<Card class="military-card">
 				<CardContent class="text-center py-12">
-					<FileText class="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+					<FileText class="w-12 h-12 text-muted-foreground mx-auto mb-4"></FileText>
 					<h3 class="text-lg font-semibold mb-2">No trades found</h3>
 					<p class="text-muted-foreground mb-4">
-						{searchTerm || filterSetup !== 'all' 
-							? 'Try adjusting your search or filter criteria.' 
+						{searchTerm || filterSetup !== 'all'
+							? 'Try adjusting your search or filter criteria.'
 							: 'Start by adding your first trade.'}
 					</p>
 					{#if !searchTerm && filterSetup === 'all'}
 						<Button on:click={handleNewTrade} class="bg-primary hover:bg-primary/90 text-primary-foreground">
-							<Plus class="w-4 h-4 mr-2" />
+							<Plus class="w-4 h-4 mr-2"></Plus>
 							Add Your First Trade
 						</Button>
 					{/if}

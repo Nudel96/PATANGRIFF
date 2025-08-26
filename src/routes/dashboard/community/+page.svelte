@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { authStore } from '$lib/stores/auth';
 	import MemberCommunity from '$lib/components/MemberCommunity.svelte';
 
 	function handleBack() {
-		goto('/dashboard');
+		window.location.href = '/dashboard';
 	}
 
 	function handleLogout() {
 		authStore.logout();
-		goto('/');
+		window.location.href = '/';
 	}
 </script>
 

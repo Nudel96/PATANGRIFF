@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Card, CardContent, CardHeader, CardTitle, Badge, Progress } from '$lib/components/ui';
+	import { Button, Card, CardContent, CardHeader, CardTitle, Badge, Tabs, TabsList, TabsTrigger, TabsContent, Progress } from '$lib/components/ui';
 	import { 
 		ArrowLeft, 
 		Briefcase, 
@@ -25,6 +25,7 @@
 	let userXP = 0;
 	let selectedLevel: LearningLevel | null = null;
 	let selectedModule: LearningModule | null = null;
+	let activeTab = 'beginner';
 
 	// Extended sample data for demonstration
 	let learningLevels: LearningLevel[] = [
@@ -120,6 +121,9 @@
 		selectedModule = null;
 	}
 
+	$: beginnerLevels = learningLevels.filter(level => level.tier === 'Beginner');
+	$: intermediateLevels = learningLevels.filter(level => level.tier === 'Intermediate');
+	$: professionalLevels = learningLevels.filter(level => level.tier === 'Professional');
 	$: overallProgress = (learningLevels.filter(level => level.completed).length / learningLevels.length) * 100;
 </script>
 
@@ -277,7 +281,7 @@
 													<h4 class="font-semibold mb-1">{module.title}</h4>
 													<p class="text-sm text-muted-foreground mb-2">{module.description}</p>
 													<div class="flex items-center space-x-2">
-														<Badge class={getModuleTypeColor(module.type)} class="text-xs">
+														<Badge class="{getModuleTypeColor(module.type)} text-xs">
 															{module.type}
 														</Badge>
 														<Badge variant="outline" class="text-xs">
@@ -368,51 +372,146 @@
 					</Card>
 				</div>
 
-				<!-- Learning Levels -->
-				<div class="space-y-6">
-					<h3 class="text-2xl font-bold text-center">Business Operations Learning Path</h3>
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-						{#each learningLevels as level}
-							<Card 
-								class="military-card cursor-pointer hover:border-primary/30 transition-colors {level.locked ? 'opacity-50' : ''}"
-								on:click={() => selectLevel(level)}
-							>
-								<CardContent class="p-6">
-									<div class="flex items-start justify-between mb-4">
-										<div class="flex-1">
-											<div class="flex items-center space-x-2 mb-2">
-												<span class="text-2xl font-bold text-primary">L{level.level}</span>
-												{#if level.completed}
-													<CheckCircle class="w-5 h-5 text-primary" />
-												{:else if level.locked}
-													<Lock class="w-5 h-5 text-muted-foreground" />
-												{/if}
-											</div>
-											<h3 class="font-semibold mb-2">{level.title}</h3>
-											<p class="text-sm text-muted-foreground mb-3">{level.description}</p>
-											<div class="flex items-center space-x-2">
-												<Badge class={getTierColor(level.tier)} class="text-xs">
-													{level.tier}
-												</Badge>
-												<Badge variant="outline" class="text-xs">
-													{level.totalXP} XP
-												</Badge>
-												<Badge variant="outline" class="text-xs">
-													{level.modules.length} modules
-												</Badge>
+				<!-- Learning Tiers -->
+				<Tabs bind:value={activeTab} class="space-y-6">
+					<TabsList class="grid w-full grid-cols-3 bg-muted/20">
+						<TabsTrigger value="beginner">Beginner (1-10)</TabsTrigger>
+						<TabsTrigger value="intermediate">Intermediate (11-20)</TabsTrigger>
+						<TabsTrigger value="professional">Professional (21-30)</TabsTrigger>
+					</TabsList>
+
+					<TabsContent value="beginner">
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+							{#each beginnerLevels as level}
+								<Card
+									class="military-card cursor-pointer hover:border-primary/30 transition-colors {level.locked ? 'opacity-50' : ''}"
+									on:click={() => selectLevel(level)}
+								>
+									<CardContent class="p-6">
+										<div class="flex items-start justify-between mb-4">
+											<div class="flex-1">
+												<div class="flex items-center space-x-2 mb-2">
+													<span class="text-2xl font-bold text-primary">L{level.level}</span>
+													{#if level.completed}
+														<CheckCircle class="w-5 h-5 text-primary" />
+													{:else if level.locked}
+														<Lock class="w-5 h-5 text-muted-foreground" />
+													{/if}
+												</div>
+												<h3 class="font-semibold mb-2">{level.title}</h3>
+												<p class="text-sm text-muted-foreground mb-3">{level.description}</p>
+												<div class="flex items-center space-x-2">
+													<Badge class="{getTierColor(level.tier)} text-xs">
+														{level.tier}
+													</Badge>
+													<Badge variant="outline" class="text-xs">
+														{level.totalXP} XP
+													</Badge>
+													<Badge variant="outline" class="text-xs">
+														{level.modules.length} modules
+													</Badge>
+												</div>
 											</div>
 										</div>
-									</div>
-									{#if level.unlockRequirement > 0}
-										<div class="text-xs text-muted-foreground">
-											Requires {level.unlockRequirement} XP
+										{#if level.unlockRequirement > 0}
+											<div class="text-xs text-muted-foreground">
+												Requires {level.unlockRequirement} XP
+											</div>
+										{/if}
+									</CardContent>
+								</Card>
+							{/each}
+						</div>
+					</TabsContent>
+
+					<TabsContent value="intermediate">
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+							{#each intermediateLevels as level}
+								<Card
+									class="military-card cursor-pointer hover:border-primary/30 transition-colors {level.locked ? 'opacity-50' : ''}"
+									on:click={() => selectLevel(level)}
+								>
+									<CardContent class="p-6">
+										<div class="flex items-start justify-between mb-4">
+											<div class="flex-1">
+												<div class="flex items-center space-x-2 mb-2">
+													<span class="text-2xl font-bold text-primary">L{level.level}</span>
+													{#if level.completed}
+														<CheckCircle class="w-5 h-5 text-primary" />
+													{:else if level.locked}
+														<Lock class="w-5 h-5 text-muted-foreground" />
+													{/if}
+												</div>
+												<h3 class="font-semibold mb-2">{level.title}</h3>
+												<p class="text-sm text-muted-foreground mb-3">{level.description}</p>
+												<div class="flex items-center space-x-2">
+													<Badge class="{getTierColor(level.tier)} text-xs">
+														{level.tier}
+													</Badge>
+													<Badge variant="outline" class="text-xs">
+														{level.totalXP} XP
+													</Badge>
+													<Badge variant="outline" class="text-xs">
+														{level.modules.length} modules
+													</Badge>
+												</div>
+											</div>
 										</div>
-									{/if}
-								</CardContent>
-							</Card>
-						{/each}
-					</div>
-				</div>
+										{#if level.unlockRequirement > 0}
+											<div class="text-xs text-muted-foreground">
+												Requires {level.unlockRequirement} XP
+											</div>
+										{/if}
+									</CardContent>
+								</Card>
+							{/each}
+						</div>
+					</TabsContent>
+
+					<TabsContent value="professional">
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+							{#each professionalLevels as level}
+								<Card
+									class="military-card cursor-pointer hover:border-primary/30 transition-colors {level.locked ? 'opacity-50' : ''}"
+									on:click={() => selectLevel(level)}
+								>
+									<CardContent class="p-6">
+										<div class="flex items-start justify-between mb-4">
+											<div class="flex-1">
+												<div class="flex items-center space-x-2 mb-2">
+													<span class="text-2xl font-bold text-primary">L{level.level}</span>
+													{#if level.completed}
+														<CheckCircle class="w-5 h-5 text-primary" />
+													{:else if level.locked}
+														<Lock class="w-5 h-5 text-muted-foreground" />
+													{/if}
+												</div>
+												<h3 class="font-semibold mb-2">{level.title}</h3>
+												<p class="text-sm text-muted-foreground mb-3">{level.description}</p>
+												<div class="flex items-center space-x-2">
+													<Badge class="{getTierColor(level.tier)} text-xs">
+														{level.tier}
+													</Badge>
+													<Badge variant="outline" class="text-xs">
+														{level.totalXP} XP
+													</Badge>
+													<Badge variant="outline" class="text-xs">
+														{level.modules.length} modules
+													</Badge>
+												</div>
+											</div>
+										</div>
+										{#if level.unlockRequirement > 0}
+											<div class="text-xs text-muted-foreground">
+												Requires {level.unlockRequirement} XP
+											</div>
+										{/if}
+									</CardContent>
+								</Card>
+							{/each}
+						</div>
+					</TabsContent>
+				</Tabs>
 			</div>
 		{/if}
 	</div>

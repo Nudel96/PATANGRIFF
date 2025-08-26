@@ -118,7 +118,7 @@
 	<div class="flex items-center justify-between">
 		<h2 class="text-2xl font-bold">Checklist Manager</h2>
 		<Button on:click={handleNewTemplate} class="bg-primary hover:bg-primary/90 text-primary-foreground">
-			<Plus class="w-4 h-4 mr-2" />
+			<Plus class="w-4 h-4 mr-2"></Plus>
 			New Template
 		</Button>
 	</div>
@@ -174,14 +174,14 @@
 									variant="ghost"
 									on:click={() => removeChecklistItem(item.id)}
 								>
-									<Trash2 class="w-4 h-4" />
+									<Trash2 class="w-4 h-4"></Trash2>
 								</Button>
 							</div>
 						{/each}
 					</div>
 
 					<Button variant="outline" on:click={addChecklistItem} class="w-full">
-						<Plus class="w-4 h-4 mr-2" />
+						<Plus class="w-4 h-4 mr-2"></Plus>
 						Add Item
 					</Button>
 				</div>
@@ -219,16 +219,22 @@
 									<Button
 										size="sm"
 										variant="ghost"
-										on:click|stopPropagation={() => handleEditTemplate(template)}
+										on:click={(e) => {
+											e.stopPropagation();
+											handleEditTemplate(template);
+										}}
 									>
-										<Edit class="w-3 h-3" />
+										<Edit class="w-3 h-3"></Edit>
 									</Button>
 									<Button
 										size="sm"
 										variant="ghost"
-										on:click|stopPropagation={() => handleDeleteTemplate(template.id)}
+										on:click={(e) => {
+											e.stopPropagation();
+											handleDeleteTemplate(template.id);
+										}}
 									>
-										<Trash2 class="w-3 h-3" />
+										<Trash2 class="w-3 h-3"></Trash2>
 									</Button>
 								</div>
 							</div>
@@ -259,13 +265,13 @@
 				{#if templates.length === 0}
 					<Card class="military-card">
 						<CardContent class="text-center py-12">
-							<Settings class="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+							<Settings class="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50"></Settings>
 							<h3 class="text-lg font-semibold mb-2">No templates yet</h3>
 							<p class="text-muted-foreground mb-4">
 								Create your first checklist template to ensure consistent trade execution.
 							</p>
 							<Button on:click={handleNewTemplate} class="bg-primary hover:bg-primary/90 text-primary-foreground">
-								<Plus class="w-4 h-4 mr-2" />
+								<Plus class="w-4 h-4 mr-2"></Plus>
 								Create First Template
 							</Button>
 						</CardContent>
@@ -280,7 +286,7 @@
 					<Card class="military-card">
 						<CardHeader>
 							<CardTitle class="flex items-center space-x-2">
-								<CheckCircle class="w-5 h-5 text-primary" />
+								<CheckCircle class="w-5 h-5 text-primary"></CheckCircle>
 								<span>{selectedTemplate.name}</span>
 							</CardTitle>
 						</CardHeader>
@@ -323,7 +329,7 @@
 				{:else}
 					<Card class="military-card">
 						<CardContent class="text-center py-12">
-							<CheckCircle class="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+							<CheckCircle class="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50"></CheckCircle>
 							<p class="text-muted-foreground">
 								Select a template to preview its checklist items and scoring system.
 							</p>

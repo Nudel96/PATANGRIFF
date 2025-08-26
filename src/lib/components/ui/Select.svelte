@@ -67,23 +67,25 @@
 <svelte:window on:click={handleClickOutside} on:keydown={handleKeydown} />
 
 <div class="relative" bind:this={selectElement}>
-	<div 
+	<div
 		class={selectClass}
 		class:cursor-pointer={!disabled}
 		class:cursor-not-allowed={disabled}
 		on:click={toggleOpen}
+		on:keydown={(e) => e.key === 'Enter' || e.key === ' ' ? toggleOpen() : null}
 		role="combobox"
 		aria-expanded={isOpen}
+		aria-controls="select-options"
 		tabindex="0"
 	>
 		<span class:text-muted-foreground={!selectedOption}>
 			{displayText}
 		</span>
-		<ChevronDown class="h-4 w-4 opacity-50" class:rotate-180={isOpen} />
+		<ChevronDown class="h-4 w-4 opacity-50 {isOpen ? 'rotate-180' : ''}" />
 	</div>
 
 	{#if isOpen}
-		<div class="absolute top-full left-0 right-0 z-50 mt-1 max-h-60 overflow-auto rounded-md border bg-popover text-popover-foreground shadow-md">
+		<div id="select-options" class="absolute top-full left-0 right-0 z-50 mt-1 max-h-60 overflow-auto rounded-md border bg-popover text-popover-foreground shadow-md">
 			{#each options as option}
 				<div
 					class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground"
@@ -91,6 +93,10 @@
 					class:cursor-not-allowed={option.disabled}
 					class:bg-accent={option.value === value}
 					on:click={() => selectOption(option)}
+					on:keydown={(e) => e.key === 'Enter' || e.key === ' ' ? selectOption(option) : null}
+					role="option"
+					aria-selected={option.value === value}
+					tabindex="-1"
 				>
 					{option.label}
 				</div>

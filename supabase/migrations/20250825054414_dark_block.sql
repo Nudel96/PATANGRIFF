@@ -1,4 +1,4 @@
--- Forum Database Schema
+npm run d-- Forum Database Schema
 -- Comprehensive schema for trading/business forum platform
 
 -- Users table (extends existing user system)
