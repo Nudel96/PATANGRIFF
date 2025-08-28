@@ -54,6 +54,14 @@ export interface LearningProps {
 	onLogout: () => void;
 }
 
+// Pillar IDs constants
+export const PILLAR_IDS = {
+	TRADING_MASTERY: 'trading-mastery',
+	PSYCHOLOGY: 'psychology',
+	BUSINESS_OPERATIONS: 'business-ops',
+	CAPITAL_MANAGEMENT: 'capital-management'
+} as const;
+
 export const SAMPLE_TRADING_MASTERY_LEVELS: LearningLevel[] = [
 	{
 		level: 1,
@@ -136,11 +144,256 @@ export const SAMPLE_TRADING_MASTERY_LEVELS: LearningLevel[] = [
 				title: "Understanding Candlesticks",
 				description: "Master candlestick charts and basic patterns",
 				type: "lesson",
-				xpReward: 50,
+				xpReward: 30,
 				duration: "25 min",
 				completed: false,
 				locked: false,
 				content: "Candlestick charts show four key prices: Open, High, Low, and Close (OHLC). Each candlestick represents a specific time period. A green/white candle indicates price closed higher than it opened (bullish), while a red/black candle shows price closed lower (bearish). The body shows the open-close range, while wicks show the high-low range."
+			},
+			{
+				id: "3-2",
+				title: "Chart Reading Quiz",
+				description: "Test your understanding of candlestick patterns",
+				type: "quiz",
+				xpReward: 20,
+				duration: "10 min",
+				completed: false,
+				locked: false
+			}
+		]
+	},
+	{
+		level: 4,
+		title: "Support and Resistance",
+		description: "Identify key support and resistance levels",
+		tier: "Beginner",
+		unlockRequirement: 175,
+		completed: false,
+		locked: true,
+		totalXP: 60,
+		modules: [
+			{
+				id: "4-1",
+				title: "Support and Resistance Basics",
+				description: "Learn to identify and draw key levels",
+				type: "lesson",
+				xpReward: 35,
+				duration: "30 min",
+				completed: false,
+				locked: false,
+				content: "Support and resistance are key price levels where buying or selling pressure tends to emerge. Support is a level where price tends to find buying interest and bounce higher. Resistance is where selling pressure emerges and price tends to reverse lower. These levels are created by previous highs, lows, and areas of consolidation."
+			},
+			{
+				id: "4-2",
+				title: "Level Identification Quiz",
+				description: "Practice identifying support and resistance",
+				type: "quiz",
+				xpReward: 25,
+				duration: "15 min",
+				completed: false,
+				locked: false
+			}
+		]
+	},
+	{
+		level: 5,
+		title: "Trend Analysis",
+		description: "Master trend identification and analysis",
+		tier: "Beginner",
+		unlockRequirement: 235,
+		completed: false,
+		locked: true,
+		totalXP: 65,
+		modules: [
+			{
+				id: "5-1",
+				title: "Understanding Trends",
+				description: "Learn to identify uptrends, downtrends, and sideways markets",
+				type: "lesson",
+				xpReward: 40,
+				duration: "25 min",
+				completed: false,
+				locked: false,
+				content: "Trends are the general direction of price movement over time. An uptrend consists of higher highs and higher lows. A downtrend shows lower highs and lower lows. Sideways trends move within a range. The trend is your friend - trading with the trend increases probability of success."
+			},
+			{
+				id: "5-2",
+				title: "Trend Analysis Challenge",
+				description: "Identify trends on multiple charts",
+				type: "challenge",
+				xpReward: 25,
+				duration: "20 min",
+				completed: false,
+				locked: false
+			}
+		]
+	},
+	{
+		level: 6,
+		title: "Basic Technical Indicators",
+		description: "Learn essential indicators for market analysis",
+		tier: "Beginner",
+		unlockRequirement: 300,
+		completed: false,
+		locked: true,
+		totalXP: 70,
+		modules: [
+			{
+				id: "6-1",
+				title: "Moving Averages",
+				description: "Master simple and exponential moving averages",
+				type: "lesson",
+				xpReward: 40,
+				duration: "30 min",
+				completed: false,
+				locked: false,
+				content: "Moving averages smooth out price data to identify trends. Simple Moving Average (SMA) calculates the average price over a specific period. Exponential Moving Average (EMA) gives more weight to recent prices. When price is above the MA, it suggests an uptrend; below suggests a downtrend."
+			},
+			{
+				id: "6-2",
+				title: "RSI and MACD Basics",
+				description: "Introduction to momentum indicators",
+				type: "lesson",
+				xpReward: 30,
+				duration: "25 min",
+				completed: false,
+				locked: false,
+				content: "RSI (Relative Strength Index) measures overbought/oversold conditions on a scale of 0-100. Values above 70 suggest overbought, below 30 suggest oversold. MACD shows the relationship between two moving averages and helps identify trend changes and momentum."
+			}
+		]
+	},
+	{
+		level: 7,
+		title: "Risk Management Fundamentals",
+		description: "Essential risk management principles for trading",
+		tier: "Beginner",
+		unlockRequirement: 370,
+		completed: false,
+		locked: true,
+		totalXP: 75,
+		modules: [
+			{
+				id: "7-1",
+				title: "Position Sizing",
+				description: "Learn how to size your trades properly",
+				type: "lesson",
+				xpReward: 45,
+				duration: "35 min",
+				completed: false,
+				locked: false,
+				content: "Position sizing determines how much capital to risk per trade. The 1-2% rule suggests risking no more than 1-2% of your account per trade. Calculate position size by dividing risk amount by stop loss distance. Proper position sizing is crucial for long-term survival in trading."
+			},
+			{
+				id: "7-2",
+				title: "Stop Loss Strategies",
+				description: "Master different stop loss techniques",
+				type: "lesson",
+				xpReward: 30,
+				duration: "25 min",
+				completed: false,
+				locked: false,
+				content: "Stop losses limit your downside risk. Place stops below support in uptrends, above resistance in downtrends. ATR-based stops adjust to volatility. Trailing stops lock in profits as trades move favorably. Never trade without a predetermined stop loss level."
+			}
+		]
+	},
+	{
+		level: 8,
+		title: "Order Types and Execution",
+		description: "Master different order types and execution strategies",
+		tier: "Beginner",
+		unlockRequirement: 445,
+		completed: false,
+		locked: true,
+		totalXP: 65,
+		modules: [
+			{
+				id: "8-1",
+				title: "Market vs Limit Orders",
+				description: "Understand when to use different order types",
+				type: "lesson",
+				xpReward: 35,
+				duration: "25 min",
+				completed: false,
+				locked: false,
+				content: "Market orders execute immediately at current market price, guaranteeing fill but not price. Limit orders specify a price, guaranteeing price but not fill. Use market orders for immediate execution, limit orders for better prices in liquid markets."
+			},
+			{
+				id: "8-2",
+				title: "Advanced Order Types",
+				description: "Stop orders, OCO orders, and conditional orders",
+				type: "lesson",
+				xpReward: 30,
+				duration: "20 min",
+				completed: false,
+				locked: false,
+				content: "Stop orders become market orders when price reaches stop level. Stop-limit orders become limit orders at stop level. OCO (One-Cancels-Other) orders allow setting both profit target and stop loss simultaneously. Use these for automated trade management."
+			}
+		]
+	},
+	{
+		level: 9,
+		title: "Market Sessions and Timing",
+		description: "Understand global market sessions and optimal trading times",
+		tier: "Beginner",
+		unlockRequirement: 510,
+		completed: false,
+		locked: true,
+		totalXP: 60,
+		modules: [
+			{
+				id: "9-1",
+				title: "Global Trading Sessions",
+				description: "Learn about Asian, European, and US sessions",
+				type: "lesson",
+				xpReward: 35,
+				duration: "30 min",
+				completed: false,
+				locked: false,
+				content: "Markets operate 24/5 across different time zones. Asian session (Tokyo) is typically quieter with range-bound movement. European session (London) brings increased volatility. US session (New York) often sees the highest volume and volatility, especially during overlaps."
+			},
+			{
+				id: "9-2",
+				title: "Session Overlap Strategies",
+				description: "Trade the high-volatility overlap periods",
+				type: "lesson",
+				xpReward: 25,
+				duration: "20 min",
+				completed: false,
+				locked: false,
+				content: "Session overlaps create increased liquidity and volatility. London-New York overlap (8am-12pm EST) is the most active period for EUR/USD and GBP/USD. Asian-European overlap affects AUD/JPY and EUR/JPY. Plan your trading around these high-activity periods."
+			}
+		]
+	},
+	{
+		level: 10,
+		title: "Basic Trading Plan Development",
+		description: "Create your first systematic trading plan",
+		tier: "Beginner",
+		unlockRequirement: 570,
+		completed: false,
+		locked: true,
+		totalXP: 80,
+		modules: [
+			{
+				id: "10-1",
+				title: "Trading Plan Components",
+				description: "Essential elements of a trading plan",
+				type: "lesson",
+				xpReward: 45,
+				duration: "35 min",
+				completed: false,
+				locked: false,
+				content: "A trading plan includes: market selection, timeframes, entry/exit criteria, risk management rules, position sizing, and performance tracking. Define your trading goals, risk tolerance, and available time. Document everything to maintain consistency and discipline."
+			},
+			{
+				id: "10-2",
+				title: "Plan Development Workshop",
+				description: "Create your personal trading plan",
+				type: "challenge",
+				xpReward: 35,
+				duration: "60 min",
+				completed: false,
+				locked: false
 			}
 		]
 	}

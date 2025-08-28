@@ -1,6 +1,6 @@
 <script lang="ts">
 	import BaseLearningTemplate from './BaseLearningTemplate.svelte';
-	import { CAPITAL_MANAGEMENT_CONFIG } from '$lib/config/pillarConfigs';
+	import { TRADING_MASTERY_CONFIG } from '$lib/config/pillarConfigs';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher<{
@@ -10,7 +10,7 @@
 </script>
 
 <BaseLearningTemplate 
-	pillarConfig={CAPITAL_MANAGEMENT_CONFIG}
+	pillarConfig={TRADING_MASTERY_CONFIG}
 	on:back={() => dispatch('back')}
 	on:logout={() => dispatch('logout')}
 />

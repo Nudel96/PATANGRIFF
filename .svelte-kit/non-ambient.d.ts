@@ -47,6 +47,6 @@ declare module "$app/types" {
 		};
 		Pathname(): "/" | "/dashboard" | "/dashboard/" | "/dashboard/community" | "/dashboard/community/" | "/dashboard/heatmap" | "/dashboard/heatmap/" | "/dashboard/journal" | "/dashboard/journal/" | "/dashboard/learning" | "/dashboard/learning/" | "/dashboard/learning/business-operations" | "/dashboard/learning/business-operations/" | "/dashboard/learning/business-ops" | "/dashboard/learning/business-ops/" | "/dashboard/learning/capital-mgmt" | "/dashboard/learning/capital-mgmt/" | "/dashboard/learning/psychology" | "/dashboard/learning/psychology/" | "/dashboard/learning/trading-mastery" | "/dashboard/learning/trading-mastery/" | "/test-xp" | "/test-xp/";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
-		Asset(): "/favicon.png" | string & {};
+		Asset(): "/favicon.png" | "/Logo.svg" | string & {};
 	}
 }
