@@ -1,15 +1,8 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
-	import type { HTMLButtonAttributes } from 'svelte/elements';
 
 	type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
 	type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
-
-	interface ButtonProps extends HTMLButtonAttributes {
-		variant?: ButtonVariant;
-		size?: ButtonSize;
-		class?: string;
-	}
 
 	export let variant: ButtonVariant = 'default';
 	export let size: ButtonSize = 'default';

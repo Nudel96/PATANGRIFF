@@ -1,22 +1,14 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-	import { slide } from 'svelte/transition';
 	import { cn } from '$lib/utils';
 
-	interface CollapsibleProps {
-		open?: boolean;
-		class?: string;
-	}
-
 	export let open: boolean = false;
+	export let onOpenChange: ((open: boolean) => void) | undefined = undefined;
 	let className: string = '';
 	export { className as class };
 
-	const dispatch = createEventDispatcher<{ openChange: boolean }>();
-
 	function toggle() {
 		open = !open;
-		dispatch('openChange', open);
+		onOpenChange?.(open);
 	}
 
 	$: collapsibleClass = cn('w-full', className);

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
 	import { ChevronDown } from 'lucide-svelte';
-	import { createEventDispatcher } from 'svelte';
 
 	interface SelectOption {
 		value: string;
@@ -9,22 +8,13 @@
 		disabled?: boolean;
 	}
 
-	interface SelectProps {
-		value?: string;
-		placeholder?: string;
-		options: SelectOption[];
-		disabled?: boolean;
-		class?: string;
-	}
-
 	export let value: string = '';
 	export let placeholder: string = 'Select an option...';
 	export let options: SelectOption[] = [];
 	export let disabled: boolean = false;
+	export let onChange: ((value: string) => void) | undefined = undefined;
 	let className: string = '';
 	export { className as class };
-
-	const dispatch = createEventDispatcher<{ change: string }>();
 
 	let isOpen = false;
 	let selectElement: HTMLDivElement;
@@ -39,7 +29,7 @@
 		if (!option.disabled) {
 			value = option.value;
 			isOpen = false;
-			dispatch('change', value);
+			onChange?.(value);
 		}
 	}
 

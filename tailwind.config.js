@@ -2,10 +2,9 @@
 export default {
   darkMode: ['class'],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    './src/**/*.{html,js,svelte,ts}',
+    './src/lib/components/**/*.{svelte,ts}',
+    './src/routes/**/*.{svelte,ts}',
   ],
   theme: {
     extend: {

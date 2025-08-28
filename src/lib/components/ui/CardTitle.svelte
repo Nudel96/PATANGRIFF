@@ -1,10 +1,5 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
-
-	interface CardTitleProps extends HTMLAttributes<HTMLHeadingElement> {
-		class?: string;
-	}
 
 	let className: string = '';
 	export { className as class };

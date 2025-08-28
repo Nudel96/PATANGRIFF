@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Card, CardContent, CardHeader, CardTitle, Badge, Input, Select } from '$lib/components/ui';
+	import { Button, Card, CardContent, CardHeader, CardTitle, Badge, Input } from '$lib/components/ui';
 	import { Plus, Search, Filter, Edit, Trash2, Play, Square } from 'lucide-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import type { Trade } from '$lib/types/trading';
@@ -14,7 +14,7 @@
 		closeTrade: { tradeId: string; exitPrice: number; exitReason: string };
 	}>();
 
-	export const trades: Trade[] = [];
+	export let trades: Trade[] = [];
 	export let filteredTrades: Trade[];
 	export let searchTerm: string;
 	export let filterSetup: string;
@@ -106,12 +106,12 @@
 		</div>
 		<div class="flex items-center space-x-2">
 			<Filter class="w-4 h-4 text-muted-foreground"></Filter>
-			<Select bind:value={filterSetup}>
+			<select bind:value={filterSetup} class="px-3 py-2 border border-input bg-background rounded-md text-sm">
 				<option value="all">All Setups</option>
 				{#each TRADE_SETUPS as setup}
 					<option value={setup}>{setup.charAt(0).toUpperCase() + setup.slice(1)}</option>
 				{/each}
-			</Select>
+			</select>
 		</div>
 	</div>
 
