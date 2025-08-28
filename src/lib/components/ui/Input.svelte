@@ -1,11 +1,5 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
-	import type { HTMLInputAttributes } from 'svelte/elements';
-
-	interface InputProps extends HTMLInputAttributes {
-		class?: string;
-		value?: string;
-	}
 
 	export let value: string = '';
 	let className: string = '';
@@ -17,9 +11,9 @@
 	);
 </script>
 
-<input 
-	bind:value 
-	class={inputClass} 
+<input
+	bind:value
+	class={inputClass}
 	{...$$restProps}
 	on:input
 	on:change

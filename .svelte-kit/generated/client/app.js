@@ -13,7 +13,8 @@ export const nodes = [
 	() => import('./nodes/9'),
 	() => import('./nodes/10'),
 	() => import('./nodes/11'),
-	() => import('./nodes/12')
+	() => import('./nodes/12'),
+	() => import('./nodes/13')
 ];
 
 export const server_loads = [];
@@ -28,7 +29,8 @@ export const dictionary = {
 		"/dashboard/learning/business-ops": [9,[2]],
 		"/dashboard/learning/capital-mgmt": [10,[2]],
 		"/dashboard/learning/psychology": [11,[2]],
-		"/dashboard/learning/trading-mastery": [12,[2]]
+		"/dashboard/learning/trading-mastery": [12,[2]],
+		"/test-xp": [13]
 	};
 
 export const hooks = {

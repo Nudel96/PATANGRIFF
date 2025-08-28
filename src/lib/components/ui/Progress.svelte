@@ -1,12 +1,5 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
-
-	interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
-		value?: number;
-		max?: number;
-		class?: string;
-	}
 
 	export let value: number = 0;
 	export let max: number = 100;
@@ -22,7 +15,7 @@
 </script>
 
 <div class={progressClass} {...$$restProps}>
-	<div 
+	<div
 		class="h-full w-full flex-1 bg-primary transition-all duration-300 ease-in-out"
 		style="transform: translateX(-{100 - percentage}%)"
 	></div>

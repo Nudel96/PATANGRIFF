@@ -1,11 +1,5 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
-	import type { HTMLTextareaAttributes } from 'svelte/elements';
-
-	interface TextareaProps extends HTMLTextareaAttributes {
-		class?: string;
-		value?: string;
-	}
 
 	export let value: string = '';
 	let className: string = '';
@@ -17,9 +11,9 @@
 	);
 </script>
 
-<textarea 
-	bind:value 
-	class={textareaClass} 
+<textarea
+	bind:value
+	class={textareaClass}
 	{...$$restProps}
 	on:input
 	on:change

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Card, CardContent, CardHeader, CardTitle, Tabs, TabsList, TabsTrigger, TabsContent } from '$lib/components/ui';
+	import { Button, Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui';
 	import { 
 		ArrowLeft, 
 		Users, 
@@ -149,34 +149,39 @@
 		</div>
 
 		<!-- Main Content Tabs -->
-		<Tabs bind:value={activeTab} class="space-y-6">
-			<TabsList class="grid w-full grid-cols-3 bg-muted/20">
-				<TabsTrigger value="forums" class="flex items-center space-x-2">
+		<div class="space-y-6">
+			<div class="grid w-full grid-cols-3 bg-muted/20 p-1 rounded-lg">
+				<button
+					class="flex items-center justify-center space-x-2 px-4 py-2 rounded-md {activeTab === 'forums' ? 'bg-background shadow-sm' : ''}"
+					on:click={() => activeTab = 'forums'}
+				>
 					<MessageCircle class="w-4 h-4" />
 					<span>Forums</span>
-				</TabsTrigger>
-				<TabsTrigger value="squads" class="flex items-center space-x-2">
+				</button>
+				<button
+					class="flex items-center justify-center space-x-2 px-4 py-2 rounded-md {activeTab === 'squads' ? 'bg-background shadow-sm' : ''}"
+					on:click={() => activeTab = 'squads'}
+				>
 					<Shield class="w-4 h-4" />
 					<span>Squads</span>
-				</TabsTrigger>
-				<TabsTrigger value="events" class="flex items-center space-x-2">
+				</button>
+				<button
+					class="flex items-center justify-center space-x-2 px-4 py-2 rounded-md {activeTab === 'events' ? 'bg-background shadow-sm' : ''}"
+					on:click={() => activeTab = 'events'}
+				>
 					<Calendar class="w-4 h-4" />
 					<span>Events</span>
-				</TabsTrigger>
-			</TabsList>
+				</button>
+			</div>
 
-			<TabsContent value="forums">
+			{#if activeTab === 'forums'}
 				<ForumHub {currentUser} />
-			</TabsContent>
-
-			<TabsContent value="squads">
+			{:else if activeTab === 'squads'}
 				<SquadsHub {currentUser} />
-			</TabsContent>
-
-			<TabsContent value="events">
+			{:else if activeTab === 'events'}
 				<EventsHub {currentUser} />
-			</TabsContent>
-		</Tabs>
+			{/if}
+		</div>
 	</div>
 </div>
 

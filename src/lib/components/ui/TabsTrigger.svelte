@@ -2,10 +2,7 @@
 	import { cn } from '$lib/utils';
 	import { getContext } from 'svelte';
 
-	interface TabsTriggerProps {
-		value: string;
-		class?: string;
-	}
+
 
 	export let value: string;
 	let className: string = '';
@@ -13,18 +10,11 @@
 
 	// Get tabs context
 	const tabsContext = getContext('tabs') as {
-		activeTab: any;
+		activeTab: string;
 		setActiveTab: (value: string) => void;
 	};
 
-	let isActive = false;
-
-	// Subscribe to active tab changes
-	if (tabsContext) {
-		tabsContext.activeTab.subscribe((activeValue: string) => {
-			isActive = activeValue === value;
-		});
-	}
+	$: isActive = tabsContext?.activeTab === value;
 
 	function handleClick() {
 		if (tabsContext) {

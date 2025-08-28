@@ -1,13 +1,7 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
 
 	type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline';
-
-	interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
-		variant?: BadgeVariant;
-		class?: string;
-	}
 
 	export let variant: BadgeVariant = 'default';
 	let className: string = '';

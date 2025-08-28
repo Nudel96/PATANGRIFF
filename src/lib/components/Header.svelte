@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui';
-	import { Menu, X, Shield, TrendingUp } from 'lucide-svelte';
+	import { Menu, X } from 'lucide-svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher<{ login: void }>();
@@ -54,8 +54,7 @@
 			<!-- Logo -->
 			<div class="flex items-center space-x-3">
 				<div class="relative">
-					<Shield class="w-8 h-8 text-primary" />
-					<TrendingUp class="w-4 h-4 text-secondary absolute -top-1 -right-1" />
+					<img src="/Logo.svg" alt="PAT ANGRIFF Logo" class="w-8 h-8 object-contain" />
 				</div>
 				<div class="flex flex-col">
 					<span class="text-xl font-bold gradient-text">PRICEACTIONTALK</span>

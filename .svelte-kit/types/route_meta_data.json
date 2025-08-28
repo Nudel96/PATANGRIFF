@@ -27,5 +27,6 @@
 	],
 	"/dashboard/learning/trading-mastery": [
 		"src/routes/dashboard/+layout.ts"
-	]
+	],
+	"/test-xp": []
 }

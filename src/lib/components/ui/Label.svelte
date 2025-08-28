@@ -1,10 +1,5 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
-	import type { HTMLLabelAttributes } from 'svelte/elements';
-
-	interface LabelProps extends HTMLLabelAttributes {
-		class?: string;
-	}
 
 	let className: string = '';
 	export { className as class };

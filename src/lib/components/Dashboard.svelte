@@ -2,8 +2,6 @@
 	import { browser } from '$app/environment';
 	import { Button } from '$lib/components/ui';
 	import {
-		Shield,
-		TrendingUp,
 		FileText,
 		Activity,
 		Users,
@@ -43,7 +41,7 @@
 
 	// Four Pillars progress data
 	const pillarsProgress = [
-		{ name: 'Trading Mastery', progress: 75, color: 'primary', icon: TrendingUp, onClick: () => navigateTo('/dashboard/learning/trading-mastery') },
+		{ name: 'Trading Mastery', progress: 75, color: 'primary', icon: Target, onClick: () => navigateTo('/dashboard/learning/trading-mastery') },
 		{ name: 'Business Operations', progress: 45, color: 'secondary', icon: Building2, onClick: () => navigateTo('/dashboard/learning/business-ops') },
 		{ name: 'Capital Management', progress: 60, color: 'primary', icon: DollarSign, onClick: () => navigateTo('/dashboard/learning/capital-mgmt') },
 		{ name: 'Trading Psychology', progress: 30, color: 'secondary', icon: Brain, onClick: () => navigateTo('/dashboard/learning/psychology') }
@@ -112,8 +110,7 @@
 				<!-- Logo -->
 				<div class="flex items-center space-x-3">
 					<div class="relative">
-						<Shield class="w-8 h-8 text-primary" />
-						<TrendingUp class="w-4 h-4 text-secondary absolute -top-1 -right-1" />
+						<img src="/Logo.svg" alt="PAT ANGRIFF Logo" class="w-8 h-8 object-contain" />
 					</div>
 					<div class="flex flex-col">
 						<span class="text-xl font-bold gradient-text">PRICEACTIONTALK</span>

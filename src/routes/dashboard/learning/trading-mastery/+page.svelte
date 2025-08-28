@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { authStore } from '$lib/stores/auth';
-	import TradingMasteryLearning from '$lib/components/learning/TradingMasteryLearning.svelte';
+	import TradingLearning from '$lib/components/learning/TradingLearning.svelte';
 
 	function handleBack() {
 		window.location.href = '/dashboard';
@@ -16,7 +16,7 @@
 	<title>Trading Mastery - PAT ANGRIFF</title>
 </svelte:head>
 
-<TradingMasteryLearning
+<TradingLearning
 	on:back={handleBack}
 	on:logout={handleLogout}
 />
